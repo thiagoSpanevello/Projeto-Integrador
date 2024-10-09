@@ -1,15 +1,17 @@
 import React from 'react';
-import sidebar from './components/sidebar';
-import dashboard from './components/dashboard';
-import iconLog from './components/iconLog';
+import SidebarMenu from './components/SidebarMenu';
+import Signin from './pages/Signin';
+import "./App.css"
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 function App() {
   return (
-    <div>
-      <sidebar />
-      <iconLog />
-      <dashboard />
-    </div>
+    <>
+      <div className='bgImage'>
+      </div>
+      <Signin />
+    </>
   );
 }
 
