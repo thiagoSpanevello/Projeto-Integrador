@@ -1,5 +1,5 @@
 .bgImage {
-    background-image: url("./assets/images/background\ login.jpg");
+    background-image: url("./assets/images/background\ login.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     justify-content: center;
@@ -7,5 +7,11 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    filter: blur(2px);
+
+}
+
+.imageBox {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
 }
