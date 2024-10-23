@@ -59,7 +59,7 @@ function Signup() {
                     <div className='inputGroup'>
                         <label htmlFor='CNPJ'>CNPJ</label>
                         <input type='text' id='CNPJ' autoComplete='off' placeholder='XX.XXX.XXX/0001-XX' value={CNPJ} maxLength={18} onChange={(e) => setCNPJ(maskCNPJ(e.target.value))} required />
-                        <label htmlFor='CNPJ'>Nome da empresa</label>
+                        <label htmlFor='Name'>Nome da empresa</label>
                         <input type='text' id='Name' autoComplete='off' placeholder='nome da empresa' required onChange={handleChange} />
                         <label htmlFor='Conta'>Conta</label>
                         <input type='text' id='Conta' autoComplete='off' disabled value={conta} />
