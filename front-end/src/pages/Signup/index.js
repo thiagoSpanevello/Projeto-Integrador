@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import "./style.css"
+import api from '../../services/api';
+
 function Signup() {
     const [CNPJ, setCNPJ] = useState("");
     const [conta, setConta] = useState("admin@");
