@@ -1,5 +1,5 @@
 import React from 'react'
-import './style.css'
+import './stylePagamento.css'
 
 document.body.innerHTML = `
   <div class="container">
