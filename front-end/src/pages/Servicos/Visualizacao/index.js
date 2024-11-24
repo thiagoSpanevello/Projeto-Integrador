@@ -1,3 +1,6 @@
+import React from 'react'
+import './style.css'
+
 document.body.innerHTML = `
   <div class="container">
     <div class="form-group">
