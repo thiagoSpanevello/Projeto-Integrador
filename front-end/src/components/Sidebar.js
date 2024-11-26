@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Sidebar.css'; 
+import './Sidebar.css';
 
 function Sidebar() {
   const [showCadastros, setShowCadastros] = useState(false);
@@ -50,7 +50,7 @@ function Sidebar() {
           <span>Emissões</span>
           <span className="arrow-icon">▼</span>
         </div>
- <ul className={`submenu ${showEmissoes ? 'show' : ''}`}>
+        <ul className={`submenu ${showEmissoes ? 'show' : ''}`}>
           <li>Boleto</li>
           <li>Nota Fiscal de Serviço</li>
         </ul>

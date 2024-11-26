@@ -1,16 +1,17 @@
 import React from 'react'
 import Sidebar from '../../components/Sidebar'
 import Dashboard from '../../components/Dashboard';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 function Home() {
     return (
         <div>
-            <div>
-                <Sidebar/>
-            </div>
-            <div>
-                <Dashboard/>
-            </div>
-            
+            <Sidebar />
+            <BrowserRouter>
+                <Routes>
+                    <Route index element={<Dashboard />} />
+
+                </Routes>
+            </BrowserRouter>
         </div>
     )
 }
