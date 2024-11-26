@@ -1,33 +1,33 @@
-body {
+const style=document.createElement('style');
+
+style.textContent=body {
   font-family: Arial, sans-serif;
+  margin: 20px;
 }
 
 .container {
-  padding-top: 10%;
-  min-width: 30rem;
-  min-height: 20rem;
+  width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
   padding: 20px;
-  display: block;
-  padding-top: 20%;
-  max-height: 50vh;
+  border-radius: 5px;
 }
 
 .tabs {
   display: flex;
-  justify-content: left;
-  margin-top: 0;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .tab {
   cursor: pointer;
   padding: 10px;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .tab.active {
   background-color: #f0f0f0;
-  border: solid 2px black;
-  border-bottom: none;
 }
 
 .form-group {
@@ -40,18 +40,11 @@ body {
   font-weight: bold;
 }
 
-.form-group textarea {
-  height: 20%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 90%;
-}
-
+.form-group textarea,
 .form-group select,
 .form-group input,
 .form-group button {
-  width: 90%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -64,16 +57,6 @@ button {
   cursor: pointer;
 }
 
-.forms {
-  border: solid 2px black;
-  border-radius: 20px;
-  border-top-left-radius: 0%;
-  padding: 5%;
-  min-width: 70%;
-  min-height: 70%;
-
-}
-
 button:hover {
   background-color: #0056b3;
 }
@@ -81,3 +64,6 @@ button:hover {
 .hidden {
   display: none;
 }
+
+;
+document.head.appendChild(style);
