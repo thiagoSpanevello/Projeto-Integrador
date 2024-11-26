@@ -1,7 +1,71 @@
-Integrantes: Thiago Spanevello(2311100016), Vitor Bach(2311100063), Manfreed Britzke(2311100058)
+# Projeto Integrador - Sistema de Gestão Empresarial
 
-O funcionamento do sistema projetado se dará da seguinte maneira: a empresa realizará seu cadastro com seus dados e receberá uma conta admin de padrao admin@nome-empresa e a senha cadastrada. Após realizar o login, a empresa poderá cadastrar seus funcionários(optando entre funcionário normal ou gerente), cadastrar as empresas clientes, cadastrar tipos de serviços prestados, cadastrar serviços prestados propriamente ditos e cadastrar o pagamento do serviço em questão. Gerentes tem a mesma permissão que admin, porém nao podem cadastrar outros gerentes. Funcionários possuem permissão apenas para cadastrar serviços e cadastrar pagamentos, não podendo alterar nada além disso. O pagamento só terá uma data de fechamento quando for emitido um boleto ou uma nota fiscal relacionada àquele serviço, assim fechando o pagamento cadastrado para alterações futuras. O pagamento, conforme dito pela proprietária e dona da empresa, será feito em apenas uma parcela, então não possui necessidade de cadastrar o números de parcelas no pagamento, visto que sempre será efetuado em uma parcela.
+## Integrantes do Projeto
+- **Thiago Spanevello** (2311100016)  
+- **Vitor Bach** (2311100063)  
+- **Manfreed Britzke** (2311100058)  
 
-No projeto, tem-se o projeto de sistema pensado, com os requisitos funcionais, não-funcionais e o diagrama de casos de uso, bem como as informações da empresa entrevistada.
-Pode ser acessado pelo caminho \Projeto-Integrador\specifications, onde está presente um arquivo formato .PDF para visualização desses detalhes.
-O modelo conceitual do projeto pode ser acessado pelo caminho \Projeto-Integrador\specifications\BRmodelo.
+## Descrição do Sistema
+O sistema desenvolvido tem como objetivo facilitar a gestão empresarial, oferecendo funcionalidades específicas para o gerenciamento de funcionários, clientes, serviços prestados e pagamentos. Foi projetado com base nas necessidades identificadas junto à empresa cliente, conforme entrevista e análise de requisitos.
+
+### Funcionalidades Principais
+1. **Cadastro de Empresas**:  
+   - A empresa realiza seu cadastro e recebe uma conta padrão de administrador (**admin@nome-empresa**) com a senha cadastrada.
+
+2. **Gestão de Funcionários**:  
+   - O administrador pode cadastrar funcionários com os seguintes tipos:  
+     - **Gerente**: Permissões semelhantes ao administrador, exceto a criação de novos gerentes.  
+     - **Funcionário Comum**: Pode cadastrar apenas serviços e pagamentos.  
+
+3. **Cadastro de Clientes e Serviços**:  
+   - Possibilidade de cadastrar empresas clientes e os tipos de serviços prestados.  
+   - Registro dos serviços efetivamente prestados para clientes.  
+
+4. **Gestão de Pagamentos**:  
+   - Cadastro e gerenciamento de pagamentos relacionados aos serviços.  
+   - O pagamento é considerado "fechado" após a emissão de um boleto ou nota fiscal, impedindo alterações futuras.  
+   - Pagamentos são realizados sempre em **uma única parcela**, eliminando a necessidade de controle de múltiplas parcelas.  
+
+## Requisitos Técnicos
+
+### Requisitos Funcionais
+- Gerenciamento de contas de empresas e usuários (admin, gerente e funcionário).
+- Controle de cadastro e edição de empresas clientes.
+- Registro de serviços prestados.
+- Emissão de pagamentos relacionados aos serviços prestados.
+
+### Requisitos Não-Funcionais
+- Interface intuitiva e responsiva, garantindo boa experiência do usuário.  
+- Utilização de tecnologias modernas e confiáveis para o desenvolvimento.
+
+## Tecnologias Utilizadas
+- **Framework**: React.js
+- **Linguagem de Programação**: JavaScript
+- **Estilização**: CSS
+- **Banco de Dados**: Escolhido para persistência dos dados (não especificado aqui).  
+
+## Estrutura do Projeto
+- **Especificações e Documentação**:
+  - Detalhes sobre os requisitos funcionais, não-funcionais, e diagrama de casos de uso podem ser acessados no arquivo:  
+    `\Projeto-Integrador\specifications\specifications.pdf`  
+  - O modelo conceitual do sistema está disponível em:  
+    `\Projeto-Integrador\specifications\BRmodelo`.
+
+## Executando o Projeto
+
+### Pré-Requisitos
+Certifique-se de ter instalado:
+- **Node.js** (versão LTS recomendada)  
+- **Gerenciador de pacotes**:  yarn  
+
+
+### Passos para Execução
+1. **Clone o repositório**:
+   ```bash
+   git clone <url-do-repositorio>
+   cd projeto-integrador/front-end
+
+2. **Inicie o projeto**:
+    yarn start
+
+3. **O projeto está disponível em http://localhost:3000**
