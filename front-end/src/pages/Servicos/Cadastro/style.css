@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container-services {
+  padding-top: 10%;
+  min-width: 30rem;
+  min-height: 20rem;
+  padding: 20px;
+  display: block;
+  padding-top: 20%;
+  max-height: 50vh;
+}
+
+.tabs {
+  display: flex;
+  justify-content: left;
+  margin-top: 0;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.tab.active {
+  background-color: #cfcfcf;
+  border-bottom: none;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group textarea {
+  height: 20%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 90%;
+}
+
+.form-group select,
+.form-group input,
+.form-group button {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+
+}
+
+.forms {
+  border-radius: 20px;
+  border-top-left-radius: 0%;
+  padding: 5%;
+  min-width: 70%;
+  min-height: 70%;
+  background-color: #cfcfcf
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.hidden {
+  display: none;
+}

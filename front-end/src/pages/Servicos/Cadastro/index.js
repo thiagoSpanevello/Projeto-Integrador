@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './stylePagamento.css';
+import './style.css';
 
 function Pagamento() {
   useEffect(() => {
@@ -57,7 +57,7 @@ function Pagamento() {
 
   return (
     <div>
-      <div className="container">
+      <div className="container-services">
         <div className="tabs">
           <div className="tab active" id="tab-servico">Serviço</div>
           <div className="tab" id="tab-pagamento">Pagamento</div>

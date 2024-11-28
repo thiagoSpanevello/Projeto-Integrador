@@ -1,17 +1,18 @@
 import React from 'react'
 import Sidebar from '../../components/Sidebar'
 import Dashboard from '../../components/Dashboard';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom';
+import Pagamento from '../Servicos/Cadastro';
+import ListagemServicos from '../Servicos/Listagem';
 function Home() {
     return (
         <div>
             <Sidebar />
-            <BrowserRouter>
-                <Routes>
-                    <Route index element={<Dashboard />} />
-
-                </Routes>
-            </BrowserRouter>
+            <Routes>
+                <Route index element={<Dashboard />} />
+                <Route path='CadastroServico' element={<Pagamento />} />
+                <Route path='ListagemServico' element={<ListagemServicos />} />
+            </Routes>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar() {
@@ -33,7 +34,7 @@ function Sidebar() {
           <li>Funcionários</li>
           <li>Clientes</li>
           <li>Tipos de Serviço</li>
-          <li>Serviços</li>
+          <li><Link to="/Home/CadastroServico">Serviços</Link></li>
         </ul>
         <div className="menu-item" onClick={handleToggleRelatorios}>
           <span>Relatórios</span>
@@ -43,7 +44,7 @@ function Sidebar() {
           <li>Funcionários</li>
           <li>Clientes</li>
           <li>Tipos de Serviço</li>
-          <li>Serviços</li>
+          <li><Link to="/Home/ListagemServico">Serviços</Link></li>
           <li>Pagamentos</li>
         </ul>
         <div className="menu-item" onClick={handleToggleEmissoes}>
