@@ -86,7 +86,7 @@ function Pagamento() {
           <button id="btn-cadastrar-servico">Cadastrar</button>
         </div>
 
-        <div id="form-pagamento" className="hidden">
+        <div id="form-pagamento" className="forms hidden">
           <div className="form-group">
             <label htmlFor="valor-pagamento">Valor do Pagamento</label>
             <input type="text" id="valor-pagamento" placeholder="R$ Valor do pagamento, sem parcela" />
