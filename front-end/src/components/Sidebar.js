@@ -31,8 +31,8 @@ function Sidebar() {
           <span className="arrow-icon">▼</span>
         </div>
         <ul className={`submenu ${showCadastros ? 'show' : ''}`}>
-          <li>Funcionários</li>
-          <li>Clientes</li>
+          <li><Link to="/Home/CadastroFuncionarios">Funcionarios</Link></li>
+          <li><Link to="/Home/CadastroClientes">Clientes</Link></li>
           <li>Tipos de Serviço</li>
           <li><Link to="/Home/CadastroServico">Serviços</Link></li>
         </ul>
@@ -41,8 +41,8 @@ function Sidebar() {
           <span className="arrow-icon">▼</span>
         </div>
         <ul className={`submenu ${showRelatorios ? 'show' : ''}`}>
-          <li>Funcionários</li>
-          <li>Clientes</li>
+          <li><Link to="/Home/ListagemFuncionarios">Funcionarios</Link></li>
+          <li><Link to="/Home/ListagemClientes">Clientes</Link></li>
           <li>Tipos de Serviço</li>
           <li><Link to="/Home/ListagemServico">Serviços</Link></li>
           <li>Pagamentos</li>
