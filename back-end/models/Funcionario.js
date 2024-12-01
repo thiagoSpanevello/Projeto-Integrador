@@ -1,12 +1,10 @@
 import db from '../services/db.js';
-import bcrypt from 'bcrypt';
 const Funcionario = {
-    add: async (nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado) => {
+    add: async (nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf) => {
         try {
-            const hashSenha = bcrypt.hash(senha, 10);
             const resultado = await db.none(
                 'INSERT INTO funcionarios(nome, conta, senha, cargo, cnpj, endereco_rua, endereco_cep, endereco_cidade, endereco_estado, cpf) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
-                [nome, conta, hashSenha, cargo, cnpj, rua, cep, cidade, estado, cpf]
+                [nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf]
             );
             return resultado;
         } catch (error) {

@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import "./style.css"
-import api from '../../services/api';
+
 
 function Signup() {
     const [CNPJ, setCNPJ] = useState("");
+    const [nome, setNome] = useState("");
     const [conta, setConta] = useState("admin@");
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,6 +26,7 @@ function Signup() {
         let a = "admin@";
         text = a + text;
         setConta(text);
+        setNome(valor);
     }
 
     const validatePassword = (pass, confirmPass) => {
@@ -46,6 +49,31 @@ function Signup() {
         setConfirmPassword(newConfirmPassword);
         validatePassword(password, newConfirmPassword);
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            alert("As senhas não correspondem.");
+            return;
+        }
+
+        const data = {
+            cnpj: CNPJ,
+            nome,
+            conta,
+            senha: password,
+            cargo: "admin"
+        };
+        console.log(data);
+        try {
+            const response = await axios.post('http://localhost:3001/cadastro', data);
+            alert("Conta criada com sucesso!");
+            console.log(response.data);
+        } catch (error) {
+            console.error(error.response?.data || "Erro ao criar conta");
+            alert(error.response?.data.message || "Erro ao criar conta");
+        }
+    };
 
 
 
@@ -70,7 +98,7 @@ function Signup() {
                         <label htmlFor='Password'>Confirmar senha</label>
                         <input type='password' id='ConfirmPassword' value={confirmPassword} onChange={handleConfirmPasswordChange} autoComplete='off' placeholder='enter your password' required />
                         {message && <p className='passwordMessage'>{message}</p>}
-                        <button type="submit" class="btn btn-primary savebtn">Save</button>
+                        <button type="submit" class="btn btn-primary savebtn" onClick={handleSubmit}>Save</button>
                     </div>
                 </form>
             </div>

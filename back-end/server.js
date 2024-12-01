@@ -1,46 +1,24 @@
 import bodyParser from 'body-parser';
 import express from 'express';
-import Cliente from './models/cliente.js';
-// import cors from 'cors';
+import authRoutes from './routes/authRoutes.js'
+
+import cors from 'cors';
 const app = express();
-// app.use(express.json());
-// app.use(cors())
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));
-// app.use(bodyParser.json());
-app.listen(3001, () => console.log("Rodando porta 3001"));
+app.use(express.json());
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions))
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 
-Cliente.add(
-    '12.345.678/9999-90',
-    'teste 2',
-    'Rua teste',
-    '12345-678',
-    'Cidade Exemplo',
-    'Estado Exemplo',
-    '(11) 1234-5678'
-)
-    .then(() => {
-        console.log('Cliente adicionado com sucesso!');
-
-        return Cliente.list();
-    })
-    .then(clientes => {
-        console.log('Clientes cadastrados:');
-        console.log(clientes);
-    })
-    .catch(err => {
-        console.log('Erro ao adicionar cliente: ', err);
-    });
+app.use(authRoutes);
 
 
-// // Rotas de Usuário
-// app.post('/cadastro/admin', (req, res) => {
-//     const CNPJ = req.body.CNPJ;
-//     const nome = req.body.nome;
-//     const conta = req.body.conta;
-//     res.send({ "CNPJ": CNPJ, "nome": nome, "conta": conta });
-// });
+// Rotas de funcionário
 
 // app.post('/cadastro/funcionarios', (req, res) => {
 //     const nome = req.body.nome;
@@ -104,5 +82,7 @@ Cliente.add(
 // })
 
 // app.get('/relatorio/RedirecionaFuncionario', (req, res) => {
-//     res.send("Redirecionado diretamente para o relatório de pagamentos");
+// res.send("Redirecionado diretamente para o relatório de pagamentos");
 // })
+
+app.listen(3001, () => console.log("Rodando porta 3001"));

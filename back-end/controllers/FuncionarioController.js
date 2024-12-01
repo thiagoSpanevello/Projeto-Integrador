@@ -1,13 +1,14 @@
-import Funcionario from "../models/Funcionario";
+import Funcionario from "../models/Funcionario.js";
+import bcrypt from 'bcrypt'
 
 export const addFuncionario = async (req, res) => {
     try {
+        console.log(req.body);
         const { nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf } = req.body;
 
-        if (!nome || !conta || !senha || !cargo || !cnpj || !rua || !cep || !cidade || !estado || !cpf) {
-            return res.status(400).json({ message: "Todos os campos são obrigatórios." });
+        if (!nome || !conta || !senha || !cargo) {
+            return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
         }
-
         const hashSenha = await bcrypt.hash(senha, 10);
 
         await Funcionario.add(nome, conta, hashSenha, cargo, cnpj, rua, cep, cidade, estado, cpf);
