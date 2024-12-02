@@ -12,17 +12,18 @@ function Signin() {
 
         const data = {
             conta,
-            senha: password, // Certifique-se de que o back-end espera o campo "senha"
+            senha: password,
         };
 
         try {
             const response = await axios.post('http://localhost:3001/login', data);
-            // Supondo que o back-end retorne um token ou confirmação de sucesso
+
             alert("Login bem-sucedido!");
             console.log("Resposta do servidor:", response.data);
-            // Redirecione o usuário ou salve o token no localStorage
-            localStorage.setItem('token', response.data.token); // Exemplo de armazenamento
-            window.location.href = "/home"; // Redirecionar para a página inicial
+
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('funcionario', JSON.stringify(response.data.funcionario));
+            window.location.href = "/home";
         } catch (error) {
             console.error("Erro ao fazer login:", error.response?.data || error.message);
             setMessage(error.response?.data.message || "Erro ao fazer login");

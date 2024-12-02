@@ -1,6 +1,8 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import authRoutes from './routes/authRoutes.js'
+import ProtectedRoute from './routes/protectedRoutes.js';
+import authN from './middlewares/AuthN.js'
 
 import cors from 'cors';
 const app = express();
@@ -16,6 +18,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(authRoutes);
+app.use('/protected', authN, ProtectedRoute);
 
 
 // Rotas de funcionário

@@ -29,14 +29,12 @@ function CadastroFuncionarios() {
       const cpf = document.getElementById('cpf-funcionario').value;
       const nome = document.getElementById('nome-funcionario').value;
       const senha = document.getElementById('senha-funcionario').value;
-      const endereco = document.getElementById('endereco-funcionario').value;
 
-      if (cpf && nome && senha && endereco) {
-        alert(`Funcionário cadastrado com sucesso!\nCPF: ${cpf}\nNome: ${nome}\nEndereço: ${endereco}`);
+      if (cpf && nome && senha) {
+        alert(`Funcionário cadastrado com sucesso!\nCPF: ${cpf}\nNome: ${nome}`);
         document.getElementById('cpf-funcionario').value = '';
         document.getElementById('nome-funcionario').value = '';
         document.getElementById('senha-funcionario').value = '';
-        document.getElementById('endereco-funcionario').value = '';
       } else {
         alert('Por favor, preencha todos os campos.');
       }
@@ -47,14 +45,12 @@ function CadastroFuncionarios() {
       const cpf = document.getElementById('cpf-gerente').value;
       const nome = document.getElementById('nome-gerente').value;
       const senha = document.getElementById('senha-gerente').value;
-      const endereco = document.getElementById('endereco-gerente').value;
 
-      if (cpf && nome && senha && endereco) {
-        alert(`Gerente cadastrado com sucesso!\nCPF: ${cpf}\nNome: ${nome}\nEndereço: ${endereco}`);
+      if (cpf && nome && senha) {
+        alert(`Gerente cadastrado com sucesso!\nCPF: ${cpf}\nNome: ${nome}`);
         document.getElementById('cpf-gerente').value = '';
         document.getElementById('nome-gerente').value = '';
         document.getElementById('senha-gerente').value = '';
-        document.getElementById('endereco-gerente').value = '';
       } else {
         alert('Por favor, preencha todos os campos.');
       }
@@ -82,10 +78,6 @@ function CadastroFuncionarios() {
             <label htmlFor="senha-funcionario">Senha</label>
             <input type="password" id="senha-funcionario" placeholder="Digite a senha" />
           </div>
-          <div className="form-group">
-            <label htmlFor="endereco-funcionario">Endereço</label>
-            <input type="text" id="endereco-funcionario" placeholder="Digite o endereço" />
-          </div>
           <button id="btn-cadastrar-funcionario">Cadastrar Funcionário</ button>
         </div>
 
@@ -101,10 +93,6 @@ function CadastroFuncionarios() {
           <div className="form-group">
             <label htmlFor="senha-gerente">Senha</label>
             <input type="password" id="senha-gerente" placeholder="Digite a senha" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="endereco-gerente">Endereço</label>
-            <input type="text" id="endereco-gerente" placeholder="Digite o endereço" />
           </div>
           <button id="btn-cadastrar-gerente">Cadastrar Gerente</button>
         </div>
