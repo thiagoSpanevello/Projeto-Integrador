@@ -11,16 +11,16 @@ import ListagemFuncionarios from '../Servicos/Listagem/funcionarios';
 
 function Home() {
     return (
-        <div>
+        <div className='Home-container'>
             <Sidebar />
             <Routes>
                 <Route index element={<Dashboard />} />
                 <Route path='CadastroServico' element={<Pagamento />} />
                 <Route path='ListagemServico' element={<ListagemServicos />} />
-                <Route path='CadastroClientes' element={<CadastroClientes/>} />
-                <Route path='ListagemClientes' element={<ListagemClientes/>} />
-                <Route path='CadastroFuncionarios' element={<CadastroFuncionarios/>} />
-                <Route path='ListagemFuncionarios' element={<ListagemFuncionarios/>} />
+                <Route path='CadastroClientes' element={<CadastroClientes />} />
+                <Route path='ListagemClientes' element={<ListagemClientes />} />
+                <Route path='CadastroFuncionarios' element={<CadastroFuncionarios />} />
+                <Route path='ListagemFuncionarios' element={<ListagemFuncionarios />} />
             </Routes>
         </div>
     )
