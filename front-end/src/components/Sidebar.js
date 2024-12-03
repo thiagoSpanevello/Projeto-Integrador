@@ -39,11 +39,11 @@ function Sidebar() {
         </div>
         <ul className={`submenu ${showCadastros ? 'show' : ''}`}>
           {user && user.cargo !== 'funcionario' && (
-            <>
+            <div>
               <li><Link to="/Home/CadastroFuncionarios">Funcionarios</Link></li>
               <li><Link to="/Home/CadastroClientes">Clientes</Link></li>
               <li>Tipos de Serviço</li>
-            </>
+            </div>
           )}
           <li><Link to="/Home/CadastroServico">Serviços</Link></li>
         </ul>

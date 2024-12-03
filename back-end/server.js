@@ -4,6 +4,8 @@ import authRoutes from './routes/authRoutes.js'
 import ProtectedRoute from './routes/protectedRoutes.js';
 import authN from './middlewares/AuthN.js'
 import FuncionarioRoutes from './routes/funcionarioRoutes.js'
+import ClienteRoutes from './routes/clienteRoutes.js'
+
 
 import cors from 'cors';
 const app = express();
@@ -19,8 +21,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(authRoutes);
-app.use('/protected', authN, ProtectedRoute);
+app.use(authN)
+app.use('/protected', ProtectedRoute);
 app.use(FuncionarioRoutes);
+app.use(ClienteRoutes);
+
 
 // //Rotas de Tipos de Serviços
 

@@ -7,7 +7,6 @@ dotenv.config();
 const verifyToken = (req, res, next) => {
     // Obtém o token do cabeçalho Authorization
     let token = req.get('Authorization');
-
     if (!token || !token.startsWith('Bearer ')) {
         return res.status(401).send({ message: 'Token inválido ou ausente' });
     }
@@ -20,8 +19,7 @@ const verifyToken = (req, res, next) => {
         if (err) {
             return res.status(401).send({ message: 'Token inválido', error: err.message });
         }
-
-        res.locals.funcionario = decoded.funcionario;
+        req.user = decoded.user;
 
         // Continua para a próxima etapa
         next();
