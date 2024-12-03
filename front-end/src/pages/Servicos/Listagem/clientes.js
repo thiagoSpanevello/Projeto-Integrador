@@ -35,9 +35,13 @@ function ListagemClientes() {
     // Ordenar clientes com base na opção selecionada (nome ou cnpj)
     return clientes.sort((a, b) => {
       if (ordem === "nome") {
-        return a.nome.localeCompare(b.nome); // Ordenação por nome
+        const nomeA = a.nomeempresa || ''; // Use string vazia como fallback
+        const nomeB = b.nomeempresa || ''; // Use string vazia como fallback
+        return nomeA.localeCompare(nomeB); // Ordenação por nome
       } else if (ordem === "cnpj") {
-        return a.cnpj.localeCompare(b.cnpj); // Ordenação por CNPJ
+        const cnpjA = a.cnpj || ''; // Use string vazia como fallback
+        const cnpjB = b.cnpj || ''; // Use string vazia como fallback
+        return cnpjA.localeCompare(cnpjB); // Ordenação por CNPJ
       }
       return 0;
     });
@@ -89,7 +93,7 @@ function ListagemClientes() {
             {ordenarClientes(clientes).map((cliente, index) => (
               <div key={index} className="item">
                 <span>
-                  {cliente.nome} | {cliente.cnpj} | {cliente.endereco} | {cliente.cep} | {cliente.cidade} | {cliente.estado} | {cliente.telefone}
+                  {cliente.nomeempresa} | {cliente.cnpj} | {cliente.endereco} | {cliente.cep} | {cliente.cidade} | {cliente.estado} | {cliente.telefone}
                 </span>
                 <div className="actions">
                   <button onClick={() => deletarCliente(index)}>Deletar</button>
