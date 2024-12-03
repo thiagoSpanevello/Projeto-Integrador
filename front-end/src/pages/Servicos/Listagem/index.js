@@ -50,11 +50,17 @@ function ListagemServicos() {
           </div>
 
           <div className="listagem">
+            <div className="header">
+              <span><strong>Tipo de Serviço</strong></span>
+              <span><strong>Cliente</strong></span>
+              <span><strong>Data de Realização</strong></span>
+              <span><strong>Ações</strong></span>
+            </div>
             {getItensFiltrados().map((servico, index) => (
               <div key={index} className="item">
-                <span>
-                  {servico.tipo} | {servico.cliente} | {servico.data}
-                </span>
+                <span>{servico.tipo}</span>
+                <span>{servico.cliente}</span>
+                <span>{servico.data}</span>
                 <div className="actions">
                   <button onClick={() => deletarServico(index)}>Deletar</button>
                   <button onClick={() => alterarServico(index)}>Alterar</button>

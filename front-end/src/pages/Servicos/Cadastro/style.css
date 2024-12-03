@@ -1,37 +1,53 @@
+/* Configurações gerais */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Altura total da tela */
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  background-color: #f5f5f5; /* Fundo neutro */
+  overflow: hidden; /* Remove barras de rolagem */
 }
 
+/* Contêiner principal */
 .container-services {
-  padding-top: 10%;
-  min-width: 30rem;
-  min-height: 20rem;
-  padding: 20px;
-  display: block;
-  padding-top: 20%;
-  max-height: 50vh;
+  width: 50rem; /* Largura fixa para todas as páginas */
+  height: 35rem; /* Altura fixa para todas as páginas */
+  background-color: #ffffff; /* Fundo branco para contraste */
+  border-radius: 10px; /* Bordas arredondadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px; /* Espaçamento interno */
+  box-sizing: border-box; /* Inclui padding no tamanho total */
+  display: flex;
+  flex-direction: column; /* Layout vertical */
+  justify-content: space-between; /* Distribui o conteúdo uniformemente */
 }
 
+/* Abas */
 .tabs {
   display: flex;
-  justify-content: left;
-  margin-top: 0;
+  justify-content: flex-start; /* Alinha as abas à esquerda */
+  margin-bottom: 20px; /* Espaço entre as abas e o conteúdo */
 }
 
 .tab {
   cursor: pointer;
-  padding: 10px;
+  padding: 10px 20px;
   border: 1px solid #ccc;
-  border-radius: 15%;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 10px 10px 0 0; /* Bordas arredondadas no topo */
+  background-color: #f7f7f7; /* Cor de fundo padrão */
+  margin-right: 5px; /* Espaço entre as abas */
+  transition: background-color 0.3s, color 0.3s; /* Suaviza mudanças de estilo */
 }
 
 .tab.active {
-  background-color: #cfcfcf;
-  border-bottom: none;
+  background-color: #e0e0e0; /* Destaque para aba ativa */
+  font-weight: bold;
 }
 
+/* Formulário */
 .form-group {
   margin-bottom: 15px;
 }
@@ -42,49 +58,46 @@ body {
   font-weight: bold;
 }
 
-.form-group textarea {
-  height: 20%;
+.form-group textarea,
+.form-group select,
+.form-group input {
+  width: 100%; /* Largura total do formulário */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 90%;
+  box-sizing: border-box; /* Consistência no tamanho */
 }
 
-.form-group select,
-.form-group input,
-.form-group button {
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+textarea {
+  resize: none; /* Impede redimensionamento do campo de texto */
+  height: 100px; /* Altura fixa */
 }
 
 button {
+  width: 100%;
+  padding: 10px;
   background-color: #4caf50;
-  color: white;
-  padding: 10px 15px;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: 100%;
   transition: background-color 0.3s;
-
-}
-
-.forms {
-  border-radius: 20px;
-  border-top-left-radius: 0%;
-  padding: 5%;
-  min-width: 70%;
-  min-height: 70%;
-  background-color: #cfcfcf
 }
 
 button:hover {
   background-color: #45a049;
 }
 
+/* Formulário completo */
+.forms {
+  flex: 1; /* Faz o formulário ocupar o restante do espaço */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribui os elementos dentro do formulário */
+}
+
+/* Ocultação */
 .hidden {
   display: none;
 }

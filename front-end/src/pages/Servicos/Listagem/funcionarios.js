@@ -47,11 +47,19 @@ function ListagemFuncionarios() {
           </div>
 
           <div className="listagem">
+            <div className="header">
+              <span><strong>Nome</strong></span>
+              <span><strong>CPF</strong></span>
+              <span><strong>Cargo</strong></span>
+              <span><strong>Endereço</strong></span>
+              <span><strong>Ações</strong></span>
+            </div>
             {getItensFiltrados().map((funcionario, index) => (
               <div key={index} className="item">
-                <span>
-                  {funcionario.nome} | {funcionario.cpf} | {funcionario.cargo} | {funcionario.endereco}
-                </span>
+                <span>{funcionario.nome}</span>
+                <span>{funcionario.cpf}</span>
+                <span>{funcionario.cargo}</span>
+                <span>{funcionario.endereco}</span>
                 <div className="actions">
                   <button onClick={() => deletarFuncionario(index)}>Deletar</button>
                   <button onClick={() => alterarFuncionario(index)}>Alterar</button>
