@@ -4,14 +4,14 @@ import bcrypt from 'bcrypt'
 export const addFuncionario = async (req, res) => {
     try {
         console.log(req.body);
-        const { nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf } = req.body;
+        const { cpf, nome, conta, senha, cargo, empresacnpj } = req.body;
 
-        if (!nome || !conta || !senha || !cargo) {
+        if (!cpf || !nome || !conta || !senha || !cargo || !empresacnpj) {
             return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
         }
         const hashSenha = await bcrypt.hash(senha, 10);
 
-        await Funcionario.add(nome, conta, hashSenha, cargo, cnpj, rua, cep, cidade, estado, cpf);
+        await Funcionario.add(cpf, nome, conta, senha, cargo, empresacnpj);
 
         return res.status(201).json({ message: "Funcionário adicionado com sucesso!" });
 
@@ -20,8 +20,6 @@ export const addFuncionario = async (req, res) => {
         return res.status(500).json({ message: "Erro interno no servidor, tente novamente mais tarde." });
     }
 };
-
-
 
 export const listFuncionarios = async (req, res) => {
     try {
@@ -33,10 +31,10 @@ export const listFuncionarios = async (req, res) => {
     }
 };
 
-export const getFuncionarioById = async (req, res) => {
-    const { id } = req.params;
+export const getFuncionarioByCpf = async (req, res) => {
+    const { cpf } = req.params;
     try {
-        const funcionario = await Funcionario.findById(id);
+        const funcionario = await Funcionario.findById(cpf);
 
         if (!funcionario) {
             return res.status(404).json({ message: "Funcionário não encontrado." });

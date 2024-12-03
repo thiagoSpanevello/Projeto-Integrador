@@ -22,7 +22,7 @@ function Signin() {
             console.log("Resposta do servidor:", response.data);
 
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('funcionario', JSON.stringify(response.data.funcionario));
+            localStorage.setItem('user', JSON.stringify(response.data.user));
             window.location.href = "/home";
         } catch (error) {
             console.error("Erro ao fazer login:", error.response?.data || error.message);

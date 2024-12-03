@@ -1,5 +1,4 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
 import verifyToken from '../middlewares/AuthN.js'; // Middleware que já verifica o token
 
 const router = express.Router();

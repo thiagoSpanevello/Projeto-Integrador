@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
@@ -6,10 +6,17 @@ function Sidebar() {
   const [showCadastros, setShowCadastros] = useState(false);
   const [showRelatorios, setShowRelatorios] = useState(false);
   const [showEmissoes, setShowEmissoes] = useState(false);
-
+  const [user, setUser] = useState(null);
   const handleToggleCadastros = () => {
     setShowCadastros(!showCadastros);
   };
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser); // Salva o funcionário no estado
+    }
+  }, []);
 
   const handleToggleRelatorios = () => {
     setShowRelatorios(!showRelatorios);
@@ -23,7 +30,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar-header">
         <span className="user-icon">👤</span>
-        <span className="user-info">admin@empresa</span>
+        <span className="user-info">{user ? user.conta : 'Carregando...'}</span>
       </div>
       <div className="sidebar-menu">
         <div className="menu-item" onClick={handleToggleCadastros}>
@@ -31,9 +38,13 @@ function Sidebar() {
           <span className="arrow-icon">▼</span>
         </div>
         <ul className={`submenu ${showCadastros ? 'show' : ''}`}>
-          <li><Link to="/Home/CadastroFuncionarios">Funcionarios</Link></li>
-          <li><Link to="/Home/CadastroClientes">Clientes</Link></li>
-          <li>Tipos de Serviço</li>
+          {user && user.cargo !== 'funcionario' && (
+            <>
+              <li><Link to="/Home/CadastroFuncionarios">Funcionarios</Link></li>
+              <li><Link to="/Home/CadastroClientes">Clientes</Link></li>
+              <li>Tipos de Serviço</li>
+            </>
+          )}
           <li><Link to="/Home/CadastroServico">Serviços</Link></li>
         </ul>
         <div className="menu-item" onClick={handleToggleRelatorios}>
@@ -41,7 +52,11 @@ function Sidebar() {
           <span className="arrow-icon">▼</span>
         </div>
         <ul className={`submenu ${showRelatorios ? 'show' : ''}`}>
-          <li><Link to="/Home/ListagemFuncionarios">Funcionarios</Link></li>
+          {user && user.cargo !== 'funcionario' && (
+            <>
+              <li><Link to="/Home/ListagemFuncionarios">Funcionarios</Link></li>
+            </>
+          )}
           <li><Link to="/Home/ListagemClientes">Clientes</Link></li>
           <li>Tipos de Serviço</li>
           <li><Link to="/Home/ListagemServico">Serviços</Link></li>

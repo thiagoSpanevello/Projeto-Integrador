@@ -1,4 +1,4 @@
-import Cliente from "../models/cliente";
+import Cliente from "../models/Cliente";
 
 export const addCliente = async (req, res) => {
     const { cnpj, nome, rua, cep, cidade, estado, telefone } = req.body;

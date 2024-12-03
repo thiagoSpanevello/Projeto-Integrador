@@ -1,10 +1,11 @@
 import db from '../services/db.js';
 const Funcionario = {
-    add: async (nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf) => {
+    add: async (cpf, nome, conta, senha, cargo, empresaCnpj) => {
+        console.log(cpf, nome, conta, senha, cargo, empresaCnpj);
         try {
             const resultado = await db.none(
-                'INSERT INTO funcionarios(nome, conta, senha, cargo, cnpj, endereco_rua, endereco_cep, endereco_cidade, endereco_estado, cpf) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
-                [nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf]
+                'INSERT INTO funcionarios(cpf, nome, conta, senha, cargo, empresacnpj) VALUES($1, $2, $3, $4, $5, $6)',
+                [cpf, nome, conta, senha, cargo, empresaCnpj]
             );
             return resultado;
         } catch (error) {

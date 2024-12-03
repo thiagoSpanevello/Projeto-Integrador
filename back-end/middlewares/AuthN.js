@@ -21,7 +21,6 @@ const verifyToken = (req, res, next) => {
             return res.status(401).send({ message: 'Token inválido', error: err.message });
         }
 
-        // Armazena os dados do usuário autenticado no `res.locals`
         res.locals.funcionario = decoded.funcionario;
 
         // Continua para a próxima etapa

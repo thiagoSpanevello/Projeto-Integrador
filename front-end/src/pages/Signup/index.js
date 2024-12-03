@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./style.css"
 
@@ -10,6 +11,7 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
     function maskCNPJ(value) {
         value = value.replace(/\D/g, ''); // Remove tudo que não for número
         // Máscara de CNPJ (00.000.000/0000-00)
@@ -69,12 +71,16 @@ function Signup() {
             const response = await axios.post('http://localhost:3001/cadastro', data);
             alert("Conta criada com sucesso!");
             console.log(response.data);
+            navigate('/');
         } catch (error) {
             console.error(error.response?.data || "Erro ao criar conta");
             alert(error.response?.data.message || "Erro ao criar conta");
         }
     };
 
+    const handleBackToLogin = () => {
+        navigate('/');
+    };
 
 
     return (
@@ -92,13 +98,20 @@ function Signup() {
                         <label htmlFor='Name'>Nome da empresa</label>
                         <input type='text' id='Name' autoComplete='off' placeholder='nome da empresa' required onChange={handleChange} />
                         <label htmlFor='Conta'>Conta</label>
-                        <input type='text' id='Conta' autoComplete='off' disabled value={conta} />
+                        <input type='text' id='Conta' autoComplete='off' required value={conta} />
                         <label htmlFor='Password'>Senha</label>
                         <input type='password' value={password} onChange={handlePasswordChange} id='Password' autoComplete='off' placeholder='enter your password' required />
                         <label htmlFor='Password'>Confirmar senha</label>
                         <input type='password' id='ConfirmPassword' value={confirmPassword} onChange={handleConfirmPasswordChange} autoComplete='off' placeholder='enter your password' required />
                         {message && <p className='passwordMessage'>{message}</p>}
-                        <button type="submit" class="btn btn-primary savebtn" onClick={handleSubmit}>Save</button>
+                        <button type="submit" class="btn btn-primary savebtn" onClick={handleSubmit}>Salvar</button>
+                        <button
+                            type='button'
+                            className='btn btn-secondary'
+                            onClick={handleBackToLogin}
+                        >
+                            Voltar ao Login
+                        </button>
                     </div>
                 </form>
             </div>
