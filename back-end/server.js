@@ -3,6 +3,7 @@ import express from 'express';
 import authRoutes from './routes/authRoutes.js'
 import ProtectedRoute from './routes/protectedRoutes.js';
 import authN from './middlewares/AuthN.js'
+import FuncionarioRoutes from './routes/funcionarioRoutes.js'
 
 import cors from 'cors';
 const app = express();
@@ -19,22 +20,7 @@ app.use(bodyParser.json());
 
 app.use(authRoutes);
 app.use('/protected', authN, ProtectedRoute);
-
-
-// Rotas de funcionário
-
-// app.post('/cadastro/funcionarios', (req, res) => {
-//     const nome = req.body.nome;
-//     const CPF = req.body.CPF;
-//     const conta = req.body.conta;
-//     const rules = req.body.rules;
-//     res.send({ "CPF": CPF, "nome": nome, "conta": conta, "rules": rules });
-// });
-
-// app.get('/relatorio/funcionarios', (req, res) => {
-//     res.send("entrou na rota de listagem de funcionários");
-// })
-
+app.use(FuncionarioRoutes);
 
 // //Rotas de Tipos de Serviços
 

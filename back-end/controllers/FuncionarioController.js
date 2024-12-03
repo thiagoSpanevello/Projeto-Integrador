@@ -4,17 +4,38 @@ import bcrypt from 'bcrypt'
 export const addFuncionario = async (req, res) => {
     try {
         console.log(req.body);
+
         const { cpf, nome, conta, senha, cargo, empresacnpj } = req.body;
 
         if (!cpf || !nome || !conta || !senha || !cargo || !empresacnpj) {
             return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
         }
+
+        const { cargo: userCargo } = req.user;
+
+        // Lógica de permissão
+        if (userCargo === 'empresa') {
+            // Admin pode cadastrar qualquer cargo
+            if (cargo !== 'funcionario' && cargo !== 'gerente') {
+                return res.status(403).json({ message: "Admin só pode cadastrar gerente ou funcionário." });
+            }
+        } else if (userCargo === 'gerente') {
+            // Gerente só pode cadastrar funcionários
+            if (cargo !== 'funcionario') {
+                return res.status(403).json({ message: "Gerente só pode cadastrar funcionários." });
+            }
+        } else {
+            // Outros cargos não têm permissão para cadastrar
+            return res.status(403).json({ message: "Você não tem permissão para cadastrar funcionários." });
+        }
+
+        // Criptografa a senha
         const hashSenha = await bcrypt.hash(senha, 10);
 
-        await Funcionario.add(cpf, nome, conta, senha, cargo, empresacnpj);
+        // Adiciona o funcionário
+        await Funcionario.add(cpf, nome, conta, hashSenha, cargo, empresacnpj);
 
         return res.status(201).json({ message: "Funcionário adicionado com sucesso!" });
-
     } catch (error) {
         console.error("Erro ao adicionar funcionário: ", error);
         return res.status(500).json({ message: "Erro interno no servidor, tente novamente mais tarde." });

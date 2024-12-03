@@ -1,26 +1,35 @@
 body {
     margin: 0;
-    height: 100vh; /* Define a altura da viewport */
+    height: 100vh;
+    /* Define a altura da viewport */
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    background-color: #f4f4f4; /* Cor de fundo opcional */
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    background-image: url("../assets/images/tipos-de-caminhao.png");
+    backdrop-filter: blur(5px);
 }
 
 .dashboard {
     text-align: center;
     margin: 20px;
-    background-color: white; /* Fundo branco para a dashboard */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    padding: 20px; /* Espaçamento interno */
+    background-color: white;
+    /* Fundo branco para a dashboard */
+    border-radius: 8px;
+    /* Bordas arredondadas */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+    padding: 20px;
+    /* Espaçamento interno */
 }
 
 .grafico {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    height: 350px; /* Aumente a altura para acomodar os meses */
+    height: 350px;
+    /* Aumente a altura para acomodar os meses */
     border-left: 2px solid #000;
     border-bottom: 2px solid #000;
     padding: 10px;
@@ -31,24 +40,30 @@ body {
     background-color: #4CAF50;
     margin: 0 5px;
     transition: height 0.3s;
-    position: relative; /* Para posicionar os valores corretamente */
+    position: relative;
+    /* Para posicionar os valores corretamente */
 }
 
 .valor {
     position: absolute;
-    bottom: 100%; /* Posiciona o valor acima da barra */
+    bottom: 100%;
+    /* Posiciona o valor acima da barra */
     left: 50%;
     transform: translateX(-50%);
-    margin-bottom: 5px; /* Espaço entre o valor e a barra */
-    font-weight: bold; /* Destaca o valor */
+    margin-bottom: 5px;
+    /* Espaço entre o valor e a barra */
+    font-weight: bold;
+    /* Destaca o valor */
 }
 
 .meses {
     display: flex;
     justify-content: space-around;
-    margin-top: 10px; /* Espaço entre o gráfico e os meses */
+    margin-top: 10px;
+    /* Espaço entre o gráfico e os meses */
 }
 
 .mes {
-    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+    white-space: nowrap;
+    /* Impede que o texto quebre em várias linhas */
 }

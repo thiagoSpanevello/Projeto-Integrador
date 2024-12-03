@@ -42,7 +42,6 @@ export const login = async (req, res) => {
             },
             token,
         });
-        console.log("TESTE DOQ TA INDO PRO USER: " + user.conta);
     } catch (error) {
         console.error("Erro ao realizar login do funcionário: ", error);
         return res.status(500).send({ message: 'Erro interno ao realizar login.' });
