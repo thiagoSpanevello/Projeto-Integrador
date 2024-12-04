@@ -1,11 +1,12 @@
 import db from '../services/db.js';
 
 const Pagamento = {
-    add: async (valor, data_pagamento, servico_id, funcionario_id, cliente_id) => {
+    add: async (valor, datacadastro, servicoid) => {
         try {
+
             const resultado = await db.none(
-                'INSERT INTO pagamentos(valor, data_pagamento, servico_id, funcionario_id, cliente_id) VALUES($1, $2, $3, $4, $5)',
-                [valor, data_pagamento, servico_id, funcionario_id, cliente_id]
+                'INSERT INTO pagamentos(valor, datacadastro, servicoid) VALUES($1, $2, $3)',
+                [valor, datacadastro, servicoid]
             );
             return resultado;
         } catch (error) {

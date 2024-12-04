@@ -1,14 +1,14 @@
 import Servico from "../models/servico";
 
 export const addServico = async (req, res) => {
-    const { nome, descricao, preco, prestadorId, tipoServicoId } = req.body;
+    const { dataRealizacao, descricao, clienteCNPJ, tipoServicoNome, dataCadastro, valor } = req.body;
 
-    if (!nome || !descricao || !preco || !prestadorId || !tipoServicoId) {
+    if (!dataRealizacao || !descricao || !clienteCNPJ || !tipoServicoNome || !tipoServicoId) {
         return res.status(400).json({ message: "Todos os campos são obrigatórios." });
     }
 
     try {
-        await Servico.add(nome, descricao, preco, prestadorId, tipoServicoId);
+        await Servico.add(dataRealizacao, descricao, clienteCNPJ, tipoServicoNome);
         return res.status(201).json({ message: "Serviço adicionado com sucesso!" });
     } catch (error) {
         console.error("Erro ao adicionar serviço: ", error);

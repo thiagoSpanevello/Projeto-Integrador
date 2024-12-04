@@ -15,9 +15,9 @@ router.get('/relatorio/clientes', listClientes);
 router.get('/clientes/:cnpj', getClienteByCNPJ);
 
 // Atualizar cliente - Apenas Admin ou o próprio cliente pode atualizar
-router.put('/clientes/:cnpj', verifyPermissions(["empresa", "gerente"]), updateCliente);
+router.put('/update/clientes/:cnpj', verifyPermissions(["empresa", "gerente"]), updateCliente);
 
 // Deletar cliente - Apenas Admin pode deletar
-router.delete('/clientes/:cnpj', verifyPermissions(["empresa", "gerente"]), deleteCliente);
+router.delete('/delete/clientes/:cnpj', verifyPermissions(["empresa", "gerente"]), deleteCliente);
 
 export default router;

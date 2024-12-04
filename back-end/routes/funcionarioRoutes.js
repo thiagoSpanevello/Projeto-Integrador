@@ -20,9 +20,9 @@ router.get('/relatorio/funcionarios', verifyPermissions(["empresa", "gerente"]),
 router.get('/funcionarios/:cpf', getFuncionarioByCpf);
 
 // Atualizar funcionário
-router.put('/funcionarios/:cpf', updateFuncionario);
+router.put('/update/funcionarios/:cpf', verifyPermissions(["empresa", "gerente"]), updateFuncionario);
 
 // Deletar funcionário
-router.delete('/funcionarios/:cpf', deleteFuncionario);
+router.delete('/excluir/funcionarios/:cpf', verifyPermissions(["empresa", "gerente"]), deleteFuncionario);
 
 export default router;
