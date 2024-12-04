@@ -5,7 +5,7 @@ const Pagamento = {
         try {
 
             const resultado = await db.none(
-                'INSERT INTO pagamentos(valor, datacadastro, servicoid) VALUES($1, $2, $3)',
+                'INSERT INTO pagamento(valor, datacadastro, servicoid) VALUES($1, $2, $3)',
                 [valor, datacadastro, servicoid]
             );
             return resultado;
@@ -16,16 +16,16 @@ const Pagamento = {
 
     list: async () => {
         try {
-            const resultado = await db.any('SELECT * FROM pagamentos');
+            const resultado = await db.any('SELECT * FROM pagamento');
             return resultado;
         } catch (error) {
-            throw new Error("Erro na listagem de pagamentos: " + error.message);
+            throw new Error("Erro na listagem de pagamento: " + error.message);
         }
     },
 
     findById: async (id) => {
         try {
-            const resultado = await db.oneOrNone('SELECT * FROM pagamentos WHERE id = $1', [id]);
+            const resultado = await db.oneOrNone('SELECT * FROM pagamento WHERE id = $1', [id]);
             return resultado;
         } catch (error) {
             throw new Error("Erro ao buscar pagamento por ID: " + error.message);
@@ -35,7 +35,7 @@ const Pagamento = {
     update: async (id, valor, data_pagamento, servico_id, funcionario_id, cliente_id) => {
         try {
             await db.none(
-                'UPDATE pagamentos SET valor = $1, data_pagamento = $2, servico_id = $3, funcionario_id = $4, cliente_id = $5 WHERE id = $6',
+                'UPDATE pagamento SET valor = $1, data_pagamento = $2, servico_id = $3, funcionario_id = $4, cliente_id = $5 WHERE id = $6',
                 [valor, data_pagamento, servico_id, funcionario_id, cliente_id, id]
             );
         } catch (error) {
@@ -45,7 +45,7 @@ const Pagamento = {
 
     delete: async (id) => {
         try {
-            await db.none('DELETE FROM pagamentos WHERE id = $1', [id]);
+            await db.none('DELETE FROM pagamento WHERE id = $1', [id]);
         } catch (error) {
             throw new Error("Erro ao excluir pagamento: " + error.message);
         }
