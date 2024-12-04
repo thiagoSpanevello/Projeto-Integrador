@@ -1,4 +1,4 @@
-import TipoServico from "../models/TipoServico";
+import TipoServico from "../models/TipoServico.js";
 export const addTipoServico = async (req, res) => {
     const { nome, descricao } = req.body;
 

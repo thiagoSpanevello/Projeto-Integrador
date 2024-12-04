@@ -100,7 +100,7 @@ function ListagemClientes() {
               <div key={index} className="item">
                 <span>{cliente.nomeempresa}</span>
                 <span>{cliente.cnpj}</span>
-                <span>{cliente.endereco}</span>
+                <span>{cliente.rua}</span>
                 <span>{cliente.cep}</span>
                 <span>{cliente.cidade}</span>
                 <span>{cliente.estado}</span>

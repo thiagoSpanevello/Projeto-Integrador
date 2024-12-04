@@ -4,6 +4,7 @@ import authRoutes from './routes/authRoutes.js'
 import ProtectedRoute from './routes/protectedRoutes.js';
 import authN from './middlewares/AuthN.js'
 import FuncionarioRoutes from './routes/funcionarioRoutes.js'
+import tipoServicoRoutes from './routes/tipoServicoRoute.js'
 import ClienteRoutes from './routes/clienteRoutes.js'
 
 
@@ -25,6 +26,7 @@ app.use(authN)
 app.use('/protected', ProtectedRoute);
 app.use(FuncionarioRoutes);
 app.use(ClienteRoutes);
+app.use(tipoServicoRoutes);
 
 
 // //Rotas de Tipos de Serviços

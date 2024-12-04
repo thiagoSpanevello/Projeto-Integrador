@@ -6,18 +6,18 @@ import verifyPermissions from '../middlewares/Permissions.js'; // Verificação 
 const router = express.Router();
 
 // Cadastro de cliente - Apenas Admin pode cadastrar
-router.post('/cadastro/clientes', authN, verifyPermissions(["empresa", "gerente"]), addCliente);
+router.post('/cadastro/clientes', verifyPermissions(["empresa", "gerente"]), addCliente);
 
 // Listagem de clientes - Retorna os clientes da empresa logada
-router.get('/relatorio/clientes', authN, listClientes);
+router.get('/relatorio/clientes', listClientes);
 
 // Buscar cliente por CNPJ
-router.get('/clientes/:cnpj', authN, getClienteByCNPJ);
+router.get('/clientes/:cnpj', getClienteByCNPJ);
 
 // Atualizar cliente - Apenas Admin ou o próprio cliente pode atualizar
-router.put('/clientes/:cnpj', authN, verifyPermissions(["empresa", "gerente"]), updateCliente);
+router.put('/clientes/:cnpj', verifyPermissions(["empresa", "gerente"]), updateCliente);
 
 // Deletar cliente - Apenas Admin pode deletar
-router.delete('/clientes/:cnpj', authN, verifyPermissions(["empresa", "gerente"]), deleteCliente);
+router.delete('/clientes/:cnpj', verifyPermissions(["empresa", "gerente"]), deleteCliente);
 
 export default router;
