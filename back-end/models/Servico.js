@@ -9,7 +9,7 @@ const Servico = {
                 [datarealizacao, descricao, clientecnpj, tiposervicoid]
             );
             console.log(resultado);
-            if (!datacadastro || !valor) {
+            if (datacadastro || valor) {
                 Pagamento.add(datacadastro, valor, resultado.id);
             }
             return resultado;
