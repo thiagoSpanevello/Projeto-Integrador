@@ -1,7 +1,7 @@
 import db from '../services/db.js';
 
 const Pagamento = {
-    add: async (valor, datacadastro, servicoid) => {
+    add: async (datacadastro, valor, servicoid) => {
         try {
 
             const resultado = await db.none(
