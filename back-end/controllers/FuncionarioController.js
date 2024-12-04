@@ -1,40 +1,35 @@
 import Funcionario from "../models/Funcionario.js";
+import Empresa from "../models/Empresa.js";
 import bcrypt from 'bcrypt'
 
 export const addFuncionario = async (req, res) => {
     try {
         console.log(req.body);
 
-        const { cpf, nome, conta, senha, cargo, empresacnpj } = req.body;
+        const { cpf, nome, senha, cargo } = req.body;
 
-        if (!cpf || !nome || !conta || !senha || !cargo || !empresacnpj) {
+        if (!cpf || !nome || !senha || !cargo) {
             return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
         }
-
-        const userCargo = req.user.cargo;
-
-        // Lógica de permissão
-        if (userCargo === 'empresa') {
-            // Admin pode cadastrar qualquer cargo
-            if (cargo !== 'funcionario' && cargo !== 'gerente') {
-                return res.status(403).json({ message: "Admin só pode cadastrar gerente ou funcionário." });
-            }
-        } else if (userCargo === 'gerente') {
-            // Gerente só pode cadastrar funcionários
-            if (cargo !== 'funcionario') {
-                return res.status(403).json({ message: "Gerente só pode cadastrar funcionários." });
-            }
-        } else {
-            // Outros cargos não têm permissão para cadastrar
-            return res.status(403).json({ message: "Você não tem permissão para cadastrar funcionários." });
-        }
-
-        // Criptografa a senha
+        const account = req.user.conta;
         const hashSenha = await bcrypt.hash(senha, 10);
-
-        // Adiciona o funcionário
-        await Funcionario.add(cpf, nome, conta, hashSenha, cargo, empresacnpj);
-
+        let user = await Empresa.findByConta(account);
+        let nom = nome.split(' ')[0];
+        nom = nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        nom = nom.toLowerCase();
+        nom = nom.replace(/[^a-z0-9]/g, "");
+        let conta;
+        if (user) {
+            conta = nom + "@" + user.nomeempresa.split(" ")[0];
+            await Funcionario.add(cpf, nome, conta, senha, cargo, user.cnpj);
+        } else {
+            user = await Funcionario.findByConta(account);
+            if (user.cargo == "gerente" || cargo == "funcionario") {
+                let emp = await Empresa.findByCnpj(user.empresacnpj);
+                conta = nom + "@" + emp.nomeempresa;
+                await Funcionario.add(cpf, nome, conta, senha, carho, user.empresacnpj);
+            }
+        }
         return res.status(201).json({ message: "Funcionário adicionado com sucesso!" });
     } catch (error) {
         console.error("Erro ao adicionar funcionário: ", error);
