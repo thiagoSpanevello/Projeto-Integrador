@@ -56,6 +56,27 @@ export const getEmpresaByCnpj = async (req, res) => {
     }
 };
 
+export const getEmpresaByConta = async (req, res) => {
+    const { conta } = req.params;
+
+    if (!conta) {
+        return res.status(400).send({ message: 'CNPJ é obrigatório!' });
+    }
+
+    try {
+        const empresa = await Empresa.findByConta(conta);
+
+        if (!empresa) {
+            return res.status(404).send({ message: 'Empresa não encontrada.' });
+        }
+
+        res.status(200).send(empresa);
+    } catch (error) {
+        console.error("Erro ao buscar empresa por CNPJ:", error);
+        res.status(500).send({ message: 'Erro interno ao buscar empresa.' });
+    }
+};
+
 export const updateEmpresa = async (req, res) => {
     const { cnpj } = req.params;
     const { nome, conta, senha } = req.body;

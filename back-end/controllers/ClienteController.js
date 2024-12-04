@@ -1,9 +1,19 @@
 import Cliente from "../models/Cliente.js";
 import Atende from "../models/Atende.js";
+import Empresa from "../models/Empresa.js";
+import Funcionario from "../models/Funcionario.js";
 
 export const addCliente = async (req, res) => {
     const { cnpj, nome, rua, cep, cidade, estado, telefone } = req.body;
-    const cnpjEmpresa = req.user.cnpj; // Obtém o CNPJ da empresa do usuário autenticado
+    const conta = req.user.conta;
+    let user = await Empresa.findByConta(conta);
+    let cnpjEmpresa;
+    if (user) {
+        cnpjEmpresa = user.cnpj
+    } else {
+        user = await Funcionario.findByConta(conta);
+        cnpjEmpresa = user.cnpjempresa;
+    } // Obtém o CNPJ da empresa do usuário autenticado
 
     if (!cnpj || !nome || !rua || !cep || !cidade || !estado || !telefone) {
         return res.status(400).json({ message: "Todos os campos são obrigatórios." });
@@ -27,11 +37,16 @@ export const addCliente = async (req, res) => {
 // Controlador para listar os clientes relacionados à empresa logada
 export const listClientes = async (req, res) => {
     try {
-        console.log('LIST CLIENTES:', JSON.stringify(req.user, null, 2));
-        const empresaCnpj = req.user.cnpj; // O CNPJ da empresa logada vindo do middleware de autenticação
-
-        // Buscar os clientes relacionados ao CNPJ da empresa na tabela 'atende'
-        const clientes = await Cliente.listByEmpresa(empresaCnpj);
+        const conta = req.user.conta;
+        let user = await Empresa.findByConta(conta);
+        let cnpjEmpresa;
+        if (user) {
+            cnpjEmpresa = user.cnpj
+        } else {
+            user = await Funcionario.findByConta(conta);
+            cnpjEmpresa = user.cnpjempresa;
+        }
+        const clientes = await Cliente.listByEmpresa(cnpjEmpresa);
 
         console.log("Clientes encontrados:", clientes);
         return res.status(200).json(clientes); // Retorna os clientes encontrados

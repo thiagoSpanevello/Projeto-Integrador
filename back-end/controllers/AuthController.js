@@ -27,7 +27,7 @@ export const login = async (req, res) => {
         const token = jwt.sign(
             {
                 user: {
-                    cnpj: user.cnpj,
+                    conta: user.conta,
                     cargo: user.cargo,
                 },
             },
@@ -36,7 +36,6 @@ export const login = async (req, res) => {
 
         res.status(200).send({
             user: {
-                cnpj: user.cnpj,
                 conta: user.conta,
                 cargo: user.cargo,
             },
