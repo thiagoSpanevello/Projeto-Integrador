@@ -27,7 +27,7 @@ export const addFuncionario = async (req, res) => {
             if (user.cargo == "gerente" || cargo == "funcionario") {
                 let emp = await Empresa.findByCnpj(user.empresacnpj);
                 conta = nom + "@" + emp.nomeempresa;
-                await Funcionario.add(cpf, nome, conta, hashSenha, carho, user.empresacnpj);
+                await Funcionario.add(cpf, nome, conta, hashSenha, cargo, user.empresacnpj);
             }
         }
         return res.status(201).json({ message: "Funcionário adicionado com sucesso!" });
