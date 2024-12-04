@@ -21,13 +21,13 @@ export const addFuncionario = async (req, res) => {
         let conta;
         if (user) {
             conta = nom + "@" + user.nomeempresa.split(" ")[0];
-            await Funcionario.add(cpf, nome, conta, senha, cargo, user.cnpj);
+            await Funcionario.add(cpf, nome, conta, hashSenha, cargo, user.cnpj);
         } else {
             user = await Funcionario.findByConta(account);
             if (user.cargo == "gerente" || cargo == "funcionario") {
                 let emp = await Empresa.findByCnpj(user.empresacnpj);
                 conta = nom + "@" + emp.nomeempresa;
-                await Funcionario.add(cpf, nome, conta, senha, carho, user.empresacnpj);
+                await Funcionario.add(cpf, nome, conta, hashSenha, carho, user.empresacnpj);
             }
         }
         return res.status(201).json({ message: "Funcionário adicionado com sucesso!" });
