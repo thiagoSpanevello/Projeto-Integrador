@@ -11,7 +11,7 @@ export const addFuncionario = async (req, res) => {
             return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
         }
 
-        const { cargo: userCargo } = req.user;
+        const userCargo = req.user.cargo;
 
         // Lógica de permissão
         if (userCargo === 'empresa') {
