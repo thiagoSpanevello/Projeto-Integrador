@@ -1,4 +1,4 @@
-import Servico from "../models/servico";
+import Servico from "../models/servico.js";
 
 export const addServico = async (req, res) => {
     const { dataRealizacao, descricao, clienteCNPJ, tipoServicoNome, dataCadastro, valor } = req.body;

@@ -5,4 +5,5 @@ const router = express.Router();
 router.post("/cadastro;/servico", addServico);
 router.get("/listagem/servico", listServicos);
 
+export default router;
 

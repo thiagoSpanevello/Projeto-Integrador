@@ -6,6 +6,7 @@ import authN from './middlewares/AuthN.js'
 import FuncionarioRoutes from './routes/funcionarioRoutes.js'
 import tipoServicoRoutes from './routes/tipoServicoRoute.js'
 import ClienteRoutes from './routes/clienteRoutes.js'
+import ServicoRoutes from './routes/servicoRoutes.js'
 
 
 import cors from 'cors';
@@ -27,6 +28,7 @@ app.use('/protected', ProtectedRoute);
 app.use(FuncionarioRoutes);
 app.use(ClienteRoutes);
 app.use(tipoServicoRoutes);
+app.use(ServicoRoutes)
 
 
 // //Rotas de Tipos de Serviços
