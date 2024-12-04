@@ -8,6 +8,7 @@ const Servico = {
                 'INSERT INTO servico(datarealizacao, descricao, clientecnpj, tiposervicoid) VALUES($1, $2, $3, $4, $5) returning id',
                 [datarealizacao, descricao, clientecnpj, tiposervicoid]
             );
+            console.log(resultado);
             if (!datacadastro || !valor) {
                 Pagamento.add(datacadastro, valor, resultado);
             }
