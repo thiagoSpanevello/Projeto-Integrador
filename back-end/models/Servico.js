@@ -4,13 +4,13 @@ import Pagamento from './Pagamento.js';
 const Servico = {
     add: async (datarealizacao, descricao, clientecnpj, tiposervicoid, datacadastro, valor) => {
         try {
-            const resultado = await db.none(
+            const resultado = await db.one(
                 'INSERT INTO servico(datarealizacao, descricao, clientecnpj, tiposervicoid) VALUES($1, $2, $3, $4) returning id',
                 [datarealizacao, descricao, clientecnpj, tiposervicoid]
             );
             console.log(resultado);
             if (!datacadastro || !valor) {
-                Pagamento.add(datacadastro, valor, resultado);
+                Pagamento.add(datacadastro, valor, resultado.id);
             }
             return resultado;
         } catch (error) {
