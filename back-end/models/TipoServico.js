@@ -4,7 +4,7 @@ const TipoServico = {
     add: async (nome, descricao) => {
         try {
             const resultado = await db.none(
-                'INSERT INTO tiposservico(nome, descricao) VALUES($1, $2)',
+                'INSERT INTO tiposervico(nome, descricao) VALUES($1, $2)',
                 [nome, descricao]
             );
             return resultado;
@@ -15,7 +15,7 @@ const TipoServico = {
 
     list: async () => {
         try {
-            const resultado = await db.any('SELECT * FROM tiposservico');
+            const resultado = await db.any('SELECT * FROM tiposervico');
             return resultado;
         } catch (error) {
             throw new Error("Erro na listagem de tipos de serviços: " + error.message);
@@ -24,7 +24,7 @@ const TipoServico = {
 
     findById: async (id) => {
         try {
-            const resultado = await db.oneOrNone('SELECT * FROM tiposservico WHERE id = $1', [id]);
+            const resultado = await db.oneOrNone('SELECT * FROM tiposervico WHERE id = $1', [id]);
             return resultado;
         } catch (error) {
             throw new Error("Erro ao buscar tipo de serviço por ID: " + error.message);
@@ -34,7 +34,7 @@ const TipoServico = {
     update: async (id, nome, descricao) => {
         try {
             await db.none(
-                'UPDATE tiposservico SET nome = $1, descricao = $2 WHERE id = $3',
+                'UPDATE tiposervico SET nome = $1, descricao = $2 WHERE id = $3',
                 [nome, descricao, id]
             );
         } catch (error) {
@@ -44,7 +44,7 @@ const TipoServico = {
 
     delete: async (id) => {
         try {
-            await db.none('DELETE FROM tiposservico WHERE id = $1', [id]);
+            await db.none('DELETE FROM tiposervico WHERE id = $1', [id]);
         } catch (error) {
             throw new Error("Erro ao excluir tipo de serviço: " + error.message);
         }
