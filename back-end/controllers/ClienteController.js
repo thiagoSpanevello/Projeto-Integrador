@@ -44,7 +44,7 @@ export const listClientes = async (req, res) => {
             cnpjEmpresa = user.cnpj
         } else {
             user = await Funcionario.findByConta(conta);
-            cnpjEmpresa = user.cnpjempresa;
+            cnpjEmpresa = user.empresacnpj;
         }
         const clientes = await Cliente.listByEmpresa(cnpjEmpresa);
 
