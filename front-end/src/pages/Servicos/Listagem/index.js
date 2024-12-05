@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./style.css";
 
 function ListagemServicos() {
   const [filtro, setFiltro] = useState("todos");
-  const [servicos, setServicos] = useState([
-    { tipo: "Frete", cliente: "Cliente1", data: "10/11/2024" },
-    { tipo: "Frete", cliente: "Cliente2", data: "15/11/2024" },
-    { tipo: "Frete", cliente: "Cliente5", data: "20/11/2024" },
-    { tipo: "Contabilidade", cliente: "Cliente12", data: "25/11/2024" },
-  ]);
+  const [servicos, setServicos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Função para buscar serviços do backend
+  const fetchServicos = async () => {
+    try {
+      const token = localStorage.getItem("token"); // Recupera o token armazenado
+      const response = await axios.get("http://localhost:3001/listagem/servico", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Envia o token no cabeçalho
+        },
+      });
+
+      setServicos(response.data); // Atualiza o estado com os dados recebidos
+      setLoading(false); // Finaliza o carregamento
+    } catch (error) {
+      console.error("Erro ao buscar serviços:", error);
+      setLoading(false); // Finaliza o carregamento em caso de erro
+    }
+  };
+
+  useEffect(() => {
+    fetchServicos();
+  }, []);
 
   const getItensFiltrados = () => {
     if (filtro === "tipo") {
@@ -21,15 +40,30 @@ function ListagemServicos() {
     return servicos;
   };
 
-  const deletarServico = (index) => {
-    const novosServicos = [...servicos];
-    novosServicos.splice(index, 1);
-    setServicos(novosServicos);
+  const deletarServico = async (index) => {
+    const servico = servicos[index];
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:3001/servico/${servico.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Atualiza a lista removendo o serviço deletado
+      setServicos(servicos.filter((_, i) => i !== index));
+    } catch (error) {
+      console.error("Erro ao deletar serviço:", error);
+    }
   };
 
   const alterarServico = (index) => {
     alert(`Alterar serviço: ${JSON.stringify(servicos[index])}`);
   };
+
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <div>
@@ -58,9 +92,9 @@ function ListagemServicos() {
             </div>
             {getItensFiltrados().map((servico, index) => (
               <div key={index} className="item">
-                <span>{servico.tipo}</span>
-                <span>{servico.cliente}</span>
-                <span>{servico.data}</span>
+                <span>{servico.tipo_nome}</span>
+                <span>{servico.clientecnpj}</span>
+                <span>{servico.datarealizacao}</span>
                 <div className="actions">
                   <button onClick={() => deletarServico(index)}>Deletar</button>
                   <button onClick={() => alterarServico(index)}>Alterar</button>

@@ -5,6 +5,11 @@ import "./style.css";
 function Pagamento() {
   const [tiposOptions, setTiposOptions] = useState([]);
   const [clientesOptions, setClienteOptions] = useState([]);
+  const [descricao, setDescricao] = useState("");
+  const [tipoServico, setTipoServico] = useState("");
+  const [cliente, setCliente] = useState("");
+  const [valorPagamento, setValorPagamento] = useState("");
+  const [dataPagamento, setDataPagamento] = useState("");
 
   const fetchOptions = useCallback(async () => {
     const token = localStorage.getItem("token");
@@ -38,60 +43,30 @@ function Pagamento() {
       setClienteOptions(
         clientes?.data?.map((c) => ({ label: c.nomeempresa, value: c.cnpj }))
       );
-
-      document.getElementById("tipo-servico").value = "";
-      document.getElementById("cliente").value = "";
-    } catch {}
+    } catch (e) {
+      console.error("Erro ao buscar opções:", e);
+    }
   }, []);
 
   useEffect(() => {
-    // Elementos do DOM
-    const tabServico = document.getElementById("tab-servico");
-    const tabPagamento = document.getElementById("tab-pagamento");
-    const formServico = document.getElementById("form-servico");
-    const formPagamento = document.getElementById("form-pagamento");
-
-    // Alternar abas
-    tabServico.addEventListener("click", () => {
-      tabServico.classList.add("active");
-      tabPagamento.classList.remove("active");
-      formServico.classList.remove("hidden");
-      formPagamento.classList.add("hidden");
-    });
-
-    tabPagamento.addEventListener("click", () => {
-      tabPagamento.classList.add("active");
-      tabServico.classList.remove("active");
-      formPagamento.classList.remove("hidden");
-      formServico.classList.add("hidden");
-    });
-
     fetchOptions();
-    // Cadastro de serviço
-  }, [fetchOptions]); // useEffect vazio, executa apenas na montagem
+  }, [fetchOptions]);
 
   const handleSubmit = useCallback(async () => {
-    const descricao = document.getElementById("descricao").value;
-    const tipoServico = document.getElementById("tipo-servico").value;
-    const cliente = document.getElementById("cliente").value;
-    const valorPagamento = document.getElementById("valor-pagamento").value;
-    const dataPagamento = document.getElementById("data-pagamento").value;
-
     const token = localStorage.getItem("token");
 
     if (descricao && tipoServico && cliente) {
       try {
+        console.log("ID tipo servico: " + tipoServico);
         await axios.post(
           "http://localhost:3001/cadastro/servico",
           {
             dataRealizacao: new Date(),
             descricao,
-            // tipoServicoId: tipoServico,
-            tipoServicoId: 3,
-            // clienteCNPJ: cliente,
-            clienteCNPJ: "12.345.678/0001-00",
-            valor: valorPagamento,
-            dataCadastro: new Date(dataPagamento),
+            tipoServicoId: tipoServico,
+            clienteCNPJ: cliente,
+            valor: valorPagamento || null,
+            dataCadastro: dataPagamento || null,
           },
           {
             headers: {
@@ -100,23 +75,22 @@ function Pagamento() {
           }
         );
 
-        alert(
-          `Serviço cadastrado com sucesso!
-          `
-        );
+        alert("Serviço cadastrado com sucesso!");
 
-        document.getElementById("descricao").value = "";
-        document.getElementById("tipo-servico").value = "";
-        document.getElementById("cliente").value = "";
-        document.getElementById("valor-pagamento").value = "";
-        document.getElementById("data-pagamento").value = "";
+        // Resetando os estados
+        setDescricao("");
+        setTipoServico("");
+        setCliente("");
+        setValorPagamento("");
+        setDataPagamento("");
       } catch (e) {
-        alert(e);
+        console.error("Erro ao cadastrar serviço:", e);
+        alert("Erro ao cadastrar serviço. Verifique os dados.");
       }
     } else {
       alert("Por favor, preencha todos os campos.");
     }
-  }, []);
+  }, [descricao, tipoServico, cliente, valorPagamento, dataPagamento]);
 
   return (
     <form
@@ -140,52 +114,47 @@ function Pagamento() {
             <label htmlFor="descricao">Descrição do serviço</label>
             <textarea
               id="descricao"
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
               placeholder="Descreva o serviço realizado..."
             ></textarea>
           </div>
           <div className="form-group">
             <label htmlFor="tipo-servico">Tipo de Serviço</label>
-            <select id="tipo-servico">
-              {tiposOptions && tiposOptions?.length > 0 && (
-                <option value="" disabled>
-                  Selecione uma opção
+            <select
+              id="tipo-servico"
+              value={tipoServico}
+              onChange={(e) => setTipoServico(e.target.value)}
+            >
+              <option value="" disabled>
+                Selecione uma opção
+              </option>
+              {tiposOptions?.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
                 </option>
-              )}
-              {tiposOptions && tiposOptions?.length > 0 ? (
-                tiposOptions?.map((item) => (
-                  <option key={item?.value} value={item?.value}>
-                    {item?.label}
-                  </option>
-                ))
-              ) : (
-                <option value="" disabled>
-                  Nenhuma opção encontrada
-                </option>
-              )}
+              ))}
             </select>
           </div>
+
           <div className="form-group">
             <label htmlFor="cliente">Cliente</label>
-            <select id="cliente">
-              {clientesOptions && clientesOptions?.length > 0 && (
-                <option value="" disabled>
-                  Selecione uma opção
+            <select
+              id="cliente"
+              value={cliente}
+              onChange={(e) => setCliente(e.target.value)}
+            >
+              <option value="" disabled>
+                Selecione uma opção
+              </option>
+              {clientesOptions?.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
                 </option>
-              )}
-              {clientesOptions && clientesOptions?.length > 0 ? (
-                clientesOptions?.map((item) => (
-                  <option key={item?.value} value={item?.value}>
-                    {item?.label}
-                  </option>
-                ))
-              ) : (
-                <option value="" disabled>
-                  Nenhuma opção encontrada
-                </option>
-              )}
+              ))}
             </select>
           </div>
-          <button id="btn-cadastrar-servico">Cadastrar</button>
+          <button type="submit">Cadastrar Serviço</button>
         </div>
 
         <div id="form-pagamento" className="forms hidden">
@@ -194,14 +163,21 @@ function Pagamento() {
             <input
               type="text"
               id="valor-pagamento"
+              value={valorPagamento}
+              onChange={(e) => setValorPagamento(e.target.value)}
               placeholder="R$ Valor do pagamento, sem parcela"
             />
           </div>
           <div className="form-group">
             <label htmlFor="data-pagamento">Data do Pagamento</label>
-            <input type="date" id="data-pagamento" />
+            <input
+              type="date"
+              id="data-pagamento"
+              value={dataPagamento}
+              onChange={(e) => setDataPagamento(e.target.value)}
+            />
           </div>
-          <button id="btn-cadastrar-pagamento">Cadastrar</button>
+          <button type="submit">Cadastrar Pagamento</button>
         </div>
       </div>
     </form>

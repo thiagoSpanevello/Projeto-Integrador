@@ -1,4 +1,8 @@
+import Cliente from "../models/Cliente.js";
+import Empresa from "../models/Empresa.js";
 import Servico from "../models/servico.js";
+import Funcionario from "../models/Funcionario.js";
+import TipoServico from "../models/TipoServico.js";
 
 export const addServico = async (req, res) => {
     const { dataRealizacao, descricao, clienteCNPJ, tipoServicoId, dataCadastro, valor } = req.body;
@@ -17,9 +21,32 @@ export const addServico = async (req, res) => {
 };
 
 export const listServicos = async (req, res) => {
+
     try {
-        const servicos = await Servico.list();
-        return res.status(200).json(servicos);
+        const conta = req.user.conta;
+        let user = await Empresa.findByConta(conta);
+        let cnpjEmpresa;
+        if (user) {
+            cnpjEmpresa = user.cnpj
+        } else {
+            user = await Funcionario.findByConta(conta);
+            cnpjEmpresa = user.empresacnpj;
+        }
+        const clientes = await Cliente.listByEmpresa(cnpjEmpresa);
+        const clientesCNPJ = clientes.map((cliente) => cliente.cnpj)
+        const servicos = await Servico.listByCliente(clientesCNPJ);
+        const tipoServicos = await TipoServico.list();
+
+        const servicosComTipo = servicos.map(servico => {
+            const tipo = tipoServicos.find(t => t.id === servico.tiposervicoid);
+            const formatedDate = new Intl.DateTimeFormat('pt-BR').format(new Date(servico.datarealizacao))
+            return {
+                ...servico,
+                tipo_nome: tipo.nome,
+                datarealizacao: formatedDate
+            }
+        })
+        return res.status(200).json(servicosComTipo);
     } catch (error) {
         console.error("Erro ao listar serviços: ", error);
         return res.status(500).json({ message: "Erro interno ao listar serviços." });

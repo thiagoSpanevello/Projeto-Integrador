@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #e9ecef; /* Cor de fundo mais suave */
+  background-color: #e9ecef;
+  /* Cor de fundo mais suave */
 }
 
 .container {
@@ -10,15 +11,17 @@ body {
   margin: 0 auto;
   padding: 2rem;
   padding-top: 1rem;
-  background-color: #ffffff; /* Fundo branco para contraste */
+  background-color: #ffffff;
+  /* Fundo branco para contraste */
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
 }
 
 .inside-container {
   padding-top: 2rem;
   display: flex;
-  flex-direction: column; /* Mudando para coluna para melhor layout */
+  flex-direction: column;
 }
 
 .form-group {
@@ -29,7 +32,8 @@ body {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333; /* Cor do texto mais escura */
+  color: #333;
+  /* Cor do texto mais escura */
 }
 
 select {
@@ -37,78 +41,94 @@ select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px; /* Aumentando o tamanho da fonte */
+  font-size: 16px;
+  /* Aumentando o tamanho da fonte */
 }
 
 .listagem {
   margin-top: 20px;
-  border: 1px solid #ddd; /* Bordas mais suaves */
+  border: 1px solid #ddd;
+  /* Bordas mais suaves */
   border-radius: 5px;
   background-color: #f9f9f9;
-  overflow-y: auto; /* Adicionando rolagem se necessário */
-  max-height: 60vh; /* Limitar a altura da listagem */
+  overflow-y: auto;
+  /* Adicionando rolagem se necessário */
+  max-height: 60vh;
+  /* Limitar a altura da listagem */
+}
+
+.listagem .header,
+.listagem .item {
+  display: grid;
+  grid-template-columns: 2fr 2fr 3fr 1.5fr 2fr 1fr 2fr 1fr;
+  /* Define larguras fixas para cada coluna */
+  align-items: center;
+  /* Centraliza o conteúdo verticalmente */
+  padding: 10px;
 }
 
 .listagem .header {
-  display: table;
-  width: 100%;
-  background-color: rgb(167, 166, 166); /* Fundo azul para cabeçalho */
-  color: #ffffff; /* Texto branco */
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.listagem .header span {
-  display: table-cell;
-  padding: 10px;
+  background-color: rgb(167, 166, 166);
+  /* Fundo cinza para o cabeçalho */
+  color: #ffffff;
+  /* Texto branco */
   font-weight: bold;
+  border-radius: 5px 5px 0 0;
 }
 
 .listagem .item {
-  display: table;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #ffffff; /* Fundo branco para itens */
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: background-color 0.2s; /* Efeito de transição */
+  background-color: #ffffff;
+  /* Fundo branco para itens */
+  border-bottom: 1px solid #ddd;
+  /* Linha separadora entre itens */
+  transition: background-color 0.2s;
+  /* Efeito de transição */
 }
 
 .listagem .item:hover {
-  background-color: #f1f1f1; /* Efeito de hover */
+  background-color: #f1f1f1;
+  /* Efeito de hover */
 }
 
+.listagem .header span,
 .listagem .item span {
-  display: table-cell; /* Usando table-cell para os itens */
-  padding: 10px; /* Espaçamento interno */
-  color: #555; /* Cor do texto mais suave */
+  padding: 5px;
+  text-align: center;
+  /* Centraliza horizontalmente */
 }
 
 .listagem .actions {
   display: flex;
+  justify-content: center;
+  /* Centraliza os botões */
   gap: 10px;
 }
 
 .listagem .actions button {
-  padding: 8px 12px; /* Aumentando o padding */
+  padding: 8px 12px;
+  /* Aumentando o padding */
   font-size: 14px;
   cursor: pointer;
-  border: none; /* Removendo borda padrão */
+  border: none;
+  /* Removendo borda padrão */
   border-radius: 5px;
-  background-color: #28a745; /* Verde para o botão de ação */
+  background-color: #28a745;
+  /* Verde para o botão de ação */
   color: #fff;
-  transition: background-color 0.2s, transform 0.2s; /* Efeitos de transição */
+  transition: background-color 0.2s, transform 0.2s;
+  /* Efeitos de transição */
 }
 
 .listagem .actions button:hover {
-  background-color: #218838; /* Verde mais escuro ao passar o mouse */
-  transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+  background-color: #218838;
+  /* Verde mais escuro ao passar o mouse */
+  transform: scale(1.05);
+  /* Efeito de aumento ao passar o mouse */
 }
 
 .listagem .actions button:active {
-  transform: scale(0.95); /* Efeito de clique */
+  transform: scale(0.95);
+  /* Efeito de clique */
 }
 
 .hidden {

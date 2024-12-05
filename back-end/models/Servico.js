@@ -18,9 +18,10 @@ const Servico = {
         }
     },
 
-    list: async () => {
+    listByCliente: async (clientecnpj) => {
         try {
-            const resultado = await db.any('SELECT * FROM servico');
+            const resultado = await db.any(`SELECT * FROM servico WHERE clientecnpj = ANY($1::text[])`,
+                [clientecnpj]);
             return resultado;
         } catch (error) {
             throw new Error("Erro na listagem de serviços: " + error.message);

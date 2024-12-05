@@ -47,8 +47,6 @@ export const listClientes = async (req, res) => {
             cnpjEmpresa = user.empresacnpj;
         }
         const clientes = await Cliente.listByEmpresa(cnpjEmpresa);
-
-        console.log("Clientes encontrados:", clientes);
         return res.status(200).json(clientes); // Retorna os clientes encontrados
     } catch (error) {
         console.error("Erro ao listar clientes:", error);
