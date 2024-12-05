@@ -9,13 +9,16 @@ function ListagemClientes() {
 
   const fetchClientes = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
-      const response = await axios.get("http://localhost:3001/relatorio/clientes", {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.get(
+        "http://localhost:3001/relatorio/clientes",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
       setClientes(response.data);
       setLoading(false);
@@ -32,12 +35,12 @@ function ListagemClientes() {
   const ordenarClientes = (clientes) => {
     return clientes.sort((a, b) => {
       if (ordem === "nome") {
-        const nomeA = a.nomeempresa || '';
-        const nomeB = b.nomeempresa || '';
+        const nomeA = a.nomeempresa || "";
+        const nomeB = b.nomeempresa || "";
         return nomeA.localeCompare(nomeB);
       } else if (ordem === "cnpj") {
-        const cnpjA = a.cnpj || '';
-        const cnpjB = b.cnpj || '';
+        const cnpjA = a.cnpj || "";
+        const cnpjB = b.cnpj || "";
         return cnpjA.localeCompare(cnpjB);
       }
       return 0;
@@ -47,12 +50,12 @@ function ListagemClientes() {
   const deletarCliente = async (index) => {
     const cliente = clientes[index];
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       await axios.delete(`http://localhost:3001/funcionarios/${cliente.cnpj}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
 
       setClientes(clientes.filter((_, i) => i !== index));
@@ -87,14 +90,30 @@ function ListagemClientes() {
 
           <div className="listagem">
             <div className="header">
-              <span><strong>Nome da Empresa</strong></span>
-              <span><strong>CNPJ</strong></span>
-              <span><strong>Endereço</strong></span>
-              <span><strong>CEP</strong></span>
-              <span><strong>Cidade</strong></span>
-              <span><strong>Estado</strong></span>
-              <span><strong>Telefone</strong></span>
-              <span><strong>Ações</strong></span>
+              <span>
+                <strong>Nome</strong>
+              </span>
+              <span>
+                <strong>CNPJ</strong>
+              </span>
+              <span>
+                <strong>Endereço</strong>
+              </span>
+              <span>
+                <strong>CEP</strong>
+              </span>
+              <span>
+                <strong>Cidade</strong>
+              </span>
+              <span>
+                <strong>Estado</strong>
+              </span>
+              <span>
+                <strong>Telefone</strong>
+              </span>
+              <span>
+                <strong>Ações</strong>
+              </span>
             </div>
             {ordenarClientes(clientes).map((cliente, index) => (
               <div key={index} className="item">

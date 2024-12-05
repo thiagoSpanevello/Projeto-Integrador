@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import './style.css';
-import axios from 'axios'; // Importando o axios para fazer requisições HTTP
+import React, { useState, useCallback } from "react";
+import "./style.css";
+import axios from "axios"; // Importando o axios para fazer requisições HTTP
 
 function CadastroClientes() {
-  const [nome, setNome] = useState('');
-  const [cnpj, setCnpj] = useState('');
-  const [rua, setEndereco] = useState('');
-  const [cep, setCep] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [estado, setEstado] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [nome, setNome] = useState("");
+  const [cnpj, setCnpj] = useState("");
+  const [rua, setEndereco] = useState("");
+  const [cep, setCep] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   // Função para cadastrar o cliente
-  const cadastrarCliente = async () => {
+  const cadastrarCliente = useCallback(async () => {
     if (!nome || !cnpj || !rua || !cep || !cidade || !estado || !telefone) {
-      setError('Por favor, preencha todos os campos.');
-      setSuccess('');
+      setError("Por favor, preencha todos os campos.");
+      setSuccess("");
       return;
     }
 
     try {
       // Obtendo o token (ajuste conforme necessário para o seu sistema de armazenamento)
-      const token = localStorage.getItem('token'); // Certifique-se de que o token está armazenado no localStorage
+      const token = localStorage.getItem("token"); // Certifique-se de que o token está armazenado no localStorage
 
       // Fazendo a requisição POST para o backend com o cabeçalho de autorização
       await axios.post(
-        'http://localhost:3001/cadastro/clientes',
+        "http://localhost:3001/cadastro/clientes",
         {
           cnpj,
           nome,
@@ -44,28 +44,26 @@ function CadastroClientes() {
         }
       );
 
-      setSuccess('Cliente cadastrado com sucesso!');
-      setError('');
+      setSuccess("Cliente cadastrado com sucesso!");
+      setError("");
 
       // Limpar os campos após o sucesso
-      setNome('');
-      setCnpj('');
-      setEndereco('');
-      setCep('');
-      setCidade('');
-      setEstado('');
-      setTelefone('');
+      setNome("");
+      setCnpj("");
+      setEndereco("");
+      setCep("");
+      setCidade("");
+      setEstado("");
+      setTelefone("");
     } catch (error) {
-      setError('Erro ao cadastrar cliente. Tente novamente.');
-      setSuccess('');
+      setError("Erro ao cadastrar cliente. Tente novamente.");
+      setSuccess("");
     }
-  };
-
+  }, [cep, cidade, cnpj, estado, nome, rua, telefone]);
 
   return (
     <div>
-      <div className="container-clientes">
-        <h2>Cadastro de Clientes</h2>
+      <div className="container-services">
         <div id="form-cliente" className="forms">
           {error && <div className="alert alert-danger">{error}</div>}
           {success && <div className="alert alert-success">{success}</div>}

@@ -31,25 +31,6 @@ body {
   margin-bottom: 20px; /* Espaço entre as abas e o conteúdo */
 }
 
-.tab {
-  min-width: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px 10px 0 0; /* Bordas arredondadas no topo */
-  background-color: #f7f7f7; /* Cor de fundo padrão */
-  margin-right: 5px; /* Espaço entre as abas */
-  transition: background-color 0.3s, color 0.3s; /* Suaviza mudanças de estilo */
-}
-
-.tab.active {
-  background-color: #e0e0e0; /* Destaque para aba ativa */
-  font-weight: bold;
-}
-
 /* Formulário */
 .form-group {
   margin-bottom: 15px;
@@ -94,10 +75,8 @@ button:hover {
 
 /* Formulário completo */
 .forms {
-  flex: 1; /* Faz o formulário ocupar o restante do espaço */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribui os elementos dentro do formulário */
 }
 
 /* Ocultação */
