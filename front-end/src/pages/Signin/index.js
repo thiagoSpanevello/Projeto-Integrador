@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./style.css";
 import axios from "axios";
 
@@ -25,6 +26,7 @@ function Signin() {
       localStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/home");
     } catch (error) {
+      toast.error("Erro ao tentar fazer login!");
       console.error(
         "Erro ao fazer login:",
         error.response?.data || error.message

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
+import { toast } from "react-toastify";
 import "./style.css";
-import axios from "axios"; // Importando o axios para fazer requisições HTTP
+import axios from "axios";
 
 function CadastroClientes() {
   const [nome, setNome] = useState("");
@@ -10,22 +11,20 @@ function CadastroClientes() {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
-  // Função para cadastrar o cliente
+
+
   const cadastrarCliente = useCallback(async () => {
     if (!nome || !cnpj || !rua || !cep || !cidade || !estado || !telefone) {
-      setError("Por favor, preencha todos os campos.");
-      setSuccess("");
+      toast.error("Favor preencha todos os campos!");
       return;
     }
 
     try {
-      // Obtendo o token (ajuste conforme necessário para o seu sistema de armazenamento)
-      const token = localStorage.getItem("token"); // Certifique-se de que o token está armazenado no localStorage
 
-      // Fazendo a requisição POST para o backend com o cabeçalho de autorização
+      const token = localStorage.getItem("token");
+
+
       await axios.post(
         "http://localhost:3001/cadastro/clientes",
         {
@@ -39,15 +38,10 @@ function CadastroClientes() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      setSuccess("Cliente cadastrado com sucesso!");
-      setError("");
-
-      // Limpar os campos após o sucesso
       setNome("");
       setCnpj("");
       setEndereco("");
@@ -55,9 +49,10 @@ function CadastroClientes() {
       setCidade("");
       setEstado("");
       setTelefone("");
+      toast.success("Cliente cadastrado com sucesso!");
     } catch (error) {
-      setError("Erro ao cadastrar cliente. Tente novamente.");
-      setSuccess("");
+      toast.error("Erro no cadastro de cliente!");
+      console.error("erro cadastro cliente: " + error);
     }
   }, [cep, cidade, cnpj, estado, nome, rua, telefone]);
 
@@ -65,8 +60,6 @@ function CadastroClientes() {
     <div>
       <div className="container-services">
         <div id="form-cliente" className="forms">
-          {error && <div className="alert alert-danger">{error}</div>}
-          {success && <div className="alert alert-success">{success}</div>}
           <div className="form-group">
             <label htmlFor="nome">Nome do Cliente</label>
             <input

@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "./style.css";
 
@@ -27,7 +28,7 @@ function Pagamento() {
               }
             );
 
-            alert(
+            toast(
               `Tipo de serviço cadastrado com sucesso!
               Descrição: ${descricao}
               Nome: ${nome}
@@ -36,10 +37,11 @@ function Pagamento() {
             document.getElementById("descricao").value = "";
             document.getElementById("nome").value = "";
           } catch (e) {
-            alert(e);
+            toast.error("erro ao cadastrar tipo de serviço!");
+            console.error("erro cadastro tipo: " + e);
           }
         } else {
-          alert("Por favor, preencha todos os campos.");
+          toast("Por favor, preencha todos os campos.");
         }
       });
   }, []); // useEffect vazio, executa apenas na montagem

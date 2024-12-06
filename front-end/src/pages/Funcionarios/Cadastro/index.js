@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { toast } from 'react-toastify';
 import axios from "axios";
 import "./style.css";
 
@@ -28,16 +29,18 @@ function CadastroFuncionarios() {
             },
           }
         );
-        alert(`Funcionário cadastrado com sucesso!`);
+        toast.success(`Funcionário cadastrado com sucesso!`);
         document.getElementById("cpf").value = "";
         document.getElementById("nome").value = "";
         document.getElementById("senha").value = "";
         toggleIsManager(false);
       } catch (e) {
-        alert(e);
+        toast("Erro ao cadastrar funcionário.");
+        console.error("erro no cadastro de funcionario: " + e);
+
       }
     } else {
-      alert("Por favor, preencha todos os campos.");
+      toast.error("Por favor, preencha todos os campos.");
     }
   }, [isManager]); // useEffect vazio, executa apenas na montagem
 
