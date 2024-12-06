@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -35,6 +36,10 @@ function Sidebar() {
     navigate("/");
   };
 
+  const goToHome = () => {
+    navigate("/home");
+  }
+
   return (
     <div className="sidebar">
       <div>
@@ -42,6 +47,12 @@ function Sidebar() {
           <span className="user-icon">👤</span>
           <span className="user-info">
             {user ? user.conta : "Carregando..."}
+            <FaHome
+              className="home-icon"
+              onClick={goToHome}
+              style={{ cursor: "pointer", marginLeft: "8px" }}
+              title="Ir para a Home"
+            />
           </span>
         </div>
         <div className="sidebar-menu">
@@ -101,7 +112,7 @@ function Sidebar() {
               <a>Boleto</a>
             </li>
             <li>
-              <a>PNota Fiscal de Serviço</a>
+              <a>Nota Fiscal de Serviço</a>
             </li>
           </ul>
         </div>

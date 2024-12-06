@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 import "./style.css";
 
@@ -75,7 +76,7 @@ function Pagamento() {
           }
         );
 
-        alert("Serviço cadastrado com sucesso!");
+        toast.success("Serviço cadastrado com sucesso!");
 
         // Resetando os estados
         setDescricao("");
@@ -85,10 +86,10 @@ function Pagamento() {
         setDataPagamento("");
       } catch (e) {
         console.error("Erro ao cadastrar serviço:", e);
-        alert("Erro ao cadastrar serviço. Verifique os dados.");
+        toast.error("Erro ao cadastrar serviço. Verifique os dados.s");
       }
     } else {
-      alert("Por favor, preencha todos os campos.");
+      toast.error("Por favor, preencha todos os campos.");
     }
   }, [descricao, tipoServico, cliente, valorPagamento, dataPagamento]);
 

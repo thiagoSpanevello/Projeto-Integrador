@@ -7,7 +7,6 @@ import axios from "axios";
 function Signin() {
   const [conta, setConta] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -31,7 +30,6 @@ function Signin() {
         "Erro ao fazer login:",
         error.response?.data || error.message
       );
-      setMessage(error.response?.data.message || "Erro ao fazer login");
     }
   };
 
@@ -62,7 +60,6 @@ function Signin() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            {message && <p className="errorMessage">{message}</p>}
             <button type="submit" className="btn btn-primary logbtn">
               LOGIN
             </button>
