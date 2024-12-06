@@ -109,10 +109,10 @@ function Sidebar() {
           </div>
           <ul className={`submenu ${showEmissoes ? "show" : ""}`}>
             <li>
-              <a>Boleto</a>
+            <Link to="/home/ListagemEmissoesBoleto">Boleto</Link>
             </li>
             <li>
-              <a>Nota Fiscal de Serviço</a>
+            <Link to="/home/ListagemEmissoesNotaF">Nota Fiscal de Serviço</Link>
             </li>
           </ul>
         </div>

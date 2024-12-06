@@ -12,6 +12,8 @@ import CadastroTipoServico from "../TipoServico/Cadastro";
 import ListagemTipoServico from "../TipoServico/Listagem";
 import "./style.css";
 import ListagemPagamentos from "../TipoServico/Pagamento";
+import ListagemEmissoesBoleto from "../Boleto";
+import ListagemEmissoesNotaF from "../NotaFiscal";
 
 function Home() {
   return (
@@ -35,6 +37,8 @@ function Home() {
           <Route path="CadastroTipoServico" element={<CadastroTipoServico />} />
           <Route path="ListagemTipoServico" element={<ListagemTipoServico />} />
           <Route path="ListagemPagamento" element={<ListagemPagamentos />} />
+          <Route path="ListagemEmissoesBoleto" element={<ListagemEmissoesBoleto />} />
+          <Route path="ListagemEmissoesNotaF" element={<ListagemEmissoesNotaF />} />
         </Routes>
       </div>
     </div>

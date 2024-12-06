@@ -1,0 +1,137 @@
+/* Estilos gerais para o corpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f5f7;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Remove rolagem horizontal */
+  }
+  
+  /* Container principal */
+  .containerListagemEmissoesNotaF {
+    width: 80%;
+    margin: 0 10%;
+    height: fit-content; /* Altura de 95% da tela */
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 2rem;
+    background-color: #ffffff; /* Fundo branco */
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* Remove possíveis transbordamentos */
+  }
+  
+  .scroll {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    max-height: 400px;
+    width: 100%;
+    height: fit-content;
+  }
+  
+  .title-emissoes-notaf {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  /* Container interno flexível */
+  .inside-container-listagem-emissoes-notaf {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Organização em coluna */
+    overflow: hidden; /* Remove transbordamentos */
+  }
+  
+  /* Grupo de formulários */
+  .form-group-listagem-emissoes-notaf {
+    margin-bottom: 20px; /* Espaçamento maior entre os elementos */
+  }
+  
+  /* Rótulo do formulário */
+  .form-group-listagem-emissoes-notaf label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Campo de seleção */
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Container de listagem */
+  .listagemEmissoesNotaF {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    padding: 0; /* Remove padding interno extra */
+  }
+  
+  /* Cabeçalho da listagem */
+  .listagemEmissoesNotaF .header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr; /* Define 5 colunas principais */
+    background-color: #6c757d;
+    color: #ffffff;
+    padding: 15px; /* Espaçamento maior */
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    gap: 10px; /* Adiciona espaçamento entre colunas */
+  }
+  
+  /* Itens da listagem */
+  .listagemEmissoesNotaF .item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr; /* Ajuste das colunas para maior espaço */
+    align-items: center;
+    padding: 15px; /* Espaçamento interno */
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+    gap: 10px; /* Adiciona espaçamento entre colunas */
+  }
+  
+  /* Efeito de hover nos itens */
+  .listagemEmissoesNotaF .item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  /* Texto centralizado nos cabeçalhos e itens */
+  .listagemEmissoesNotaF .header span,
+  .listagemEmissoesNotaF .item span {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Garante que o texto não quebre */
+  }
+  
+  /* Ações (botões) nos itens */
+  .listagemEmissoesNotaF .actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaçamento entre os botões */
+  }
+  
+  /* Botões de ação */
+  .listagemEmissoesNotaF .actions button {
+    padding: 10px 16px; /* Botões maiores */
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+  }
+  
