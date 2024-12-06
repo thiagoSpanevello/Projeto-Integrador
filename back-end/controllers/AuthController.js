@@ -19,11 +19,9 @@ export const login = async (req, res) => {
         }
         if (!user) return res.status(401).send({ message: 'Usuário ou Senha inválidos!' });
 
-        // Verifica se a senha fornecida é válida
         const senhaValida = await bcrypt.compare(senha, user.senha);
         if (!senhaValida) return res.status(401).send({ message: 'Usuário ou Senha inválidos!' });
 
-        // Gera o token JWT com a chave secreta do .env
         const token = jwt.sign(
             {
                 user: {

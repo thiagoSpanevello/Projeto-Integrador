@@ -1,31 +1,21 @@
-/* Estilos gerais para o corpo */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f5f7;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow-x: hidden; /* Remove rolagem horizontal */
-}
-
 .max {
   width: 100%;
 }
 
-/* Container principal */
 .containerListagemFuncionario {
   width: 80%;
   margin: 10%;
   max-height: 80%;
-  height: fit-content; /* Altura de 95% da tela */
+  height: fit-content;
   padding: 2rem;
-  background-color: #ffffff; /* Fundo branco */
-  border-radius: 10px; /* Cantos arredondados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden; /* Remove possíveis transbordamentos */
+  overflow: hidden;
+
 }
 
 .scroll {
@@ -36,20 +26,20 @@ body {
   height: fit-content;
 }
 
-/* Container interno flexível */
+
 .inside-container-listagem-funcionario {
   flex: 1;
   display: flex;
-  flex-direction: column; /* Organização em coluna */
-  overflow: hidden; /* Remove transbordamentos */
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Grupo de formulários */
+
 .form-group-listagem-funcionario {
-  margin-bottom: 20px; /* Espaçamento maior entre os elementos */
+  margin-bottom: 20px;
 }
 
-/* Rótulo do formulário */
+
 .form-group-listagem-funcionario label {
   display: block;
   margin-bottom: 8px;
@@ -57,7 +47,7 @@ body {
   color: #333;
 }
 
-/* Campo de seleção */
+
 select {
   width: 100%;
   padding: 12px;
@@ -66,7 +56,7 @@ select {
   font-size: 16px;
 }
 
-/* Container de listagem */
+
 .listagemFuncionario {
   margin-top: 20px;
   border: 1px solid #ddd;
@@ -75,57 +65,56 @@ select {
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
-  padding: 0; /* Remove padding interno extra */
+  padding: 0;
 }
 
-/* Cabeçalho da listagem */
+
 .listagemFuncionario .header {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr; /* Define 5 colunas principais */
+  grid-template-columns: 2fr 2fr 2fr 2fr;
   background-color: #6c757d;
   color: #ffffff;
-  padding: 15px 30px 15px 15px; /* Espaçamento maior */
+  padding: 15px 30px 15px 15px;
   font-weight: bold;
   border-radius: 8px 8px 0 0;
   text-align: center;
-  gap: 10px; /* Adiciona espaçamento entre colunas */
+  gap: 10px;
 }
 
-/* Itens da listagem */
+
 .listagemFuncionario .item {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 1fr 1fr; /* Ajuste das colunas para maior espaço */
+  grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
   align-items: center;
-  padding: 15px; /* Espaçamento interno */
+  padding: 15px;
   border-bottom: 1px solid #eee;
   transition: background-color 0.2s ease;
-  gap: 10px; /* Adiciona espaçamento entre colunas */
+  gap: 10px;
 }
 
-/* Efeito de hover nos itens */
 .listagemFuncionario .item:hover {
   background-color: #f8f9fa;
 }
 
-/* Texto centralizado nos cabeçalhos e itens */
+
 .listagemFuncionario .header span,
 .listagemFuncionario .item span {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; /* Garante que o texto não quebre */
+  white-space: nowrap;
 }
 
-/* Ações (botões) nos itens */
+
 .listagemFuncionario .actions {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Espaçamento entre os botões */
+  gap: 10px;
 }
 
-/* Botões de ação */
+
 .listagemFuncionario .actions button {
-  padding: 10px 16px; /* Botões maiores */
+  padding: 10px 16px;
   font-size: 14px;
   cursor: pointer;
   border: none;
@@ -133,7 +122,7 @@ select {
   transition: all 0.2s ease;
 }
 
-/* Botão de deletar */
+
 .listagemFuncionario .actions button.deletar {
   background-color: #dc3545;
   color: #fff;
@@ -143,7 +132,7 @@ select {
   background-color: #c82333;
 }
 
-/* Botão de alterar */
+
 .listagemFuncionario .actions button.alterar {
   background-color: #007bff;
   color: #fff;
@@ -151,4 +140,89 @@ select {
 
 .listagemFuncionario .actions button.alterar:hover {
   background-color: #0056b3;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.modal .form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.modal .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal .form-group input,
+.modal .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: small;
+  box-sizing: border-box;
+}
+
+.modal .form-group input[type="password"] {
+  letter-spacing: 1px;
+}
+
+.modal button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: small;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.modal button:hover {
+  background-color: #45a049;
+}
+
+.modal button.close {
+  background-color: #f44336;
+  margin-top: 10px;
+}
+
+.modal button.close:hover {
+  background-color: #e53935;
 }

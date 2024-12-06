@@ -1,8 +1,7 @@
-import Cliente from "../models/Cliente.js";
 import Empresa from "../models/Empresa.js";
 import Servico from "../models/servico.js";
 import Funcionario from "../models/Funcionario.js";
-import TipoServico from "../models/TipoServico.js";
+
 
 export const addServico = async (req, res) => {
     const { dataRealizacao, descricao, clienteCNPJ, tipoServicoId, dataCadastro, valor } = req.body;
@@ -21,7 +20,6 @@ export const addServico = async (req, res) => {
 };
 
 export const listServicos = async (req, res) => {
-
     try {
         const conta = req.user.conta;
         let user = await Empresa.findByConta(conta);
@@ -32,6 +30,7 @@ export const listServicos = async (req, res) => {
             user = await Funcionario.findByConta(conta);
             cnpjEmpresa = user.empresacnpj;
         }
+        console.log(cnpjEmpresa);
         const servicos = await Servico.listByEmpresa(cnpjEmpresa)
         const servicosFormatados = servicos.map((servico) => ({
             ...servico,

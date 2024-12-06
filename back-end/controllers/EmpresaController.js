@@ -8,7 +8,6 @@ export const createEmpresa = async (req, res) => {
     }
 
     try {
-        // Criptografa a senha antes de salvar
         const hashedSenha = await bcrypt.hash(senha, 10);
 
         await Empresa.add(cnpj, nome, conta, hashedSenha);
@@ -37,6 +36,7 @@ export const listEmpresas = async (req, res) => {
 
 export const getEmpresaByCnpj = async (req, res) => {
     const { cnpj } = req.params;
+    console.log(req.params);
 
     if (!cnpj) {
         return res.status(400).send({ message: 'CNPJ é obrigatório!' });
@@ -72,7 +72,7 @@ export const getEmpresaByConta = async (req, res) => {
 
         res.status(200).send(empresa);
     } catch (error) {
-        console.error("Erro ao buscar empresa por CNPJ:", error);
+        console.error("Erro ao buscar empresa por conta:", error);
         res.status(500).send({ message: 'Erro interno ao buscar empresa.' });
     }
 };

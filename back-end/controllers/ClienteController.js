@@ -13,19 +13,15 @@ export const addCliente = async (req, res) => {
     } else {
         user = await Funcionario.findByConta(conta);
         cnpjEmpresa = user.cnpjempresa;
-    } // Obtém o CNPJ da empresa do usuário autenticado
+    }
 
     if (!cnpj || !nome || !rua || !cep || !cidade || !estado || !telefone) {
         return res.status(400).json({ message: "Todos os campos são obrigatórios." });
     }
 
     try {
-        // Adiciona o cliente na tabela Cliente
         await Cliente.add(cnpj, nome, rua, cep, cidade, estado, telefone);
-
-        // Associa o cliente à empresa na tabela "atende"
-        await Atende.add(cnpj, cnpjEmpresa); // CNPJ da empresa e CNPJ do cliente
-
+        await Atende.add(cnpj, cnpjEmpresa);
         return res.status(201).json({ message: "Cliente adicionado com sucesso!" });
     } catch (error) {
         console.error("Erro ao adicionar cliente: ", error);
@@ -34,7 +30,6 @@ export const addCliente = async (req, res) => {
 };
 
 
-// Controlador para listar os clientes relacionados à empresa logada
 export const listClientes = async (req, res) => {
     try {
         const conta = req.user.conta;
@@ -47,7 +42,7 @@ export const listClientes = async (req, res) => {
             cnpjEmpresa = user.empresacnpj;
         }
         const clientes = await Cliente.listByEmpresa(cnpjEmpresa);
-        return res.status(200).json(clientes); // Retorna os clientes encontrados
+        return res.status(200).json(clientes);
     } catch (error) {
         console.error("Erro ao listar clientes:", error);
         return res.status(500).json({ message: "Erro interno no servidor" });

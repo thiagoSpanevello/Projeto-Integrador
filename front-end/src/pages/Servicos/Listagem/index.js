@@ -7,24 +7,23 @@ function ListagemServicos() {
   const [servicos, setServicos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Função para buscar serviços do backend
   const fetchServicos = async () => {
     try {
-      const token = localStorage.getItem("token"); // Recupera o token armazenado
+      const token = localStorage.getItem("token");
       const response = await axios.get(
         "http://localhost:3001/listagem/servico",
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Envia o token no cabeçalho
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      setServicos(response.data); // Atualiza o estado com os dados recebidos
-      setLoading(false); // Finaliza o carregamento
+      setServicos(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar serviços:", error);
-      setLoading(false); // Finaliza o carregamento em caso de erro
+      setLoading(false);
     }
   };
 
@@ -53,7 +52,6 @@ function ListagemServicos() {
         },
       });
 
-      // Atualiza a lista removendo o serviço deletado
       setServicos(servicos.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Erro ao deletar serviço:", error);

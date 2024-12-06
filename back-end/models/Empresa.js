@@ -1,7 +1,6 @@
 import db from '../services/db.js'
 
 const Empresa = {
-    // Adicionar nova empresa
     add: async (cnpj, nome, conta, senha, cargo = 'empresa') => {
         console.log(cnpj, nome, conta, senha, cargo);
         try {
@@ -15,7 +14,6 @@ const Empresa = {
         }
     },
 
-    // Listar todas as empresa
     list: async () => {
         try {
             const resultado = await db.any('SELECT * FROM empresa');
@@ -25,7 +23,6 @@ const Empresa = {
         }
     },
 
-    // Buscar empresa pelo CNPJ
     findByCnpj: async (cnpj) => {
         try {
             const resultado = await db.oneOrNone('SELECT * FROM empresa WHERE cnpj = $1', [cnpj]);
@@ -35,7 +32,6 @@ const Empresa = {
         }
     },
 
-    // Buscar empresa pela conta
     findByConta: async (conta) => {
         try {
             const resultado = await db.oneOrNone('SELECT * FROM empresa WHERE conta = $1', [conta]);
@@ -45,7 +41,6 @@ const Empresa = {
         }
     },
 
-    // Atualizar dados da empresa
     update: async (cnpj, nome, conta, senha) => {
         try {
             const resultado = await db.none(
@@ -58,7 +53,6 @@ const Empresa = {
         }
     },
 
-    // Deletar empresa
     delete: async (cnpj) => {
         try {
             const resultado = await db.none('DELETE FROM empresa WHERE cnpj = $1', [cnpj]);

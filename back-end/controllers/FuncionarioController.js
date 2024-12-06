@@ -89,8 +89,7 @@ export const getFuncionarioByConta = async (req, res) => {
 
 
 export const updateFuncionario = async (req, res) => {
-    const { id } = req.params;
-    const { nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf } = req.body;
+    const { cpf, nome, conta, senha, cargo } = req.body;
 
     try {
 
@@ -99,7 +98,7 @@ export const updateFuncionario = async (req, res) => {
             hashSenha = await bcrypt.hash(senha, 10);
         }
 
-        await Funcionario.update(id, nome, conta, hashSenha, cargo, cnpj, rua, cep, cidade, estado, cpf);
+        await Funcionario.update(cpf, nome, conta, hashSenha, cargo);
 
         return res.status(200).json({ message: "Funcionário atualizado com sucesso!" });
     } catch (error) {
@@ -110,9 +109,9 @@ export const updateFuncionario = async (req, res) => {
 
 
 export const deleteFuncionario = async (req, res) => {
-    const { id } = req.params;
+    const { cpf } = req.params;
     try {
-        await Funcionario.delete(id);
+        await Funcionario.delete(cpf);
         return res.status(200).json({ message: "Funcionário deletado com sucesso!" });
     } catch (error) {
         console.error("Erro ao deletar funcionário: ", error);

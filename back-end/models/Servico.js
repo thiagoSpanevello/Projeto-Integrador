@@ -35,8 +35,7 @@ const Servico = {
                         s.descricao, 
                         s.clientecnpj,
                         c.nomeempresa,
-                        ts.nome AS tipo_nome, 
-                        TO_CHAR(s.datarealizacao, 'DD/MM/YYYY') AS datarealizacao_formatada
+                        ts.nome AS tipo_nome 
                     FROM 
                         servico s
                     JOIN 
@@ -51,7 +50,7 @@ const Servico = {
             );
             return resultado;
         } catch (error) {
-            throw new Error("Erro ao buscar serviço por ID: " + error.message);
+            throw new Error("Erro ao buscar serviço por empresa: " + error.message);
         }
     },
 

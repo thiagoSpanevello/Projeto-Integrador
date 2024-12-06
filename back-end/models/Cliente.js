@@ -10,7 +10,7 @@ const Cliente = {
         );
     },
 
-    // Modificado para listar clientes do CNPJ da empresa logada
+
     listByEmpresa: (empresaCnpj) => {
         return db.any(
             `SELECT c.*

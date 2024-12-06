@@ -53,15 +53,15 @@ const Funcionario = {
         }
     },
 
-    update: (id, nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado) => {
+    update: (cpf, nome, conta, senha, cargo) => {
         return db.none(
-            'UPDATE funcionarios SET nome = $1, conta = $2, senha = $3, cargo = $4, cnpj = $5, endereco_rua = $6, endereco_cep = $7, endereco_cidade = $8, endereco_estado = $9, cpf = $10 WHERE id = $10',
-            [nome, conta, senha, cargo, cnpj, rua, cep, cidade, estado, cpf, id]
+            'UPDATE funcionarios SET nome = $2, conta = $3, senha = $4, cargo = $5 WHERE cpf = $1',
+            [cpf, nome, conta, senha, cargo]
         );
     },
 
-    delete: (id) => {
-        return db.none('DELETE FROM funcionarios WHERE id = $1', [id]);
+    delete: (cpf) => {
+        return db.none('DELETE FROM funcionarios WHERE cpf = $1', [cpf]);
     }
 };
 
