@@ -11,6 +11,7 @@ function Pagamento() {
   const [cliente, setCliente] = useState("");
   const [valorPagamento, setValorPagamento] = useState("");
   const [dataPagamento, setDataPagamento] = useState("");
+  const [activeTab, setActiveTab] = useState("servico");
 
   const fetchOptions = useCallback(async () => {
     const token = localStorage.getItem("token");
@@ -56,9 +57,8 @@ function Pagamento() {
   const handleSubmit = useCallback(async () => {
     const token = localStorage.getItem("token");
 
-    if (descricao && tipoServico && cliente) {
+    if (descricao && tipoServico && cliente && valorPagamento) {
       try {
-        console.log("ID tipo servico: " + tipoServico);
         await axios.post(
           "http://localhost:3001/cadastro/servico",
           {
@@ -66,8 +66,8 @@ function Pagamento() {
             descricao,
             tipoServicoId: tipoServico,
             clienteCNPJ: cliente,
-            valor: valorPagamento || null,
-            dataCadastro: dataPagamento || null,
+            valor: valorPagamento,
+            dataCadastro: dataPagamento
           },
           {
             headers: {
@@ -78,7 +78,6 @@ function Pagamento() {
 
         toast.success("Serviço cadastrado com sucesso!");
 
-        // Resetando os estados
         setDescricao("");
         setTipoServico("");
         setCliente("");
@@ -86,12 +85,16 @@ function Pagamento() {
         setDataPagamento("");
       } catch (e) {
         console.error("Erro ao cadastrar serviço:", e);
-        toast.error("Erro ao cadastrar serviço. Verifique os dados.s");
+        toast.error("Erro ao cadastrar serviço. Verifique os dados.");
       }
     } else {
       toast.error("Por favor, preencha todos os campos.");
     }
   }, [descricao, tipoServico, cliente, valorPagamento, dataPagamento]);
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   return (
     <form
@@ -102,15 +105,26 @@ function Pagamento() {
     >
       <div className="container-services">
         <div className="tabs">
-          <div className="tab active" id="tab-servico">
+          <div
+            className={`tab ${activeTab === "servico" ? "active" : ""}`}
+            id="tab-servico"
+            onClick={() => handleTabClick("servico")}
+          >
             Serviço
           </div>
-          <div className="tab" id="tab-pagamento">
+          <div
+            className={`tab ${activeTab === "pagamento" ? "active" : ""}`}
+            id="tab-pagamento"
+            onClick={() => handleTabClick("pagamento")}
+          >
             Pagamento
           </div>
         </div>
 
-        <div id="form-servico" className="forms">
+        <div
+          id="form-servico"
+          className={`forms ${activeTab === "servico" ? "" : "hidden"}`}
+        >
           <div className="form-group">
             <label htmlFor="descricao">Descrição do serviço</label>
             <textarea
@@ -158,7 +172,10 @@ function Pagamento() {
           <button type="submit">Cadastrar Serviço</button>
         </div>
 
-        <div id="form-pagamento" className="forms hidden">
+        <div
+          id="form-pagamento"
+          className={`forms ${activeTab === "pagamento" ? "" : "hidden"}`}
+        >
           <div className="form-group">
             <label htmlFor="valor-pagamento">Valor do Pagamento</label>
             <input

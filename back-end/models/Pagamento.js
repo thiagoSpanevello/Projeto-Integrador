@@ -14,12 +14,40 @@ const Pagamento = {
         }
     },
 
-    list: async () => {
+    listPagamentoByEmpresa: async (empresaCnpj) => {
         try {
-            const resultado = await db.any('SELECT * FROM pagamento');
-            return resultado;
+            const result = await db.any(
+                `SELECT p.datacadastro,
+                 p.valor,
+                 p.datafechado,
+                 s.descricao,
+                 a.clientecnpj
+                 FROM pagamento p
+                 INNER JOIN servico s ON s.id = p.servicoid
+                 INNER JOIN atende a ON a.clientecnpj = s.clientecnpj
+                 WHERE a.empresacnpj = $1`,
+                [empresaCnpj]
+            );
+            return result;
         } catch (error) {
-            throw new Error("Erro na listagem de pagamento: " + error.message);
+            throw new Error("Erro ao listar pagamentos por empresa: " + error.message);
+        }
+    },
+
+    listPagamentoByEmpresaAndDataFechadoNull: async (empresaCnpj) => {
+        try {
+            const result = await db.any(
+                `SELECT p.*
+                 FROM pagamento p
+                 INNER JOIN servico s ON s.id = p.servicoid
+                 INNER JOIN atende a ON a.clientecnpj = s.clientecnpj
+                 WHERE a.empresacnpj = $1
+                 AND p.datafechado IS NULL`,
+                [empresaCnpj]
+            );
+            return result;
+        } catch (error) {
+            throw new Error("Erro ao listar pagamentos por empresa e com datafechado null: " + error.message);
         }
     },
 

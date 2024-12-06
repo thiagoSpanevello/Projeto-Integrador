@@ -69,11 +69,12 @@ export const getClienteByCNPJ = async (req, res) => {
 
 export const updateCliente = async (req, res) => {
     const { cnpj } = req.params;
-    const { nome, rua, cep, cidade, estado, telefone } = req.body;
+    const cnpjFormatado = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+    const { nomeempresa, rua, cidade, estado, cep, telefone } = req.body;
 
     try {
 
-        await Cliente.atualizar(cnpj, nome, rua, cep, cidade, estado, telefone);
+        await Cliente.atualizar(cnpjFormatado, nomeempresa, rua, cidade, estado, cep, telefone);
         return res.status(200).json({ message: "Cliente atualizado com sucesso!" });
     } catch (error) {
         console.error("Erro ao atualizar cliente: ", error);

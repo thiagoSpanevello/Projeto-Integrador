@@ -7,6 +7,7 @@ import FuncionarioRoutes from './routes/funcionarioRoutes.js'
 import tipoServicoRoutes from './routes/tipoServicoRoute.js'
 import ClienteRoutes from './routes/clienteRoutes.js'
 import ServicoRoutes from './routes/servicoRoutes.js'
+import PagamentoRoutes from './routes/pagamentosRoutes.js'
 
 
 import cors from 'cors';
@@ -23,11 +24,12 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(authRoutes);
-app.use(authN)
+app.use(authN);
 app.use('/protected', ProtectedRoute);
 app.use(FuncionarioRoutes);
 app.use(ClienteRoutes);
 app.use(tipoServicoRoutes);
-app.use(ServicoRoutes)
+app.use(ServicoRoutes);
+app.use(PagamentoRoutes);
 
 app.listen(3001, () => console.log("Rodando porta 3001"));

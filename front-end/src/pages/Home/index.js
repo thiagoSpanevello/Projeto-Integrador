@@ -11,7 +11,7 @@ import ListagemFuncionarios from "../Funcionarios/Listagem";
 import CadastroTipoServico from "../TipoServico/Cadastro";
 import ListagemTipoServico from "../TipoServico/Listagem";
 import "./style.css";
-import ListagemPagamentos from "../TipoServico/Pagamento";
+import ListagemPagamentos from "../Pagamento";
 import ListagemEmissoesBoleto from "../Boleto";
 import ListagemEmissoesNotaF from "../NotaFiscal";
 

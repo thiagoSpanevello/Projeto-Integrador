@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import Modal from "react-modal";
 import axios from "axios";
 import "./style.css";
 
@@ -6,6 +8,15 @@ function ListagemClientes() {
   const [ordem, setOrdem] = useState("nome");
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [nomeempresa, setNome] = useState("");
+  const [rua, setEndereco] = useState("");
+  const [cep, setCep] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [clienteSelecionado, setClienteSelecionado] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const fetchClientes = async () => {
     try {
@@ -47,25 +58,41 @@ function ListagemClientes() {
     });
   };
 
-  const deletarCliente = async (index) => {
-    const cliente = clientes[index];
+  const alteraCliente = (cliente) => {
+    setClienteSelecionado(cliente);
+    setNome(cliente.nomeempresa);
+    setEndereco(cliente.rua);
+    setCep(cliente.cep);
+    setCidade(cliente.cidade);
+    setEstado(cliente.estado);
+    setTelefone(cliente.telefone);
+    setModalOpen(true);
+  }
+
+  const updateCliente = async (cnpj) => {
+    const newCnpj = cnpj.replaceAll(/[^0-9]/g, "");
+    console.log(newCnpj);
     try {
       const token = localStorage.getItem("token");
-
-      await axios.delete(`http://localhost:3001/funcionarios/${cliente.cnpj}`, {
+      await axios.put(`http://localhost:3001/update/clientes/${newCnpj}`, {
+        nomeempresa,
+        rua,
+        cidade,
+        estado,
+        cep,
+        telefone
+      }, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
-
-      setClientes(clientes.filter((_, i) => i !== index));
+      toast.success("Cliente atualizado com sucesso!");
+      modalOpen(false);
+      fetchClientes();
     } catch (error) {
-      console.error("Erro ao deletar cliente:", error);
+      console.error("Erro ao atualizar Cliente: " + error);
+      toast.error("Erro ao atualizar Cliente.")
     }
-  };
-
-  const alterarCliente = (index) => {
-    alert(`Alterar cliente: ${JSON.stringify(clientes[index])}`);
   };
 
   if (loading) {
@@ -125,10 +152,7 @@ function ListagemClientes() {
                   <span>{cliente.cidade}</span>
                   <span>{cliente.estado}</span>
                   <span>{cliente.telefone}</span>
-                  <button class="actions" onClick={() => deletarCliente(index)}>
-                    Deletar
-                  </button>
-                  <button class="actions" onClick={() => alterarCliente(index)}>
+                  <button class="actions" onClick={() => alteraCliente(cliente)}>
                     Alterar
                   </button>
                 </div>
@@ -137,6 +161,52 @@ function ListagemClientes() {
           </div>
         </div>
       </div>
+
+      <Modal isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        contentLabel="Alterar Funcionario"
+        className="modal"
+        overlayClassName="overlay">
+        <h2>Alterar Cliente</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="nome">
+              Nome: <input id="nome" type="text" value={nomeempresa} onChange={(e) => setNome(e.target.value)} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="endereco">
+              Endereco: <input id="endereco" type="text" value={rua} onChange={(e) => setEndereco(e.target.value)} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="cep">
+              Cep: <input id="cep" type="text" value={cep} onChange={(e) => setCep(e.target.value)} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="cidade">
+              Cidade: <input id="cidade" type="text" value={cidade} onChange={(e) => setCidade(e.target.value)} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="estado">
+              Estado: <input id="estado" type="text" value={estado} onChange={(e) => setEstado(e.target.value)} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="telefone">
+              Telefone: <input id="telefone" type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+            </label>
+          </div>
+
+          <button type="button" onClick={() => updateCliente(clienteSelecionado.cnpj)}>
+            Atualizar Cliente
+          </button>
+        </form>
+        <button className="close" onClick={() => setModalOpen(false)}>Fechar</button>
+      </Modal>
+
     </div>
   );
 }

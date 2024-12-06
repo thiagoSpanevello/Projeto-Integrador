@@ -5,24 +5,30 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden; /* Remove rolagem horizontal */
+  overflow-x: hidden;
+  /* Remove rolagem horizontal */
 }
 
 /* Container principal */
 .containerService {
   width: 80%;
   margin: 0 10%;
-  height: fit-content; /* Altura de 95% da tela */
+  height: fit-content;
+  /* Altura de 95% da tela */
   overflow-y: auto;
   overflow-x: auto;
   padding: 2rem;
-  background-color: #ffffff; /* Fundo branco */
-  border-radius: 10px; /* Cantos arredondados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  background-color: #ffffff;
+  /* Fundo branco */
+  border-radius: 10px;
+  /* Cantos arredondados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* Sombra leve */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden; /* Remove possíveis transbordamentos */
+  overflow: hidden;
+  /* Remove possíveis transbordamentos */
 }
 
 .maxService {
@@ -40,13 +46,16 @@ body {
 .inside-container-service {
   flex: 1;
   display: flex;
-  flex-direction: column; /* Organização em coluna */
-  overflow: hidden; /* Remove transbordamentos */
+  flex-direction: column;
+  /* Organização em coluna */
+  overflow: hidden;
+  /* Remove transbordamentos */
 }
 
 /* Grupo de formulários */
 .form-group-service {
-  margin-bottom: 20px; /* Espaçamento maior entre os elementos */
+  margin-bottom: 20px;
+  /* Espaçamento maior entre os elementos */
 }
 
 /* Rótulo do formulário */
@@ -74,31 +83,38 @@ select {
   background-color: #ffffff;
   overflow-y: auto;
   flex: 1;
-  padding: 0; /* Remove padding interno extra */
+  padding: 0;
+  /* Remove padding interno extra */
 }
 
 /* Cabeçalho da listagem */
 .listagemService .header {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr; /* Define 5 colunas principais */
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+  /* Define 5 colunas principais */
   background-color: #6c757d;
   color: #ffffff;
-  padding: 15px; /* Espaçamento maior */
+  padding: 15px;
+  /* Espaçamento maior */
   font-weight: bold;
   border-radius: 8px 8px 0 0;
   text-align: center;
-  gap: 10px; /* Adiciona espaçamento entre colunas */
+  gap: 10px;
+  /* Adiciona espaçamento entre colunas */
 }
 
 /* Itens da listagem */
 .listagemService .item {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 1fr 1fr; /* Ajuste das colunas para maior espaço */
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+  /* Ajuste das colunas para maior espaço */
   align-items: center;
-  padding: 15px; /* Espaçamento interno */
+  padding: 15px;
+  /* Espaçamento interno */
   border-bottom: 1px solid #eee;
   transition: background-color 0.2s ease;
-  gap: 10px; /* Adiciona espaçamento entre colunas */
+  gap: 10px;
+  /* Adiciona espaçamento entre colunas */
 }
 
 /* Efeito de hover nos itens */
@@ -112,19 +128,22 @@ select {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; /* Garante que o texto não quebre */
+  white-space: nowrap;
+  /* Garante que o texto não quebre */
 }
 
 /* Ações (botões) nos itens */
 .listagemService .actions {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Espaçamento entre os botões */
+  gap: 10px;
+  /* Espaçamento entre os botões */
 }
 
 /* Botões de ação */
 .listagemService .actions button {
-  padding: 10px 16px; /* Botões maiores */
+  padding: 10px 16px;
+  /* Botões maiores */
   font-size: 14px;
   cursor: pointer;
   border: none;

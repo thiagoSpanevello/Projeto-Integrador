@@ -31,11 +31,13 @@ const Servico = {
     listByEmpresa: async (empresacnpj) => {
         try {
             const resultado = await db.any(
-                `SELECT s.datarealizacao, 
+                `SELECT s.id,
+                        s.datarealizacao, 
                         s.descricao, 
                         s.clientecnpj,
                         c.nomeempresa,
-                        ts.nome AS tipo_nome 
+                        ts.nome AS tipo_nome,
+                        ts.id AS tipo_id
                     FROM 
                         servico s
                     JOIN 
@@ -63,11 +65,11 @@ const Servico = {
         }
     },
 
-    update: async (id, datarealizacao, descricao, preco, funcionario_id, tipo_servico_id) => {
+    update: async (id, clientecnpj, tiposervicoid) => {
         try {
             await db.none(
-                'UPDATE servico SET nome = $1, descricao = $2, preco = $3, funcionario_id = $4, tipo_servico_id = $5 WHERE id = $6',
-                [nome, descricao, preco, funcionario_id, tipo_servico_id, id]
+                'UPDATE servico SET clientecnpj = $2, tiposervicoid = $3 WHERE id = $1',
+                [id, clientecnpj, tiposervicoid]
             );
         } catch (error) {
             throw new Error("Erro ao atualizar serviço: " + error.message);

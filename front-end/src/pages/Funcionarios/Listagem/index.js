@@ -75,8 +75,6 @@ function ListagemFuncionarios() {
   const updateFuncionario = async (cpf) => {
     try {
       const token = localStorage.getItem("token");
-      console.log("cpf do cara que vai ser alterado: " + cpf);
-
       await axios.put(`http://localhost:3001/update/funcionarios/${cpf}`, {
         cpf,
         nome,

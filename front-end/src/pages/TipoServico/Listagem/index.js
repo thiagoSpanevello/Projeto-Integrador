@@ -1,14 +1,15 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { toast } from "react-toastify";
+import Modal from 'react-modal';
 import axios from "axios";
 import "./style.css";
 
 function ListagemServicos() {
-  const [data, setData] = useState([
-    { tipo: "Frete", cliente: "Cliente1", data: "10/11/2024" },
-    { tipo: "Frete", cliente: "Cliente2", data: "15/11/2024" },
-    { tipo: "Frete", cliente: "Cliente5", data: "20/11/2024" },
-    { tipo: "Contabilidade", cliente: "Cliente12", data: "25/11/2024" },
-  ]);
+  const [data, setData] = useState([]);
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [itemSelecionado, setItemSelecionado] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   console.log(data);
 
@@ -31,24 +32,33 @@ function ListagemServicos() {
 
   useEffect(() => {
     fetchTiposServicos();
-  }, [fetchTiposServicos]);
+  }, [fetchTiposServicos], []);
 
-  const deletarServico = (item) => {
+  const alterarServico = (item) => {
+    setItemSelecionado(item);
+    setNome(item.nome);
+    setDescricao(item.descricao);
+    setModalOpen(true);
+  }
+
+  const updateServico = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      axios.delete(`http://localhost:3001/excluir/tipoServico/${item.id}`, {
+      await axios.put(`http://localhost:3001/update/tipoServico/${id}`, {
+        nome,
+        descricao
+      }, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
-
-      const new_data = [...data];
-      setData(new_data.filter((data) => data?.id !== item.id));
-    } catch {}
-  };
-
-  const alterarServico = (index) => {
-    alert(`Alterar serviço: ${JSON.stringify(data[index])}`);
+      toast.success("Tipo de serviço atualizado com sucesso!");
+      setModalOpen(false);
+      fetchTiposServicos();
+    } catch (error) {
+      console.error("Erro ao atualizar tipos de serviço: " + error);
+      toast.error("Erro ao atualizar tipos de serviço.");
+    }
   };
 
   return (
@@ -73,13 +83,7 @@ function ListagemServicos() {
                 <span>{servico.descricao}</span>
                 <button
                   className="actions"
-                  onClick={() => deletarServico(servico)}
-                >
-                  Deletar
-                </button>
-                <button
-                  className="actions"
-                  onClick={() => alterarServico(index)}
+                  onClick={() => alterarServico(servico)}
                 >
                   Alterar
                 </button>
@@ -88,6 +92,31 @@ function ListagemServicos() {
           </div>
         </div>
       </div>
+
+
+      <Modal isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        contentLabel="Alterar Funcionario"
+        className="modal"
+        overlayClassName="overlay">
+        <h2>Alterar Tipo de Funcionario</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="nome">
+              Nome: <input id="nome" type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="descrição">
+              Descrição: <textarea id="descrição" type="text" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+            </label>
+          </div>
+          <button type="button" onClick={() => updateServico(itemSelecionado.id)}>
+            Atualizar Tipo de Serviço
+          </button>
+        </form>
+        <button className="close" onClick={() => setModalOpen(false)}>Fechar</button>
+      </Modal>
     </div>
   );
 }

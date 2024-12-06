@@ -1,11 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { toast } from 'react-toastify';
+import Modal from 'react-modal';
 import axios from "axios";
 import "./style.css";
 
 function ListagemServicos() {
   const [filtro, setFiltro] = useState("todos");
+  const [tiposOptions, setTiposOptions] = useState([]);
+  const [clientesOptions, setClienteOptions] = useState([]);
   const [servicos, setServicos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(null);
+  const [tipoServico, setTipoServico] = useState("");
+  const [itemSelecionado, setItemSelecionado] = useState("");
+  const [cliente, setCliente] = useState("");
+
+  const fetchOptions = useCallback(async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const tipos = await axios.get(
+        "http://localhost:3001/listagem/tipoServico",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setTiposOptions(
+        tipos?.data?.map((c) => ({
+          label: c.nome,
+          value: c.id,
+        }))
+      );
+
+      const clientes = await axios.get(
+        "http://localhost:3001/relatorio/clientes",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setClienteOptions(
+        clientes?.data?.map((c) => ({ label: c.nomeempresa, value: c.cnpj }))
+      );
+    } catch (e) {
+      console.error("Erro ao buscar opções:", e);
+    }
+  }, []);
+
 
   const fetchServicos = async () => {
     try {
@@ -20,6 +66,7 @@ function ListagemServicos() {
       );
 
       setServicos(response.data);
+
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar serviços:", error);
@@ -42,24 +89,41 @@ function ListagemServicos() {
     }
     return servicosOrdenados;
   };
-  const deletarServico = async (index) => {
-    const servico = servicos[index];
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3001/servico/${servico.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      setServicos(servicos.filter((_, i) => i !== index));
-    } catch (error) {
-      console.error("Erro ao deletar serviço:", error);
-    }
+  const alterarServico = (item) => {
+    console.log(item);
+    fetchOptions();
+    setModalOpen(true);
+    setItemSelecionado(item);
+    setCliente(item.clientecnpj);
+    setTipoServico(item.tipo_id);
+  }
+
+  const handleTipoServicoChange = (e) => {
+    const tipoIdSelecionado = e.target.value;
+    setTipoServico(tipoIdSelecionado);
   };
 
-  const alterarServico = (index) => {
-    alert(`Alterar serviço: ${JSON.stringify(servicos[index])}`);
+  const updateServico = async () => {
+
+    try {
+      const id = itemSelecionado.id;
+      const token = localStorage.getItem("token");
+      await axios.put(`http://localhost:3001/update/servico/${id}`, {
+        clientecnpj: cliente,
+        tipo_id: tipoServico
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      toast.success("Serviço atualizado com sucesso!");
+      setModalOpen(false);
+      fetchServicos();
+    } catch (error) {
+      console.error("Erro ao atualizar serviço: " + error);
+      toast.error("Erro ao atualizar serviço.");
+    }
   };
 
   if (loading) {
@@ -105,11 +169,7 @@ function ListagemServicos() {
                   <span>{servico.tipo_nome}</span>
                   <span>{servico.clientecnpj}</span>
                   <span>{servico.datarealizacao}</span>
-
-                  <button class="actions" onClick={() => deletarServico(index)}>
-                    Deletar
-                  </button>
-                  <button class="actions" onClick={() => alterarServico(index)}>
+                  <button class="actions" onClick={() => alterarServico(servico)}>
                     Alterar
                   </button>
                 </div>
@@ -118,7 +178,51 @@ function ListagemServicos() {
           </div>
         </div>
       </div>
-    </div>
+      <Modal isOpen={modalOpen}
+        onRequestClose={() => setModalOpen(false)}
+        contentLabel="Alterar Serviço"
+        className="modal"
+        overlayClassName="overlay">
+        <h2>Alterar Serviço</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="tipo-servico">Tipo de serviço</label>
+            <select
+              id="tipo-servico"
+              value={tipoServico}
+              onChange={handleTipoServicoChange}
+            >
+              {tiposOptions?.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="cliente">Cliente</label>
+            <select
+              id="cliente"
+              value={cliente}
+              onChange={(e) => setCliente(e.target.value)}
+            >
+              {clientesOptions?.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="button" onClick={() =>
+            updateServico()
+          }>
+            Atualizar Serviço
+          </button>
+        </form>
+        <button className="close" onClick={() => setModalOpen(false)}>Fechar</button>
+      </Modal>
+    </div >
   );
 }
 

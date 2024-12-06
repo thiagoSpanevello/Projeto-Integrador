@@ -61,10 +61,9 @@ export const getServicoById = async (req, res) => {
 
 export const updateServico = async (req, res) => {
     const { id } = req.params;
-    const { nome, descricao, preco, prestadorId, tipoServicoId } = req.body;
-
+    const { clientecnpj, tipo_id } = req.body;
     try {
-        await Servico.update(id, nome, descricao, preco, prestadorId, tipoServicoId);
+        await Servico.update(id, clientecnpj, tipo_id);
         return res.status(200).json({ message: "Serviço atualizado com sucesso!" });
     } catch (error) {
         console.error("Erro ao atualizar serviço: ", error);

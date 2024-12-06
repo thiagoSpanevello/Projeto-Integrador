@@ -43,8 +43,10 @@ export const listFuncionarios = async (req, res) => {
         const empresa = await Empresa.findByConta(req.user.conta);
         CNPJempresa = empresa.cnpj;
     } else {
-        const funcionario = Funcionario.findByConta(req.user.conta);
+
+        const funcionario = await Funcionario.findByConta(req.user.conta);
         CNPJempresa = funcionario.empresacnpj;
+
     }
     try {
         const funcionarios = await Funcionario.listByEmpresa(CNPJempresa);

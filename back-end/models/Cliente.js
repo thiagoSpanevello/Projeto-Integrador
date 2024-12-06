@@ -25,10 +25,10 @@ const Cliente = {
         return db.oneOrNone('SELECT * FROM cliente WHERE cnpj = $1', [cnpj]);
     },
 
-    atualizar: (cnpj, nome, rua, cep, cidade, estado, telefone) => {
+    atualizar: (cnpj, nomeempresa, rua, cidade, estado, cep, telefone) => {
         return db.none(
-            'UPDATE cliente SET nome = $1, endereco_rua = $2, endereco_cep = $3, endereco_cidade = $4, endereco_estado = $5, telefone = $6 WHERE cnpj = $7',
-            [nome, rua, cep, telefone, cidade, estado, cnpj]
+            'UPDATE cliente SET nomeempresa = $2, rua = $3, cidade = $4, estado = $5, cep = $6, telefone = $7 WHERE cnpj = $1',
+            [cnpj, nomeempresa, rua, cidade, estado, cep, telefone]
         );
     },
 
