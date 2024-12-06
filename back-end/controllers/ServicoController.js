@@ -32,20 +32,12 @@ export const listServicos = async (req, res) => {
             user = await Funcionario.findByConta(conta);
             cnpjEmpresa = user.empresacnpj;
         }
-        const clientes = await Cliente.listByEmpresa(cnpjEmpresa);
-        const clientesCNPJ = clientes.map((cliente) => cliente.cnpj)
-        const servicos = await Servico.listByCliente(clientesCNPJ);
-        const tipoServicos = await TipoServico.list();
-        const servicosComTipo = servicos.map(servico => {
-            const tipo = tipoServicos.find(t => t.id === servico.tiposervicoid);
-            const formatedDate = new Intl.DateTimeFormat('pt-BR').format(new Date(servico.datarealizacao))
-            return {
-                ...servico,
-                tipo_nome: tipo.nome,
-                datarealizacao: formatedDate
-            }
-        })
-        return res.status(200).json(servicosComTipo);
+        const servicos = await Servico.listByEmpresa(cnpjEmpresa)
+        const servicosFormatados = servicos.map((servico) => ({
+            ...servico,
+            datarealizacao: new Intl.DateTimeFormat("pt-BR").format(new Date(servico.datarealizacao)),
+        }));
+        return res.status(200).json(servicosFormatados);
     } catch (error) {
         console.error("Erro ao listar serviços: ", error);
         return res.status(500).json({ message: "Erro interno ao listar serviços." });

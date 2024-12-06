@@ -28,12 +28,39 @@ const Servico = {
         }
     },
 
+    listByEmpresa: async (empresacnpj) => {
+        try {
+            const resultado = await db.any(
+                `SELECT s.datarealizacao, 
+                        s.descricao, 
+                        s.clientecnpj,
+                        c.nomeempresa,
+                        ts.nome AS tipo_nome, 
+                        TO_CHAR(s.datarealizacao, 'DD/MM/YYYY') AS datarealizacao_formatada
+                    FROM 
+                        servico s
+                    JOIN 
+                        cliente c ON s.clientecnpj = c.cnpj
+                    JOIN
+                        atende a ON a.clientecnpj = c.cnpj
+                    JOIN 
+                        tiposervico ts ON s.tiposervicoid = ts.id
+                    WHERE 
+                        a.empresacnpj = $1 `,
+                [empresacnpj]
+            );
+            return resultado;
+        } catch (error) {
+            throw new Error("Erro ao buscar serviço por ID: " + error.message);
+        }
+    },
+
     findById: async (id) => {
         try {
             const resultado = await db.oneOrNone('SELECT * FROM servico WHERE id = $1', [id]);
             return resultado;
         } catch (error) {
-            throw new Error("Erro ao buscar serviço por ID: " + error.message);
+            throw new Error("Erro na listagem de serviços: " + error.message);
         }
     },
 
