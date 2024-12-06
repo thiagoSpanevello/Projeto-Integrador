@@ -36,7 +36,6 @@ export const listServicos = async (req, res) => {
         const clientesCNPJ = clientes.map((cliente) => cliente.cnpj)
         const servicos = await Servico.listByCliente(clientesCNPJ);
         const tipoServicos = await TipoServico.list();
-
         const servicosComTipo = servicos.map(servico => {
             const tipo = tipoServicos.find(t => t.id === servico.tiposervicoid);
             const formatedDate = new Intl.DateTimeFormat('pt-BR').format(new Date(servico.datarealizacao))

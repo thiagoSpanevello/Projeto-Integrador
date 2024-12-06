@@ -4,9 +4,7 @@ import Signup from './pages/Signup'
 import Home from './pages/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import "./App.css"
-
-
+import './App.css'
 
 function App() {
   return (

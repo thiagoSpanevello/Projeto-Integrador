@@ -14,7 +14,7 @@ const router = express.Router();
 router.post('/cadastro/funcionarios', verifyPermissions(["empresa", "gerente"]), addFuncionario);
 
 // Relatório/Listagem de funcionários
-router.get('/relatorio/funcionarios', verifyPermissions(["empresa", "gerente"]), listFuncionarios);
+router.get('/relatorio/funcionarios', listFuncionarios);
 
 // Buscar funcionário pelo CPF
 router.get('/funcionarios/:cpf', getFuncionarioByCpf);

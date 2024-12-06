@@ -89,7 +89,7 @@ function Sidebar() {
               <Link to="/Home/ListagemServico">Serviços</Link>
             </li>
             <li>
-              <Link to= "/home/ListagemTipoPagamento">Pagamentos</Link>
+              <Link to="/home/ListagemPagamento">Pagamentos</Link>
             </li>
           </ul>
           <div className="menu-item" onClick={handleToggleEmissoes}>

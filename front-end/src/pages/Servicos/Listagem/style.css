@@ -9,22 +9,35 @@ body {
 }
 
 /* Container principal */
-.container {
-  width: 95%; /* Reduz a largura para criar espaço lateral */
-  max-width: 1200px; /* Define um limite máximo para a largura */
-  height: 95vh; /* Altura de 95% da tela */
-  margin: 2rem auto; /* Centraliza e adiciona espaço no topo */
-  padding: 2rem; /* Espaçamento interno aumentado */
+.containerService {
+  width: 80%;
+  margin: 0 10%;
+  height: fit-content; /* Altura de 95% da tela */
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 2rem;
   background-color: #ffffff; /* Fundo branco */
   border-radius: 10px; /* Cantos arredondados */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra leve */
   display: flex;
-  flex-direction: column; /* Layout vertical */
+  flex-direction: column;
+  justify-content: center;
   overflow: hidden; /* Remove possíveis transbordamentos */
 }
 
+.maxService {
+  width: 80%;
+}
+
+.scroll {
+  overflow-y: scroll;
+  max-height: 400px;
+  width: 100%;
+  height: fit-content;
+}
+
 /* Container interno flexível */
-.inside-container {
+.inside-container-service {
   flex: 1;
   display: flex;
   flex-direction: column; /* Organização em coluna */
@@ -32,12 +45,12 @@ body {
 }
 
 /* Grupo de formulários */
-.form-group {
+.form-group-service {
   margin-bottom: 20px; /* Espaçamento maior entre os elementos */
 }
 
 /* Rótulo do formulário */
-.form-group label {
+.form-group-service label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
@@ -54,21 +67,20 @@ select {
 }
 
 /* Container de listagem */
-.listagem {
+.listagemService {
   margin-top: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #ffffff;
   overflow-y: auto;
-  overflow-x: hidden;
   flex: 1;
   padding: 0; /* Remove padding interno extra */
 }
 
 /* Cabeçalho da listagem */
-.listagem .header {
+.listagemService .header {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 1fr; /* Define 5 colunas principais */
+  grid-template-columns: 2fr 2fr 2fr 2fr; /* Define 5 colunas principais */
   background-color: #6c757d;
   color: #ffffff;
   padding: 15px; /* Espaçamento maior */
@@ -79,9 +91,9 @@ select {
 }
 
 /* Itens da listagem */
-.listagem .item {
+.listagemService .item {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 1fr; /* Ajuste das colunas para maior espaço */
+  grid-template-columns: 2fr 2fr 2fr 1fr 1fr; /* Ajuste das colunas para maior espaço */
   align-items: center;
   padding: 15px; /* Espaçamento interno */
   border-bottom: 1px solid #eee;
@@ -90,13 +102,13 @@ select {
 }
 
 /* Efeito de hover nos itens */
-.listagem .item:hover {
+.listagemService .item:hover {
   background-color: #f8f9fa;
 }
 
 /* Texto centralizado nos cabeçalhos e itens */
-.listagem .header span,
-.listagem .item span {
+.listagemService .header span,
+.listagemService .item span {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -104,14 +116,14 @@ select {
 }
 
 /* Ações (botões) nos itens */
-.listagem .actions {
+.listagemService .actions {
   display: flex;
   justify-content: center;
   gap: 10px; /* Espaçamento entre os botões */
 }
 
 /* Botões de ação */
-.listagem .actions button {
+.listagemService .actions button {
   padding: 10px 16px; /* Botões maiores */
   font-size: 14px;
   cursor: pointer;
@@ -121,41 +133,21 @@ select {
 }
 
 /* Botão de deletar */
-.listagem .actions button.deletar {
+.listagemService .actions button.deletar {
   background-color: #dc3545;
   color: #fff;
 }
 
-.listagem .actions button.deletar:hover {
+.listagemService .actions button.deletar:hover {
   background-color: #c82333;
 }
 
 /* Botão de alterar */
-.listagem .actions button.alterar {
+.listagemService .actions button.alterar {
   background-color: #007bff;
   color: #fff;
 }
 
-.listagem .actions button.alterar:hover {
+.listagemService .actions button.alterar:hover {
   background-color: #0056b3;
-}
-
-/* Estilo responsivo para telas menores */
-@media (max-width: 768px) {
-  .container {
-    padding: 1.5rem; /* Reduz o padding em telas pequenas */
-  }
-
-  /* Ajusta o layout das colunas na listagem */
-  .listagem .header,
-  .listagem .item {
-    grid-template-columns: 1fr 1fr 1fr 1fr; /* Apenas algumas colunas visíveis */
-    font-size: 14px; /* Tamanho do texto reduzido */
-  }
-
-  /* Botões em layout vertical */
-  .listagem .actions {
-    flex-direction: column;
-    gap: 8px;
-  }
 }

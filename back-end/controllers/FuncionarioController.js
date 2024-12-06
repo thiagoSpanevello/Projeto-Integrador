@@ -38,8 +38,16 @@ export const addFuncionario = async (req, res) => {
 };
 
 export const listFuncionarios = async (req, res) => {
+    let CNPJempresa;
+    if (req.user.cargo == "empresa") {
+        const empresa = await Empresa.findByConta(req.user.conta);
+        CNPJempresa = empresa.cnpj;
+    } else {
+        const funcionario = Funcionario.findByConta(req.user.conta);
+        CNPJempresa = funcionario.empresacnpj;
+    }
     try {
-        const funcionarios = await Funcionario.list();
+        const funcionarios = await Funcionario.listByEmpresa(CNPJempresa);
         return res.status(200).json(funcionarios);
     } catch (error) {
         console.error("Erro ao listar funcionários: ", error);

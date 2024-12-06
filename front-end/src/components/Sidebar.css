@@ -15,10 +15,7 @@ body {
   background-color: #2d3d4c; /* Cor de fundo mais escura para a sidebar */
   color: #fff; /* Texto branco para contraste */
   padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  height: 100vh!important;
   border-radius: 0 10px 10px 0;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Sombras para um efeito de profundidade */
   display: flex;

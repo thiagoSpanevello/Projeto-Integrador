@@ -11,11 +11,14 @@ function ListagemServicos() {
   const fetchServicos = async () => {
     try {
       const token = localStorage.getItem("token"); // Recupera o token armazenado
-      const response = await axios.get("http://localhost:3001/listagem/servico", {
-        headers: {
-          Authorization: `Bearer ${token}`, // Envia o token no cabeçalho
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:3001/listagem/servico",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Envia o token no cabeçalho
+          },
+        }
+      );
 
       setServicos(response.data); // Atualiza o estado com os dados recebidos
       setLoading(false); // Finaliza o carregamento
@@ -29,17 +32,17 @@ function ListagemServicos() {
     fetchServicos();
   }, []);
 
-  const getItensFiltrados = () => {
+  const getItensOrdenados = () => {
+    const servicosOrdenados = [...servicos];
     if (filtro === "tipo") {
-      return servicos.filter((servico) => servico.tipo === "Frete");
+      return servicosOrdenados.sort((a, b) => a.tipo_nome.localeCompare(b.tipo_nome));
     } else if (filtro === "cliente") {
-      return servicos.filter((servico) => servico.cliente === "Cliente1");
+      return servicosOrdenados.sort((a, b) => a.clientecnpj.localeCompare(b.clientecnpj));
     } else if (filtro === "data") {
-      return servicos.filter((servico) => servico.data === "10/11/2024");
+      return servicosOrdenados.sort((a, b) => new Date(a.datarealizacao) - new Date(b.datarealizacao));
     }
-    return servicos;
+    return servicosOrdenados;
   };
-
   const deletarServico = async (index) => {
     const servico = servicos[index];
     try {
@@ -66,10 +69,10 @@ function ListagemServicos() {
   }
 
   return (
-    <div>
-      <div className="container">
-        <div className="inside-container">
-          <div className="form-group">
+    <div class="maxService">
+      <div className="containerService">
+        <div className="inside-container-service">
+          <div className="form-group-service">
             <label htmlFor="filtro">Filtro</label>
             <select
               id="filtro"
@@ -83,24 +86,37 @@ function ListagemServicos() {
             </select>
           </div>
 
-          <div className="listagem">
+          <div className="listagemService">
             <div className="header">
-              <span><strong>Tipo de Serviço</strong></span>
-              <span><strong>Cliente</strong></span>
-              <span><strong>Data de Realização</strong></span>
-              <span><strong>Ações</strong></span>
+              <span>
+                <strong>Tipo de Serviço</strong>
+              </span>
+              <span>
+                <strong>Cliente</strong>
+              </span>
+              <span>
+                <strong>Data de Realização</strong>
+              </span>
+              <span>
+                <strong>Ações</strong>
+              </span>
             </div>
-            {getItensFiltrados().map((servico, index) => (
-              <div key={index} className="item">
-                <span>{servico.tipo_nome}</span>
-                <span>{servico.clientecnpj}</span>
-                <span>{servico.datarealizacao}</span>
-                <div className="actions">
-                  <button onClick={() => deletarServico(index)}>Deletar</button>
-                  <button onClick={() => alterarServico(index)}>Alterar</button>
+            <div class="scroll">
+              {getItensOrdenados().map((servico, index) => (
+                <div key={index} className="item">
+                  <span>{servico.tipo_nome}</span>
+                  <span>{servico.clientecnpj}</span>
+                  <span>{servico.datarealizacao}</span>
+
+                  <button class="actions" onClick={() => deletarServico(index)}>
+                    Deletar
+                  </button>
+                  <button class="actions" onClick={() => alterarServico(index)}>
+                    Alterar
+                  </button>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

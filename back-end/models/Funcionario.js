@@ -25,6 +25,15 @@ const Funcionario = {
         }
     },
 
+    listByEmpresa: async (empresaCnpj) => {
+        try {
+            const resultado = db.any('SELECT * FROM funcionarios WHERE empresacnpj = $1', [empresaCnpj])
+            return resultado;
+        } catch (error) {
+            throw new Error("Erro na listagem: " + error.mesage);
+        }
+    },
+
     findById: async (id) => {
         try {
             const resultado = db.oneOrNone('SELECT * FROM funcionarios WHERE id = $1', [id]);

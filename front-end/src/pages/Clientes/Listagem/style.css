@@ -8,7 +8,7 @@ body {
 }
 
 /* Container principal */
-.containerListagem {
+.containerListagemClientes {
   width: 80%;
   margin: 0 10%;
   height: fit-content; /* Altura de 95% da tela */
@@ -24,23 +24,33 @@ body {
   overflow: hidden; /* Remove possíveis transbordamentos */
 }
 
-.maxListagem {
-  width: 80%;
-}
-
 .scroll {
   overflow-y: scroll;
+  overflow-x: scroll;
   max-height: 400px;
   width: 100%;
   height: fit-content;
 }
 
 /* Container interno flexível */
-.inside-container-listagem {
+.inside-container-listagem-clientes {
   flex: 1;
   display: flex;
   flex-direction: column; /* Organização em coluna */
   overflow: hidden; /* Remove transbordamentos */
+}
+
+/* Grupo de formulários */
+.form-group-listagem-clientes {
+  margin-bottom: 20px; /* Espaçamento maior entre os elementos */
+}
+
+/* Rótulo do formulário */
+.form-group-listagem-clientes label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
 }
 
 /* Campo de seleção */
@@ -53,7 +63,8 @@ select {
 }
 
 /* Container de listagem */
-.listagemListagem {
+.listagemClientes {
+  margin-top: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #ffffff;
@@ -64,9 +75,9 @@ select {
 }
 
 /* Cabeçalho da listagem */
-.listagemListagem .header {
+.listagemClientes .header {
   display: grid;
-  grid-template-columns: 2fr 6fr 2fr; /* Define 5 colunas principais */
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr 2fr 4fr; /* Define 5 colunas principais */
   background-color: #6c757d;
   color: #ffffff;
   padding: 15px; /* Espaçamento maior */
@@ -77,9 +88,9 @@ select {
 }
 
 /* Itens da listagem */
-.listagemListagem .itemListagem {
+.listagemClientes .item {
   display: grid;
-  grid-template-columns: 2fr 6fr 1fr 1fr; /* Ajuste das colunas para maior espaço */
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr 2fr 2fr 2fr; /* Ajuste das colunas para maior espaço */
   align-items: center;
   padding: 15px; /* Espaçamento interno */
   border-bottom: 1px solid #eee;
@@ -88,13 +99,13 @@ select {
 }
 
 /* Efeito de hover nos itens */
-.listagemListagem .itemListagem:hover {
+.listagemClientes .item:hover {
   background-color: #f8f9fa;
 }
 
 /* Texto centralizado nos cabeçalhos e itens */
-.listagemListagem .header span,
-.listagemListagem .itemListagem span {
+.listagemClientes .header span,
+.listagemClientes .item span {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -102,14 +113,14 @@ select {
 }
 
 /* Ações (botões) nos itens */
-.listagemListagem .actions {
+.listagemClientes .actions {
   display: flex;
   justify-content: center;
   gap: 10px; /* Espaçamento entre os botões */
 }
 
 /* Botões de ação */
-.listagemListagem .actions button {
+.listagemClientes .actions button {
   padding: 10px 16px; /* Botões maiores */
   font-size: 14px;
   cursor: pointer;
@@ -119,21 +130,21 @@ select {
 }
 
 /* Botão de deletar */
-.listagemListagem .actions button.deletar {
+.listagemClientes .actions button.deletar {
   background-color: #dc3545;
   color: #fff;
 }
 
-.listagemListagem .actions button.deletar:hover {
+.listagemClientes .actions button.deletar:hover {
   background-color: #c82333;
 }
 
 /* Botão de alterar */
-.listagemListagem .actions button.alterar {
+.listagemClientes .actions button.alterar {
   background-color: #007bff;
   color: #fff;
 }
 
-.listagemListagem .actions button.alterar:hover {
+.listagemClientes .actions button.alterar:hover {
   background-color: #0056b3;
 }

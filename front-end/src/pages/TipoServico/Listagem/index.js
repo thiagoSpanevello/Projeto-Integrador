@@ -52,10 +52,10 @@ function ListagemServicos() {
   };
 
   return (
-    <div>
-      <div className="container">
-        <div className="inside-container">
-          <div className="listagem">
+    <div class="maxListagem">
+      <div className="containerListagem">
+        <div class="inside-container-listagem">
+          <div className="listagemListagem">
             <div className="header">
               <span>
                 <strong>Nome</strong>
@@ -63,18 +63,26 @@ function ListagemServicos() {
               <span>
                 <strong>Descrição</strong>
               </span>
+              <span>
+                <strong>Ações</strong>
+              </span>
             </div>
             {data.map((servico, index) => (
-              <div key={index} className="item">
+              <div key={index} className="itemListagem">
                 <span>{servico.nome}</span>
                 <span>{servico.descricao}</span>
-                {/* <span>{servico.data}</span> */}
-                <div className="actions">
-                  <button onClick={() => deletarServico(servico)}>
-                    Deletar
-                  </button>
-                  <button onClick={() => alterarServico(index)}>Alterar</button>
-                </div>
+                <button
+                  className="actions"
+                  onClick={() => deletarServico(servico)}
+                >
+                  Deletar
+                </button>
+                <button
+                  className="actions"
+                  onClick={() => alterarServico(index)}
+                >
+                  Alterar
+                </button>
               </div>
             ))}
           </div>
