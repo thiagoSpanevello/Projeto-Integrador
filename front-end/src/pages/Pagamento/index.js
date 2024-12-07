@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "./style.css";
 
-
 const ListagemPagamentos = () => {
   const [filtro, setFiltro] = useState("todos");
   const [pagamento, setPagamento] = useState([]);
@@ -15,21 +14,18 @@ const ListagemPagamentos = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }
-      )
-      console.log(response.data);
+      });
 
       setPagamento(response.data);
       setLoading(false);
     } catch (error) {
-      console.error("Erro ao buscar pagamentos:", error);
       setLoading(false);
     }
-  }
+  };
+
   useEffect(() => {
     fetchPagamentos();
   }, []);
-
 
   const pagamentosFiltrados =
     filtro === "todos"
@@ -57,32 +53,36 @@ const ListagemPagamentos = () => {
         </select>
       </div>
 
-      <div className="listagemPagamento">
-        <div className="header">
-          <span>Data de Pagamento</span>
-          <span>Valor</span>
-          <span>CNPJ</span>
-          <span>Descrição</span>
-          <span>Data de Fechamento</span>
-          <span>Status</span>
-        </div>
-        <div className="scroll">
-          <div className="inside-container-pagamento">
-            {pagamentosFiltrados.map((pagamento, index) => (
-              <div key={index} className={`item ${pagamento.status}`}>
-                <span>{new Date(pagamento.datacadastro).toLocaleDateString("pt-BR")}</span>
-                <span>{pagamento.valor}</span>
-                <span>{pagamento.clientecnpj}</span>
-                <span>{pagamento.descricao}</span>
-                <span>{pagamento.datafechado ? new Date(pagamento.datafechado).toLocaleDateString("pt-BR") : "Não fechado"}</span>
-                <span className={`status ${pagamento.datafechado ? "pago" : "pendente"}`}>
-                  {pagamento.datafechado ? "Pago" : "Pendente"}
-                </span>
-              </div>
-            ))}
+      {loading ? (
+        <div className="loading">Carregando...</div>
+      ) : (
+        <div className="listagemPagamento">
+          <div className="header">
+            <span>Data de Pagamento</span>
+            <span>Valor</span>
+            <span>CNPJ</span>
+            <span>Descrição</span>
+            <span>Data de Fechamento</span>
+            <span>Status</span>
+          </div>
+          <div className="scroll">
+            <div className="inside-container-pagamento">
+              {pagamentosFiltrados.map((pagamento, index) => (
+                <div key={index} className={`item ${pagamento.status}`}>
+                  <span>{new Date(pagamento.datacadastro).toLocaleDateString("pt-BR")}</span>
+                  <span>{pagamento.valor}</span>
+                  <span>{pagamento.clientecnpj}</span>
+                  <span>{pagamento.descricao}</span>
+                  <span>{pagamento.datafechado ? new Date(pagamento.datafechado).toLocaleDateString("pt-BR") : "Não fechado"}</span>
+                  <span className={`status ${pagamento.datafechado ? "pago" : "pendente"}`}>
+                    {pagamento.datafechado ? "Pago" : "Pendente"}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

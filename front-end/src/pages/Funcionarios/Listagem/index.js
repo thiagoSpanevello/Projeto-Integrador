@@ -18,13 +18,12 @@ function ListagemFuncionarios() {
   const fetchFuncionarios = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const response = await axios.get("http://localhost:3001/relatorio/funcionarios",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
+        });
       setFuncionarios(response.data);
     } catch (error) {
       console.error("Erro ao buscar funcionários:", error);
@@ -34,8 +33,7 @@ function ListagemFuncionarios() {
 
   useEffect(() => {
     fetchFuncionarios();
-    console.log(funcionarios);
-  }, [fetchFuncionarios], []);
+  }, [fetchFuncionarios]);
 
   const getItensFiltrados = () => {
     if (filtro === "funcionario") {
@@ -62,7 +60,6 @@ function ListagemFuncionarios() {
     }
   };
 
-
   const alteraFuncionario = (funcionario) => {
     setFuncionarioSelecionado(funcionario);
     setNome(funcionario.nome);
@@ -70,7 +67,7 @@ function ListagemFuncionarios() {
     setCargo(funcionario.cargo);
     setSenha("");
     setModalOpen(true);
-  }
+  };
 
   const updateFuncionario = async (cpf) => {
     try {
@@ -94,7 +91,6 @@ function ListagemFuncionarios() {
       toast.error("Erro ao atualizar funcionario.")
     }
   }
-
 
   return (
     <div class="max">
