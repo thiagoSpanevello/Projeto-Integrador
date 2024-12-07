@@ -55,11 +55,8 @@ export const getPagamentoById = async (req, res) => {
 
 export const updatePagamento = async (req, res) => {
     const { id } = req.params;
-    const { valor, datafechado, servicoid } = req.body;
+    const datafechado = new Date().toLocaleDateString('pt-BR');
 
-    if (!valor || !datafechado || !servicoid) {
-        return res.status(400).json({ message: 'Campos obrigatórios não informados.' });
-    }
 
     try {
         const pagamentoExistente = await Pagamento.findById(id);
@@ -67,7 +64,7 @@ export const updatePagamento = async (req, res) => {
             return res.status(404).json({ message: 'Pagamento não encontrado.' });
         }
 
-        await Pagamento.update(id, valor, datafechado, servicoid);
+        await Pagamento.update(id, datafechado);
         return res.status(200).json({ message: 'Pagamento atualizado com sucesso!' });
     } catch (error) {
         console.error("Erro ao atualizar pagamento: ", error);

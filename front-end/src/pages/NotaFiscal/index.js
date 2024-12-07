@@ -1,53 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./style.css";
+import { jsPDF } from "jspdf";
+import "./style.css"
 
 function ListagemEmissoesNotaF() {
   const [emissoes, setEmissoes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filtroData, setFiltroData] = useState("todos");
 
-  // Dados fictícios para simular a resposta da API
-  const NotasFicais = [
-    {
-      datacadastro: "2023-10-01T10:00:00Z",
-      valor: 1500.00,
-      descricao: "Serviço de Consultoria",
-      cnpjCliente: "12.345.678/0001-90",
-    },
-    {
-      datacadastro: "2023-10-05T12:30:00Z",
-      valor: 2500.00,
-      descricao: "Desenvolvimento de Software",
-      cnpjCliente: "98.765.432/0001-01",
-    },
-    {
-      datacadastro: "2023-10-10T15:45:00Z",
-      valor: 300.00,
-      descricao: "Manutenção de Equipamentos",
-      cnpjCliente: "11.222.333/0001-11",
-    },
-    {
-        datacadastro: "2023-10-02T12:30:00Z",
-        valor: 2500.00,
-        descricao: "Desenvolvimento de Software",
-        cnpjCliente: "98.765.432/0001-01",
-      },
-      {
-        datacadastro: "2023-10-20T15:45:00Z",
-        valor: 300.00,
-        descricao: "Manutenção de Equipamentos",
-        cnpjCliente: "11.222.333/0001-11",
-      },
-    // ... outros dados
-  ];
-
   const fetchEmissoes = async () => {
     try {
       const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:3001/relatorio/pagamentosAbertos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
 
-      // Simulando a resposta da API com dados fictícios
-      setEmissoes(NotasFicais);
+      setEmissoes(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Erro ao buscar emissões:", error);
@@ -59,18 +30,76 @@ function ListagemEmissoesNotaF() {
     fetchEmissoes();
   }, []);
 
-  const gerarDocumentos = (index) => {
+  const gerarNotaFiscal = (index) => {
     const emissao = emissoes[index];
-    alert(`Gerar documentos para: ${JSON.stringify(emissao)}`);
+    const doc = new jsPDF();
+    const margemEsquerda = 20;
+    const margemSuperior = 20;
+    const larguraPagina = 210;
+    const alturaPagina = 297;
+
+    doc.setFontSize(16);
+    doc.setFont("times", "bold");
+    doc.text('NOTA FISCAL', larguraPagina / 2, margemSuperior, null, null, 'center');
+    doc.setFontSize(12);
+    doc.setFont("times", "normal");
+
+    doc.text(`Emitente: ${emissao.nomeempresa}`, margemEsquerda, margemSuperior + 30);
+    doc.text(`CNPJ: ${emissao.cnpj}`, margemEsquerda, margemSuperior + 40);
+
+    doc.text(`Destinatario: ${emissao.clientecnpj}`, margemEsquerda, margemSuperior + 70);
+    doc.text(`Cliente: ${emissao.clientecnpj}`, margemEsquerda, margemSuperior + 80);
+    doc.text(`Endereco - Rua: ${emissao.rua}, Cidade: ${emissao.cidade}, Estado: ${emissao.estado}`, margemEsquerda, margemSuperior + 90);
+
+    doc.text(`Data de Emissao: ${new Date(emissao.datacadastro).toLocaleDateString()}`, larguraPagina - 80, margemSuperior + 30);
+    doc.text(`Descricao do Servico: ${emissao.descricao}`, margemEsquerda, margemSuperior + 120);
+    doc.text(`Valor Total: R$ ${emissao.valor}`, larguraPagina - 80, margemSuperior + 40);
+
+    doc.text(`Produto/Servico: ${emissao.descricao}`, margemEsquerda, margemSuperior + 140);
+    doc.text(`Quantidade: 1`, margemEsquerda, margemSuperior + 150);
+    doc.text(`Valor Unitario: R$ ${emissao.valor}`, margemEsquerda, margemSuperior + 160);
+
+    doc.text(`Total: R$ ${emissao.valor}`, larguraPagina - 80, margemSuperior + 180);
+
+    doc.setFontSize(8);
+    doc.text("Emitido por Sistema de Notas Fiscais", margemEsquerda, alturaPagina - 20);
+    doc.save(`nota_fiscal_${emissao.clientecnpj}.pdf`);
+
+    fecharPagamento(emissao.id);
   };
 
-  // Filtrar emissões com base no estado atual do filtro
-  const emissõesFiltradas =
+  const fecharPagamento = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token não encontrado.");
+        alert("Você precisa estar logado para realizar essa ação.");
+        return;
+      }
+
+      await axios.put(
+        `http://localhost:3001/update/pagamentos/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      fetchEmissoes();
+    } catch (error) {
+      console.error("Erro ao atualizar pagamento:", error);
+      alert("Erro ao atualizar pagamento. Tente novamente.");
+    }
+  };
+
+  const emissoesFiltradas =
     filtroData === "todos"
       ? emissoes
       : filtroData === "maisAntigo"
-      ? [...emissoes].sort((a, b) => new Date(a.datacadastro) - new Date(b.datacadastro))
-      : [...emissoes].sort((a, b) => new Date(b.datacadastro) - new Date(a.datacadastro));
+        ? [...emissoes].sort((a, b) => new Date(a.datacadastro) - new Date(b.datacadastro))
+        : [...emissoes].sort((a, b) => new Date(b.datacadastro) - new Date(a.datacadastro));
 
   if (loading) {
     return <div>Carregando...</div>;
@@ -80,8 +109,7 @@ function ListagemEmissoesNotaF() {
     <div>
       <div className="containerListagemEmissoesNotaF">
         <span className="title-emissoes-notaf">Notas Fiscais</span>
-        
-        {/* Filtro de Data */}
+
         <div className="form-group-listagem-notaf filtro">
           <label htmlFor="filtro-data">Filtro</label>
           <select
@@ -106,15 +134,15 @@ function ListagemEmissoesNotaF() {
               <span><strong>Ações</strong></span>
             </div>
             <div className="scroll">
-              {emissõesFiltradas.map((emissao, index) => (
+              {emissoesFiltradas.map((emissao, index) => (
                 <div key={index} className="item">
                   <span>{new Date(emissao.datacadastro).toLocaleDateString()}</span>
-                  <span>{emissao.valor.toFixed(2)}</span>
+                  <span>{emissao.valor}</span>
                   <span>{emissao.descricao}</span>
-                  <span>{emissao.cnpjCliente}</span>
+                  <span>{emissao.clientecnpj}</span>
                   <span>Pagamento em aberto</span>
-                  <button className="actions" onClick={() => gerarDocumentos(index)}>
-                    Gerar Documentos
+                  <button className="actions" onClick={() => gerarNotaFiscal(index)}>
+                    Gerar Nota Fiscal
                   </button>
                 </div>
               ))}

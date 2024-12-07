@@ -7,7 +7,7 @@ router.get('/relatorio/pagamentos', listPagamentosByEmpresa);
 
 router.get('/relatorio/pagamentosAbertos', listPagamentosNull);
 
-router.put('/pagamentos/:id', updatePagamento);
+router.put('/update/pagamentos/:id', updatePagamento);
 
 router.delete('/pagamentos/:id', deletePagamento);
 

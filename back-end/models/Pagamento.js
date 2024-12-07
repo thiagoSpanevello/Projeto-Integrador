@@ -37,10 +37,23 @@ const Pagamento = {
     listPagamentoByEmpresaAndDataFechadoNull: async (empresaCnpj) => {
         try {
             const result = await db.any(
-                `SELECT p.*
+                `SELECT p.id,
+                 p.datacadastro,
+                 p.valor,
+                 p.datafechado,
+                 s.descricao,
+                 a.clientecnpj, 
+                 c.nomeempresa,
+                 c.rua,
+                 c.cidade,
+                 c.estado,
+                 e.nomeempresa,
+                 e.cnpj
                  FROM pagamento p
-                 INNER JOIN servico s ON s.id = p.servicoid
-                 INNER JOIN atende a ON a.clientecnpj = s.clientecnpj
+                 JOIN servico s ON s.id = p.servicoid
+                 JOIN cliente c ON s.clientecnpj = c.cnpj
+                 INNER JOIN atende a ON a.clientecnpj = c.cnpj
+                 JOIN empresa e ON a.empresacnpj = e.cnpj
                  WHERE a.empresacnpj = $1
                  AND p.datafechado IS NULL`,
                 [empresaCnpj]
@@ -60,11 +73,11 @@ const Pagamento = {
         }
     },
 
-    update: async (id, valor, data_pagamento, servico_id, funcionario_id, cliente_id) => {
+    update: async (id, datafechado) => {
         try {
             await db.none(
-                'UPDATE pagamento SET valor = $1, data_pagamento = $2, servico_id = $3, funcionario_id = $4, cliente_id = $5 WHERE id = $6',
-                [valor, data_pagamento, servico_id, funcionario_id, cliente_id, id]
+                'UPDATE pagamento SET  datafechado = $2  WHERE id = $1',
+                [id, datafechado]
             );
         } catch (error) {
             throw new Error("Erro ao atualizar pagamento: " + error.message);
