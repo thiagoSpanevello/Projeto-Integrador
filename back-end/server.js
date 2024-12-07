@@ -8,6 +8,7 @@ import tipoServicoRoutes from './routes/tipoServicoRoute.js'
 import ClienteRoutes from './routes/clienteRoutes.js'
 import ServicoRoutes from './routes/servicoRoutes.js'
 import PagamentoRoutes from './routes/pagamentosRoutes.js'
+import EmpresaRoutes from './routes/EmpresaRoutes.js'
 
 
 import cors from 'cors';
@@ -31,5 +32,6 @@ app.use(ClienteRoutes);
 app.use(tipoServicoRoutes);
 app.use(ServicoRoutes);
 app.use(PagamentoRoutes);
+app.use(EmpresaRoutes)
 
 app.listen(3001, () => console.log("Rodando porta 3001"));

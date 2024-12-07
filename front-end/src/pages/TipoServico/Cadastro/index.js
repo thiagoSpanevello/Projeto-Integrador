@@ -5,7 +5,6 @@ import "./style.css";
 
 function Pagamento() {
   const handleSubmit = useCallback(() => {
-    // Cadastro de serviço
     document
       .getElementById("btn-cadastrar-servico")
       .addEventListener("click", async () => {
@@ -44,7 +43,7 @@ function Pagamento() {
           toast("Por favor, preencha todos os campos.");
         }
       });
-  }, []); // useEffect vazio, executa apenas na montagem
+  }, []);
 
   return (
     <form

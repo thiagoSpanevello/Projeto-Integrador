@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { toast } from 'react-toastify';
 import axios from "axios";
 import "./style.css";
+import InputMask from "react-input-mask"
 
 function CadastroFuncionarios() {
   const [isManager, toggleIsManager] = useState(false);
@@ -42,7 +43,7 @@ function CadastroFuncionarios() {
     } else {
       toast.error("Por favor, preencha todos os campos.");
     }
-  }, [isManager]); // useEffect vazio, executa apenas na montagem
+  }, [isManager]);
 
   return (
     <form
@@ -72,7 +73,7 @@ function CadastroFuncionarios() {
         <div id="form-funcionario" className="forms">
           <div className="form-group">
             <label htmlFor="cpf">CPF</label>
-            <input type="text" id="cpf" placeholder="Digite o CPF" />
+            <InputMask mask="999.999.999-99" id="cpf" placeholder="Digite o CPF" />
           </div>
           <div className="form-group">
             <label htmlFor="nome">Nome</label>

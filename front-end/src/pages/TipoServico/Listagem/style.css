@@ -1,33 +1,25 @@
-/* Estilos gerais para o corpo */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f5f7;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
-  /* Remove rolagem horizontal */
 }
 
-/* Container principal */
 .containerListagem {
   width: 80%;
   margin: 0 10%;
   height: fit-content;
-  /* Altura de 95% da tela */
   overflow-y: auto;
   overflow-x: auto;
   padding: 2rem;
   background-color: #ffffff;
-  /* Fundo branco */
   border-radius: 10px;
-  /* Cantos arredondados */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  /* Sombra leve */
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  /* Remove possíveis transbordamentos */
 }
 
 .maxListagem {
@@ -41,17 +33,13 @@ body {
   height: fit-content;
 }
 
-/* Container interno flexível */
 .inside-container-listagem {
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* Organização em coluna */
   overflow: hidden;
-  /* Remove transbordamentos */
 }
 
-/* Campo de seleção */
 select {
   width: 100%;
   padding: 12px;
@@ -60,7 +48,6 @@ select {
   font-size: 16px;
 }
 
-/* Container de listagem */
 .listagemListagem {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -69,66 +56,50 @@ select {
   overflow-x: hidden;
   flex: 1;
   padding: 0;
-  /* Remove padding interno extra */
 }
 
-/* Cabeçalho da listagem */
 .listagemListagem .header {
   display: grid;
   grid-template-columns: 2fr 6fr 1fr;
-  /* Define 5 colunas principais */
   background-color: #6c757d;
   color: #ffffff;
   padding: 15px;
-  /* Espaçamento maior */
   font-weight: bold;
   border-radius: 8px 8px 0 0;
   text-align: center;
   gap: 10px;
-  /* Adiciona espaçamento entre colunas */
 }
 
-/* Itens da listagem */
 .listagemListagem .itemListagem {
   display: grid;
   grid-template-columns: 2fr 6fr 1fr;
-  /* Ajuste das colunas para maior espaço */
   align-items: center;
   padding: 15px;
-  /* Espaçamento interno */
   border-bottom: 1px solid #eee;
   transition: background-color 0.2s ease;
   gap: 10px;
-  /* Adiciona espaçamento entre colunas */
 }
 
-/* Efeito de hover nos itens */
 .listagemListagem .itemListagem:hover {
   background-color: #f8f9fa;
 }
 
-/* Texto centralizado nos cabeçalhos e itens */
 .listagemListagem .header span,
 .listagemListagem .itemListagem span {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* Garante que o texto não quebre */
 }
 
-/* Ações (botões) nos itens */
 .listagemListagem .actions {
   display: flex;
   justify-content: center;
   gap: 10px;
-  /* Espaçamento entre os botões */
 }
 
-/* Botões de ação */
 .listagemListagem .actions button {
   padding: 10px 16px;
-  /* Botões maiores */
   font-size: 14px;
   cursor: pointer;
   border: none;
@@ -136,7 +107,6 @@ select {
   transition: all 0.2s ease;
 }
 
-/* Botão de deletar */
 .listagemListagem .actions button.deletar {
   background-color: #dc3545;
   color: #fff;
@@ -146,7 +116,6 @@ select {
   background-color: #c82333;
 }
 
-/* Botão de alterar */
 .listagemListagem .actions button.alterar {
   background-color: #007bff;
   color: #fff;

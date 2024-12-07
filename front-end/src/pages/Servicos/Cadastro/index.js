@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import InputMask from 'react-input-mask';
 import "./style.css";
 
 function Pagamento() {
@@ -178,8 +179,8 @@ function Pagamento() {
         >
           <div className="form-group">
             <label htmlFor="valor-pagamento">Valor do Pagamento</label>
-            <input
-              type="text"
+            <InputMask
+              mask="R$ 9999,99"
               id="valor-pagamento"
               value={valorPagamento}
               onChange={(e) => setValorPagamento(e.target.value)}

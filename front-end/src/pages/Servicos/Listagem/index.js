@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { toast } from 'react-toastify';
 import Modal from 'react-modal';
 import axios from "axios";
+import InputMask from 'react-input-mask';
 import "./style.css";
 
 function ListagemServicos() {

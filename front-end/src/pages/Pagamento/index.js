@@ -7,7 +7,6 @@ const ListagemPagamentos = () => {
   const [filtro, setFiltro] = useState("todos");
   const [pagamento, setPagamento] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const fetchPagamentos = async () => {
     try {

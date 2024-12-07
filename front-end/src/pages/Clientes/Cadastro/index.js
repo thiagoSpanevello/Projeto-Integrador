@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { toast } from "react-toastify";
 import "./style.css";
 import axios from "axios";
+import InputMask from "react-input-mask";
 
 function CadastroClientes() {
   const [nome, setNome] = useState("");
@@ -11,8 +12,40 @@ function CadastroClientes() {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [telefone, setTelefone] = useState("");
+  const timeoutRef = useRef(null);
 
 
+  const buscarEndereco = async (cep) => {
+    if (cep.length === 9) {
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${cep.replace('-', '')}/json/`);
+        if (response.data.erro) {
+          toast.error("CEP não encontrado!");
+        } else {
+          setEndereco(response.data.logradouro);
+          setCidade(response.data.localidade);
+          setEstado(response.data.uf);
+        }
+      } catch (error) {
+        toast.error("Erro ao buscar CEP");
+      }
+    }
+  };
+
+  const handleCepChange = (e) => {
+    const newCep = e.target.value;
+    setCep(newCep);
+
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+
+    timeoutRef.current = setTimeout(() => {
+      buscarEndereco(newCep);
+    }, 2000);
+  };
 
   const cadastrarCliente = useCallback(async () => {
     if (!nome || !cnpj || !rua || !cep || !cidade || !estado || !telefone) {
@@ -72,8 +105,8 @@ function CadastroClientes() {
           </div>
           <div className="form-group">
             <label htmlFor="cnpj">CNPJ</label>
-            <input
-              type="text"
+            <InputMask
+              mask="99.999.999/9999-99"
               id="cnpj"
               value={cnpj}
               onChange={(e) => setCnpj(e.target.value)}
@@ -92,12 +125,12 @@ function CadastroClientes() {
           </div>
           <div className="form-group">
             <label htmlFor="cep">CEP</label>
-            <input
-              type="text"
+            <InputMask
+              mask="99999-999"
               id="cep"
               value={cep}
-              onChange={(e) => setCep(e.target.value)}
-              placeholder="Digite o CEP do cliente"
+              onChange={handleCepChange}
+              placeholder="Digite o CEP do cliente, CEP preenche automáticamente cidade e estado"
             />
           </div>
           <div className="form-group">
@@ -117,13 +150,16 @@ function CadastroClientes() {
               id="estado"
               value={estado}
               onChange={(e) => setEstado(e.target.value)}
-              placeholder="Digite o estado do cliente"
+              maxLength="2"
+              pattern="[A-Za-z]{2}"
+              title="0"
+              placeholder="Digite a sigla do estado do cliente"
             />
           </div>
           <div className="form-group">
             <label htmlFor="telefone">Telefone</label>
-            <input
-              type="text"
+            <InputMask
+              mask="(99) 9999-9999"
               id="telefone"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}

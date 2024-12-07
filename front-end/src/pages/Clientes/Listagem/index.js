@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
 import axios from "axios";
 import "./style.css";
+import InputMask from "react-input-mask";
 
 function ListagemClientes() {
   const [ordem, setOrdem] = useState("nome");
@@ -57,6 +58,42 @@ function ListagemClientes() {
       return 0;
     });
   };
+
+  const timeoutRef = useRef(null);
+
+
+  const buscarEndereco = async (cep) => {
+    if (cep.length === 9) {
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${cep.replace('-', '')}/json/`);
+        if (response.data.erro) {
+          toast.error("CEP não encontrado!");
+        } else {
+          setEndereco(response.data.logradouro);
+          setCidade(response.data.localidade);
+          setEstado(response.data.uf);
+        }
+      } catch (error) {
+        toast.error("Erro ao buscar CEP");
+      }
+    }
+  };
+
+  const handleCepChange = (e) => {
+    const newCep = e.target.value;
+    setCep(newCep);
+
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+
+    timeoutRef.current = setTimeout(() => {
+      buscarEndereco(newCep);
+    }, 2000);
+  };
+
 
   const alteraCliente = (cliente) => {
     setClienteSelecionado(cliente);
@@ -181,7 +218,7 @@ function ListagemClientes() {
           </div>
           <div className="form-group">
             <label htmlFor="cep">
-              Cep: <input id="cep" type="text" value={cep} onChange={(e) => setCep(e.target.value)} />
+              Cep: <InputMask mask="99999-999" id="cep" value={cep} onChange={handleCepChange} />
             </label>
           </div>
           <div className="form-group">
@@ -196,7 +233,7 @@ function ListagemClientes() {
           </div>
           <div className="form-group">
             <label htmlFor="telefone">
-              Telefone: <input id="telefone" type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+              Telefone: <InputMask mask="(99) 9999-9999" id="telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
             </label>
           </div>
 

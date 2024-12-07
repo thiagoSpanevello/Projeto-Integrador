@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Modal from 'react-modal';
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -8,8 +11,40 @@ function Sidebar() {
   const [showRelatorios, setShowRelatorios] = useState(false);
   const [showEmissoes, setShowEmissoes] = useState(false);
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  const openModal = async () => {
+    try {
+      let response;
+      const token = localStorage.getItem("token");
+      if (user.cargo === "empresa") {
+        response = await axios.get(`http://localhost:3001/empresa/dados/${user.conta}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      } else {
+        response = await axios.get(`http://localhost:3001/funcionarios/dados/${user.conta}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
+      setUserData(response.data);
+      setModalOpen(true);
+
+    } catch (error) {
+      console.error("Erro ao buscar dados do usuario: " + error);
+      toast.error("Erro ao buscar dados do usuario!");
+    }
+  }
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const handleToggleCadastros = () => {
     setShowCadastros(!showCadastros);
@@ -18,7 +53,7 @@ function Sidebar() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
-      setUser(storedUser); // Salva o funcionário no estado
+      setUser(storedUser);
     }
   }, []);
 
@@ -44,15 +79,22 @@ function Sidebar() {
     <div className="sidebar">
       <div>
         <div className="sidebar-header">
-          <span className="user-icon">👤</span>
-          <span className="user-info">
-            {user ? user.conta : "Carregando..."}
+          <span className="user-icon">
+            <FaUser
+              className="data-icon"
+              onClick={openModal}
+              style={{ cursor: "pointer", marginLeft: "8px" }}
+              title="Dados do Usuario"
+            />
             <FaHome
               className="home-icon"
               onClick={goToHome}
               style={{ cursor: "pointer", marginLeft: "8px" }}
               title="Ir para a Home"
             />
+          </span>
+          <span className="user-info">
+            {user ? user.conta : "Carregando..."}
           </span>
         </div>
         <div className="sidebar-menu">
@@ -109,10 +151,10 @@ function Sidebar() {
           </div>
           <ul className={`submenu ${showEmissoes ? "show" : ""}`}>
             <li>
-            <Link to="/home/ListagemEmissoesBoleto">Boleto</Link>
+              <Link to="/home/ListagemEmissoesBoleto">Boleto</Link>
             </li>
             <li>
-            <Link to="/home/ListagemEmissoesNotaF">Nota Fiscal de Serviço</Link>
+              <Link to="/home/ListagemEmissoesNotaF">Nota Fiscal de Serviço</Link>
             </li>
           </ul>
         </div>
@@ -120,6 +162,38 @@ function Sidebar() {
       <div>
         <button onClick={handleLogout}>Sair</button>
       </div>
+      <Modal
+        isOpen={modalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Dados do Usuário"
+        ariaHideApp={false}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <h2>Dados do Usuário</h2>
+        {userData ? (
+          <div>
+            <p><strong>Conta:</strong> {userData.conta}</p>
+            <p><strong>Cargo:</strong> {userData.cargo}</p>
+
+            {userData.cargo === "empresa" ? (
+              <>
+                <p><strong>CNPJ:</strong> {userData.cnpj}</p>
+                <p><strong>Nome da Empresa:</strong> {userData.nomeempresa}</p>
+              </>
+            ) : (
+              <>
+                <p><strong>CPF:</strong> {userData.cpf}</p>
+                <p><strong>Nome:</strong> {userData.nome}</p>
+              </>
+            )}
+          </div>
+        ) : (
+          <p>Carregando...</p>
+        )}
+
+        <button onClick={closeModal}>Fechar</button>
+      </Modal>
     </div>
   );
 }

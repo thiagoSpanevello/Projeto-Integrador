@@ -1,27 +1,25 @@
-/* Estilos gerais para o corpo */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f5f7;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden; /* Remove rolagem horizontal */
+  overflow-x: hidden;
 }
 
-/* Container principal */
 .containerPagamento {
   width: 90%;
   margin: 0 10%;
-  height: fit-content; /* Altura de 95% da tela */
+  height: fit-content;
   overflow-y: auto;
   overflow-x: auto;
   padding: 2rem;
-  background-color: #ffffff; /* Fundo branco */
-  border-radius: 10px; /* Cantos arredondados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden; /* Remove possíveis transbordamentos */
+  overflow: hidden;
 }
 
 .maxListagem {
@@ -45,7 +43,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Rótulo do formulário */
 .form-group-pagamento label {
   display: block;
   margin-bottom: 8px;
@@ -53,15 +50,13 @@ body {
   color: #333;
 }
 
-/* Container interno flexível */
 .inside-container-pagamento {
   flex: 1;
   display: flex;
-  flex-direction: column; /* Organização em coluna */
-  overflow: hidden; /* Remove transbordamentos */
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Campo de seleção */
 select {
   width: 100%;
   padding: 12px;
@@ -70,7 +65,6 @@ select {
   font-size: 16px;
 }
 
-/* Container de listagem */
 .listagemPagamento {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -78,57 +72,51 @@ select {
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
-  padding: 0; /* Remove padding interno extra */
+  padding: 0;
 }
 
-/* Cabeçalho da listagem */
 .listagemPagamento .header {
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr 6fr 2fr 1fr; /* Define 5 colunas principais */
+  grid-template-columns: 2fr 1fr 2fr 6fr 2fr 1fr;
   background-color: #6c757d;
   color: #ffffff;
-  padding: 15px; /* Espaçamento maior */
+  padding: 15px;
   font-weight: bold;
   border-radius: 8px 8px 0 0;
   text-align: center;
-  gap: 10px; /* Adiciona espaçamento entre colunas */
+  gap: 10px;
 }
 
-/* Itens da listagem */
 .listagemPagamento .item {
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr 6fr 2fr 1fr; /* Ajuste das colunas para maior espaço */
+  grid-template-columns: 2fr 1fr 2fr 6fr 2fr 1fr;
   align-items: center;
-  padding: 15px; /* Espaçamento interno */
+  padding: 15px;
   border-bottom: 1px solid #eee;
   transition: background-color 0.2s ease;
-  gap: 10px; /* Adiciona espaçamento entre colunas */
+  gap: 10px;
 }
 
-/* Efeito de hover nos itens */
 .listagemPagamento .item:hover {
   background-color: #f8f9fa;
 }
 
-/* Texto centralizado nos cabeçalhos e itens */
 .listagemPagamento .header span,
 .listagemPagamento .item span {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; /* Garante que o texto não quebre */
+  white-space: nowrap;
 }
 
-/* Ações (botões) nos itens */
 .listagemPagamento .actions {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Espaçamento entre os botões */
+  gap: 10px;
 }
 
-/* Botões de ação */
 .listagemPagamento .actions button {
-  padding: 10px 16px; /* Botões maiores */
+  padding: 10px 16px;
   font-size: 14px;
   cursor: pointer;
   border: none;
@@ -136,7 +124,6 @@ select {
   transition: all 0.2s ease;
 }
 
-/* Botão de deletar */
 .listagemPagamento .actions button.deletar {
   background-color: #dc3545;
   color: #fff;
@@ -146,7 +133,6 @@ select {
   background-color: #c82333;
 }
 
-/* Botão de alterar */
 .listagemPagamento .actions button.alterar {
   background-color: #007bff;
   color: #fff;

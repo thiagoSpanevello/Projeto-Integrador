@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import InputMask from 'react-input-mask';
 import "./style.css"
-
 
 function Signup() {
     const [CNPJ, setCNPJ] = useState("");
@@ -12,15 +12,6 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    function maskCNPJ(value) {
-        value = value.replace(/\D/g, ''); // Remove tudo que não for número
-        // Máscara de CNPJ (00.000.000/0000-00)
-        value = value.replace(/^(\d{2})(\d)/, '$1.$2');
-        value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-        value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
-        value = value.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
-        return value;
-    }
 
     const handleChange = (e) => {
         const valor = e.target.value;
@@ -46,6 +37,7 @@ function Signup() {
         setPassword(newPassword);
         validatePassword(newPassword, confirmPassword);
     }
+
     const handleConfirmPasswordChange = (e) => {
         const newConfirmPassword = e.target.value
         setConfirmPassword(newConfirmPassword);
@@ -64,7 +56,7 @@ function Signup() {
             nome,
             conta,
             senha: password,
-            cargo: "admin"
+            cargo: "empresa"
         };
         console.log(data);
         try {
@@ -82,9 +74,8 @@ function Signup() {
         navigate('/');
     };
 
-
     return (
-        < div >
+        <div>
             <div className='bgImage'>
             </div>
             <div className='imageBox'>
@@ -94,17 +85,60 @@ function Signup() {
                 <form className='addUserForm'>
                     <div className='inputGroup'>
                         <label htmlFor='CNPJ'>CNPJ</label>
-                        <input type='text' id='CNPJ' autoComplete='off' placeholder='XX.XXX.XXX/0001-XX' value={CNPJ} maxLength={18} onChange={(e) => setCNPJ(maskCNPJ(e.target.value))} required />
+                        <InputMask
+                            mask="99.999.999/9999-99"
+                            id='CNPJ'
+                            autoComplete='off'
+                            placeholder='XX.XXX.XXX/0001-XX'
+                            value={CNPJ}
+                            onChange={(e) => setCNPJ(e.target.value)}
+                            required
+                        />
                         <label htmlFor='Name'>Nome da empresa</label>
-                        <input type='text' id='Name' autoComplete='off' placeholder='nome da empresa' required onChange={handleChange} />
+                        <input
+                            type='text'
+                            id='Name'
+                            autoComplete='off'
+                            placeholder='nome da empresa'
+                            required
+                            onChange={handleChange}
+                        />
                         <label htmlFor='Conta'>Conta</label>
-                        <input type='text' id='Conta' autoComplete='off' required value={conta} />
+                        <input
+                            type='text'
+                            id='Conta'
+                            autoComplete='off'
+                            required
+                            value={conta}
+                        />
                         <label htmlFor='Password'>Senha</label>
-                        <input type='password' value={password} onChange={handlePasswordChange} id='Password' autoComplete='off' placeholder='enter your password' required />
+                        <input
+                            type='password'
+                            value={password}
+                            onChange={handlePasswordChange}
+                            id='Password'
+                            autoComplete='off'
+                            placeholder='enter your password'
+                            required
+                        />
                         <label htmlFor='Password'>Confirmar senha</label>
-                        <input type='password' id='ConfirmPassword' value={confirmPassword} onChange={handleConfirmPasswordChange} autoComplete='off' placeholder='enter your password' required />
+                        <input
+                            type='password'
+                            id='ConfirmPassword'
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                            autoComplete='off'
+                            placeholder='enter your password'
+                            required
+                        />
                         {message && <p className='passwordMessage'>{message}</p>}
-                        <button type="submit" class="btn btn-primary savebtn" onClick={handleSubmit}>Salvar</button>
+                        <button
+                            type="submit"
+                            className="btn btn-primary savebtn"
+                            onClick={handleSubmit}
+                        >
+                            Salvar
+                        </button>
                         <button
                             type='button'
                             className='btn btn-secondary'
@@ -115,8 +149,8 @@ function Signup() {
                     </div>
                 </form>
             </div>
-        </div >
-    )
+        </div>
+    );
 }
 
-export default Signup
+export default Signup;
