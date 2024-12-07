@@ -1,7 +1,6 @@
 import db from '../services/db.js';
 const Funcionario = {
     add: async (cpf, nome, conta, senha, cargo, empresaCnpj) => {
-        console.log(cpf, nome, conta, senha, cargo, empresaCnpj);
         try {
             const resultado = await db.none(
                 'INSERT INTO funcionarios(cpf, nome, conta, senha, cargo, empresacnpj) VALUES($1, $2, $3, $4, $5, $6)',

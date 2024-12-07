@@ -64,6 +64,26 @@ const Pagamento = {
         }
     },
 
+    listPagamentosMensais: async (empresaCnpj) => {
+        try {
+            const result = await db.any(`SELECT 
+                EXTRACT(YEAR from p.datacadastro) AS ano,
+                EXTRACT(MONTH from p.datacadastro) AS mes,
+                SUM(p.valor) AS total_valor
+                FROM pagamento p
+                JOIN servico s ON s.id = p.servicoid
+                JOIN atende a ON a.clientecnpj = s.clientecnpj
+                WHERE a.empresacnpj = $1
+                GROUP BY ano, mes
+                ORDER BY ano ASC, mes ASC
+                `, [empresaCnpj]);
+            return result;
+        } catch (error) {
+            throw new Error("Erro ao listar pagamentos mensais: " + error.message);
+        }
+    },
+
+
     findById: async (id) => {
         try {
             const resultado = await db.oneOrNone('SELECT * FROM pagamento WHERE id = $1', [id]);

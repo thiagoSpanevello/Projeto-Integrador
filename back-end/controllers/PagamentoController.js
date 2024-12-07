@@ -1,4 +1,5 @@
 import Pagamento from '../models/Pagamento.js';
+import Funcionario from '../models/Funcionario.js';
 import Empresa from '../models/Empresa.js';
 
 export const listPagamentosByEmpresa = async (req, res) => {
@@ -9,8 +10,10 @@ export const listPagamentosByEmpresa = async (req, res) => {
         cnpjEmpresa = user.cnpj
     } else {
         user = await Funcionario.findByConta(conta);
-        cnpjEmpresa = user.cnpjempresa;
+        cnpjEmpresa = user.empresacnpj;
+
     }
+
     try {
         const pagamentos = await Pagamento.listPagamentoByEmpresa(cnpjEmpresa);
         return res.status(200).json(pagamentos);
@@ -20,6 +23,26 @@ export const listPagamentosByEmpresa = async (req, res) => {
     }
 };
 
+export const ganhosMensais = async (req, res) => {
+    const conta = req.user.conta;
+    let user = await Empresa.findByConta(conta);
+    let cnpjEmpresa;
+    if (user) {
+        cnpjEmpresa = user.cnpj
+    } else {
+        user = await Funcionario.findByConta(conta);
+        cnpjEmpresa = user.empresacnpj;
+    }
+    try {
+        const pagamentosMensais = await Pagamento.listPagamentosMensais(cnpjEmpresa);
+        return res.json(pagamentosMensais);
+    } catch (error) {
+        console.error("Erro ao obter pagamentos mensais:", error);
+        return res.status(500).json({ message: "Erro ao obter pagamentos mensais" });
+    }
+
+}
+
 export const listPagamentosNull = async (req, res) => {
     const conta = req.user.conta;
     let user = await Empresa.findByConta(conta);
@@ -28,7 +51,7 @@ export const listPagamentosNull = async (req, res) => {
         cnpjEmpresa = user.cnpj
     } else {
         user = await Funcionario.findByConta(conta);
-        cnpjEmpresa = user.cnpjempresa;
+        cnpjEmpresa = user.empresacnpj;
     }
     try {
         const pagamentos = await Pagamento.listPagamentoByEmpresaAndDataFechadoNull(cnpjEmpresa);

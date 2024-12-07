@@ -6,27 +6,20 @@ export const addFuncionario = async (req, res) => {
     try {
         console.log(req.body);
 
-        const { cpf, nome, senha, cargo } = req.body;
+        const { cpf, nome, conta, senha, cargo } = req.body;
 
         if (!cpf || !nome || !senha || !cargo) {
             return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
         }
         const account = req.user.conta;
+
         const hashSenha = await bcrypt.hash(senha, 10);
         let user = await Empresa.findByConta(account);
-        let nom = nome.split(' ')[0];
-        nom = nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        nom = nom.toLowerCase();
-        nom = nom.replace(/[^a-z0-9]/g, "");
-        let conta;
         if (user) {
-            conta = nom + "@" + user.nomeempresa.split(" ")[0];
             await Funcionario.add(cpf, nome, conta, hashSenha, cargo, user.cnpj);
         } else {
             user = await Funcionario.findByConta(account);
-            if (user.cargo == "gerente" || cargo == "funcionario") {
-                let emp = await Empresa.findByCnpj(user.empresacnpj);
-                conta = nom + "@" + emp.nomeempresa;
+            if (user.cargo == "gerente") {
                 await Funcionario.add(cpf, nome, conta, hashSenha, cargo, user.empresacnpj);
             }
         }

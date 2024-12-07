@@ -1,31 +1,105 @@
-import React from 'react';
-import './Dashboard.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import "./Dashboard.css";
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js';
 
-const Dashboard = () => {
-    const ganhos = [1200, 1500, 800, 2000, 1700, 1900, 2200, 2500, 3000, 2700, 3100, 4000];
-    const meses = [
-        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 
-        'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 
-        'Novembro', 'Dezembro'
-    ];
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+function Dashboard() {
+    const [dadosGanhosMensais, setDadosGanhosMensais] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        const token = localStorage.getItem('token');
+
+        axios.get(`http://localhost:3001/dashboard/ganhosMensais`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(response => {
+                console.log(response.data);
+                setDadosGanhosMensais(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar dados de ganhos mensais:", error);
+                setLoading(false);
+            });
+    }, []);
+
+    const chartData = {
+        labels: dadosGanhosMensais.map(item => `${item.mes}/${item.ano}`),
+        datasets: [
+            {
+                label: 'Ganhos Mensais',
+                data: dadosGanhosMensais.map(item => item.total_valor),
+                fill: true,
+                backgroundColor: 'rgba(75,192,192,0.2)',
+                borderColor: 'rgba(75,192,192,1)',
+                tension: 0.1,
+            },
+        ],
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Ganhos Mensais',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return 'R$ ' + tooltipItem.raw
+                    }
+                }
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function (value) {
+                        return 'R$ ' + value
+                    },
+                },
+            },
+        },
+    }
 
     return (
         <div className="dashboard">
-            <h1>Ganhos Mensais</h1>
-            <div className="grafico">
-                {ganhos.map((ganho, index) => (
-                    <div key={index} className="barra" style={{ height: `${ganho / 40}px` }}>
-                        <span className="valor">R$ {ganho}</span>
-                    </div>
-                ))}
-            </div>
-            <div className="meses">
-                {meses.map((mes, index) => (
-                    <span key={index} className="mes">{mes}</span>
-                ))}
-            </div>
+            <h2>Ganhos Mensais</h2>
+            {loading ? (
+                <p>Carregando...</p>
+            ) : (
+                <div className="grafico">
+                    <Line data={chartData} options={options} />
+                </div>
+            )}
         </div>
     );
-};
+}
 
 export default Dashboard;

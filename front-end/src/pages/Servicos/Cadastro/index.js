@@ -55,10 +55,16 @@ function Pagamento() {
     fetchOptions();
   }, [fetchOptions]);
 
+  const limpaValor = (value) => {
+    if (!value) { return "" }
+    return parseFloat(value.replace("R$", "").replace(/\s/g, "").replace(",", "."));
+  }
+
+
   const handleSubmit = useCallback(async () => {
     const token = localStorage.getItem("token");
-
-    if (descricao && tipoServico && cliente && valorPagamento) {
+    const valor = limpaValor(valorPagamento)
+    if (descricao && tipoServico && cliente && valor) {
       try {
         await axios.post(
           "http://localhost:3001/cadastro/servico",
@@ -67,7 +73,7 @@ function Pagamento() {
             descricao,
             tipoServicoId: tipoServico,
             clienteCNPJ: cliente,
-            valor: valorPagamento,
+            valor: valor,
             dataCadastro: dataPagamento
           },
           {

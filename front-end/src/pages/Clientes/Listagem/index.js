@@ -108,7 +108,6 @@ function ListagemClientes() {
 
   const updateCliente = async (cnpj) => {
     const newCnpj = cnpj.replaceAll(/[^0-9]/g, "");
-    console.log(newCnpj);
     try {
       const token = localStorage.getItem("token");
       await axios.put(`http://localhost:3001/update/clientes/${newCnpj}`, {
@@ -124,7 +123,7 @@ function ListagemClientes() {
         }
       });
       toast.success("Cliente atualizado com sucesso!");
-      modalOpen(false);
+      setModalOpen(false);
       fetchClientes();
     } catch (error) {
       console.error("Erro ao atualizar Cliente: " + error);

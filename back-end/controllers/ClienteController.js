@@ -12,7 +12,7 @@ export const addCliente = async (req, res) => {
         cnpjEmpresa = user.cnpj
     } else {
         user = await Funcionario.findByConta(conta);
-        cnpjEmpresa = user.cnpjempresa;
+        cnpjEmpresa = user.empresacnpj;
     }
 
     if (!cnpj || !nome || !rua || !cep || !cidade || !estado || !telefone) {
