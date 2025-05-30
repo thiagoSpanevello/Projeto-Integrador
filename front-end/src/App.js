@@ -15,8 +15,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Signin />} />
-          <Route path='/Signup' element={<Signup />} />
-          <Route path='/Home/*' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/home/*' element={<ProtectedRoute><Home /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </>

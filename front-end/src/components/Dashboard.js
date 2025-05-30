@@ -26,10 +26,16 @@ ChartJS.register(
 function Dashboard() {
     const [dadosGanhosMensais, setDadosGanhosMensais] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
-
         const token = localStorage.getItem('token');
+
+        if (!token) {
+            setErrorMsg("Você precisa estar logado para acessar esta página.");
+            setLoading(false);
+            return;
+        }
 
         axios.get(`https://integrador-backend.herokuapp.com/dashboard/ganhosMensais`, {
             headers: {
@@ -37,12 +43,12 @@ function Dashboard() {
             },
         })
             .then(response => {
-                console.log(response.data);
                 setDadosGanhosMensais(response.data);
                 setLoading(false);
             })
             .catch(error => {
                 console.error("Erro ao buscar dados de ganhos mensais:", error);
+                setErrorMsg("Erro ao carregar dados. Tente novamente mais tarde.");
                 setLoading(false);
             });
     }, []);
@@ -71,7 +77,7 @@ function Dashboard() {
             tooltip: {
                 callbacks: {
                     label: function (tooltipItem) {
-                        return 'R$ ' + tooltipItem.raw
+                        return 'R$ ' + tooltipItem.raw;
                     }
                 }
             },
@@ -81,23 +87,23 @@ function Dashboard() {
                 beginAtZero: true,
                 ticks: {
                     callback: function (value) {
-                        return 'R$ ' + value
+                        return 'R$ ' + value;
                     },
                 },
             },
         },
-    }
+    };
+
+    if (loading) return <p>Carregando...</p>;
+
+    if (errorMsg) return <p className="error-message">{errorMsg}</p>;
 
     return (
         <div className="dashboard">
             <h2>Ganhos Mensais</h2>
-            {loading ? (
-                <p>Carregando...</p>
-            ) : (
-                <div className="grafico">
-                    <Line data={chartData} options={options} />
-                </div>
-            )}
+            <div className="grafico">
+                <Line data={chartData} options={options} />
+            </div>
         </div>
     );
 }
