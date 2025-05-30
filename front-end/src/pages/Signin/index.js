@@ -19,7 +19,7 @@ function Signin() {
     };
 
     try {
-      const response = await axios.post("http://localhost:3001/login", data);
+      const response = await axios.post("https://integrador-backend.herokuapp.com/login", data);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));

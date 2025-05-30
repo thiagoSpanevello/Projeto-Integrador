@@ -21,13 +21,13 @@ function Sidebar() {
       let response;
       const token = localStorage.getItem("token");
       if (user.cargo === "empresa") {
-        response = await axios.get(`http://localhost:3001/empresa/dados/${user.conta}`, {
+        response = await axios.get(`https://integrador-backend.herokuapp.com/empresa/dados/${user.conta}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
       } else {
-        response = await axios.get(`http://localhost:3001/funcionarios/dados/${user.conta}`, {
+        response = await axios.get(`https://integrador-backend.herokuapp.com/funcionarios/dados/${user.conta}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

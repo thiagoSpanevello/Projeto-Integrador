@@ -59,7 +59,7 @@ function CadastroClientes() {
 
 
       await axios.post(
-        "http://localhost:3001/cadastro/clientes",
+        "https://integrador-backend.herokuapp.com/cadastro/clientes",
         {
           cnpj,
           nome,

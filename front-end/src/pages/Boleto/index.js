@@ -12,7 +12,7 @@ function ListagemEmissoesBoleto() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:3001/relatorio/pagamentosAbertos",
+        "https://integrador-backend.herokuapp.com/relatorio/pagamentosAbertos",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ function ListagemEmissoesBoleto() {
 
 
       await axios.put(
-        `http://localhost:3001/update/pagamentos/${id}`,
+        `https://integrador-backend.herokuapp.com/update/pagamentos/${id}`,
         {},
         {
           headers: {

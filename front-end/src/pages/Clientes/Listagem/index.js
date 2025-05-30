@@ -24,7 +24,7 @@ function ListagemClientes() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:3001/relatorio/clientes",
+        "https://integrador-backend.herokuapp.com/relatorio/clientes",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -110,7 +110,7 @@ function ListagemClientes() {
     const newCnpj = cnpj.replaceAll(/[^0-9]/g, "");
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:3001/update/clientes/${newCnpj}`, {
+      await axios.put(`https://integrador-backend.herokuapp.com/update/clientes/${newCnpj}`, {
         nomeempresa,
         rua,
         cidade,

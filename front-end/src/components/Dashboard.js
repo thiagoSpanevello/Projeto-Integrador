@@ -31,7 +31,7 @@ function Dashboard() {
 
         const token = localStorage.getItem('token');
 
-        axios.get(`http://localhost:3001/dashboard/ganhosMensais`, {
+        axios.get(`https://integrador-backend.herokuapp.com/dashboard/ganhosMensais`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

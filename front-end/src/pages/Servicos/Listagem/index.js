@@ -20,7 +20,7 @@ function ListagemServicos() {
 
     try {
       const tipos = await axios.get(
-        "http://localhost:3001/listagem/tipoServico",
+        "https://integrador-backend.herokuapp.com/listagem/tipoServico",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ function ListagemServicos() {
       );
 
       const clientes = await axios.get(
-        "http://localhost:3001/relatorio/clientes",
+        "https://integrador-backend.herokuapp.com/relatorio/clientes",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ function ListagemServicos() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:3001/listagem/servico",
+        "https://integrador-backend.herokuapp.com/listagem/servico",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,7 +109,7 @@ function ListagemServicos() {
     try {
       const id = itemSelecionado.id;
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:3001/update/servico/${id}`, {
+      await axios.put(`https://integrador-backend.herokuapp.com/update/servico/${id}`, {
         clientecnpj: cliente,
         tipo_id: tipoServico
       }, {

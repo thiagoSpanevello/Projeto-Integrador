@@ -10,7 +10,7 @@ const ListagemPagamentos = () => {
   const fetchPagamentos = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/relatorio/pagamentos", {
+      const response = await axios.get("https://integrador-backend.herokuapp.com/relatorio/pagamentos", {
         headers: {
           Authorization: `Bearer ${token}`
         }

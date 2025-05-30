@@ -18,7 +18,7 @@ function ListagemFuncionarios() {
   const fetchFuncionarios = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/relatorio/funcionarios",
+      const response = await axios.get("https://integrador-backend.herokuapp.com/relatorio/funcionarios",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ function ListagemFuncionarios() {
   const deletarFuncionario = async (cpf) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3001/excluir/funcionarios/${cpf}`, {
+      await axios.delete(`https://integrador-backend.herokuapp.com/excluir/funcionarios/${cpf}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -72,7 +72,7 @@ function ListagemFuncionarios() {
   const updateFuncionario = async (cpf) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:3001/update/funcionarios/${cpf}`, {
+      await axios.put(`https://integrador-backend.herokuapp.com/update/funcionarios/${cpf}`, {
         cpf,
         nome,
         conta,
