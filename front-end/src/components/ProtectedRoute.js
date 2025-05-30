@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
 
     const validateToken = async () => {
       try {
-        await axios.get('https://integrador-backend.herokuapp.com/protected/validate-token', {
+        await axios.get('https://integrador-backend-74994e883ac3.herokuapp.com/protected/validate-token', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

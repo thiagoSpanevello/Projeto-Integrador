@@ -60,7 +60,7 @@ function Signup() {
         };
         console.log(data);
         try {
-            const response = await axios.post('https://integrador-backend.herokuapp.com/cadastro', data);
+            const response = await axios.post('https://integrador-backend-74994e883ac3.herokuapp.com/cadastro', data);
             alert("Conta criada com sucesso!");
             console.log(response.data);
             navigate('/');

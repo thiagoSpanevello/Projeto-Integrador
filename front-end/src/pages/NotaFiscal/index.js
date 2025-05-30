@@ -11,7 +11,7 @@ function ListagemEmissoesNotaF() {
   const fetchEmissoes = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("https://integrador-backend.herokuapp.com/relatorio/pagamentosAbertos", {
+      const response = await axios.get("https://integrador-backend-74994e883ac3.herokuapp.com/relatorio/pagamentosAbertos", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +78,7 @@ function ListagemEmissoesNotaF() {
       }
 
       await axios.put(
-        `https://integrador-backend.herokuapp.com/update/pagamentos/${id}`,
+        `https://integrador-backend-74994e883ac3.herokuapp.com/update/pagamentos/${id}`,
         {},
         {
           headers: {

@@ -15,7 +15,7 @@ function Pagamento() {
         if (descricao && nome) {
           try {
             await axios.post(
-              "https://integrador-backend.herokuapp.com/cadastro/tipoServico",
+              "https://integrador-backend-74994e883ac3.herokuapp.com/cadastro/tipoServico",
               {
                 nome,
                 descricao,

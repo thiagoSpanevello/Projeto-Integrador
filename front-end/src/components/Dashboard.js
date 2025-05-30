@@ -37,7 +37,7 @@ function Dashboard() {
             return;
         }
 
-        axios.get(`https://integrador-backend.herokuapp.com/dashboard/ganhosMensais`, {
+        axios.get(`https://integrador-backend-74994e883ac3.herokuapp.com/dashboard/ganhosMensais`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

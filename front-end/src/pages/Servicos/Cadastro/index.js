@@ -19,7 +19,7 @@ function Pagamento() {
 
     try {
       const tipos = await axios.get(
-        "https://integrador-backend.herokuapp.com/listagem/tipoServico",
+        "https://integrador-backend-74994e883ac3.herokuapp.com/listagem/tipoServico",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ function Pagamento() {
       );
 
       const clientes = await axios.get(
-        "https://integrador-backend.herokuapp.com/relatorio/clientes",
+        "https://integrador-backend-74994e883ac3.herokuapp.com/relatorio/clientes",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ function Pagamento() {
     if (descricao && tipoServico && cliente && valor) {
       try {
         await axios.post(
-          "https://integrador-backend.herokuapp.com/cadastro/servico",
+          "https://integrador-backend-74994e883ac3.herokuapp.com/cadastro/servico",
           {
             dataRealizacao: new Date(),
             descricao,

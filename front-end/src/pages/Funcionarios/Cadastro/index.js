@@ -18,7 +18,7 @@ function CadastroFuncionarios() {
     if (cpf && nome && senha && conta) {
       try {
         await axios.post(
-          "https://integrador-backend.herokuapp.com/cadastro/funcionarios",
+          "https://integrador-backend-74994e883ac3.herokuapp.com/cadastro/funcionarios",
           {
             cpf,
             nome,

@@ -17,7 +17,7 @@ function ListagemServicos() {
     const token = localStorage.getItem("token");
     try {
       axios
-        .get("https://integrador-backend.herokuapp.com/listagem/tipoServico", {
+        .get("https://integrador-backend-74994e883ac3.herokuapp.com/listagem/tipoServico", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +44,7 @@ function ListagemServicos() {
   const updateServico = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`https://integrador-backend.herokuapp.com/update/tipoServico/${id}`, {
+      await axios.put(`https://integrador-backend-74994e883ac3.herokuapp.com/update/tipoServico/${id}`, {
         nome,
         descricao
       }, {
