@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";  // Importa Link
 import { toast } from "react-toastify";
 import "./style.css";
 import axios from "axios";
@@ -66,9 +66,9 @@ function Signin() {
           </div>
         </form>
         <div className="Signup">
-          <a className="createAccount" href="/Signup">
+          <Link className="createAccount" to="/signup">
             Criar conta
-          </a>
+          </Link>
         </div>
       </div>
     </div>
