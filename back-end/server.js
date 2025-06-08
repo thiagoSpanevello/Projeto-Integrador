@@ -34,4 +34,5 @@ app.use(ServicoRoutes);
 app.use(PagamentoRoutes);
 app.use(EmpresaRoutes)
 
-app.listen(3001, () => console.log("Rodando porta 3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
